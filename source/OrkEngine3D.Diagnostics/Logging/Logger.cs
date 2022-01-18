@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OrkEngine3D.Diagnostics.API;
 
-namespace OrkEngine3D.Diagnostics
+namespace OrkEngine3D.Diagnostics.Logging
 {
     public class Logger : ILogger
     {
@@ -14,7 +15,7 @@ namespace OrkEngine3D.Diagnostics
             protected internal set;
         }
 
-        public void Log(ILogMessege logMessage)
+        public void Log(ILogMessage logMessage)
         {
             throw new NotImplementedException();
         }

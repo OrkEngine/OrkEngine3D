@@ -4,7 +4,7 @@
  */
 using OrkEngine3D.Diagnostics.Exceptions;
 
-namespace OrkEngine3D.Diagnostics.API
+namespace OrkEngine3D.Diagnostics
 {
     public interface ILogMessage
     {

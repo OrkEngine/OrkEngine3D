@@ -2,8 +2,6 @@
 
 namespace OrkEngine3D.Core {
 
-    [AttributeUsage(AttributeTargets.Method)]
-
     public class ModuleInitializerAttribute
     {
         public ModuleInitializerAttribute()

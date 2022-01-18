@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrkEngine3D.Diagnostics.API
+namespace OrkEngine3D.Diagnostics
 {
     public interface ILogger
     {
         string Module { get; }
 
-        void Log(ILogMessege logMessage);
+        void Log(ILogMessage logMessage);
     }
 }
