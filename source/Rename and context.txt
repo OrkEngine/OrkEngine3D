@@ -1,0 +1,9 @@
+Maybe this needs renamed 'OrkEngines'
+But this is directory for the following
+RPG ENGINE
+MMO ENGINE
+VOXEL ENGINE
+
+--etc--
+
+They are just sub groups with pre-defined code to speed up dev process.

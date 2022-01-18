@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/43/trunk/SlimMath/Design
+END
+Half2Converter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/43/trunk/SlimMath/Design/Half2Converter.cs
+END
+Half3Converter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/43/trunk/SlimMath/Design/Half3Converter.cs
+END
+Half4Converter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/43/trunk/SlimMath/Design/Half4Converter.cs
+END
+FieldPropertyDescriptor.cs
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/43/trunk/SlimMath/Design/FieldPropertyDescriptor.cs
+END
+Vector2Converter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/43/trunk/SlimMath/Design/Vector2Converter.cs
+END
+MatrixConverter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/43/trunk/SlimMath/Design/MatrixConverter.cs
+END
+Vector3Converter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/43/trunk/SlimMath/Design/Vector3Converter.cs
+END
+QuaternionConverter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/43/trunk/SlimMath/Design/QuaternionConverter.cs
+END
+Vector4Converter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/43/trunk/SlimMath/Design/Vector4Converter.cs
+END
+BaseConverter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/43/trunk/SlimMath/Design/BaseConverter.cs
+END
+HalfConverter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/43/trunk/SlimMath/Design/HalfConverter.cs
+END

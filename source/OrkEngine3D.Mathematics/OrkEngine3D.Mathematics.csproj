@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <ApplicationIcon />
+    <StartupObject />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Design\.svn\all-wcprops" />
+    <None Include="Design\.svn\entries" />
+    <None Include="Design\.svn\text-base\BaseConverter.cs.svn-base" />
+    <None Include="Design\.svn\text-base\FieldPropertyDescriptor.cs.svn-base" />
+    <None Include="Design\.svn\text-base\Half2Converter.cs.svn-base" />
+    <None Include="Design\.svn\text-base\Half3Converter.cs.svn-base" />
+    <None Include="Design\.svn\text-base\Half4Converter.cs.svn-base" />
+    <None Include="Design\.svn\text-base\HalfConverter.cs.svn-base" />
+    <None Include="Design\.svn\text-base\MatrixConverter.cs.svn-base" />
+    <None Include="Design\.svn\text-base\QuaternionConverter.cs.svn-base" />
+    <None Include="Design\.svn\text-base\Vector2Converter.cs.svn-base" />
+    <None Include="Design\.svn\text-base\Vector3Converter.cs.svn-base" />
+    <None Include="Design\.svn\text-base\Vector4Converter.cs.svn-base" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Design\.svn\prop-base\" />
+    <Folder Include="Design\.svn\props\" />
+    <Folder Include="Design\.svn\tmp\prop-base\" />
+    <Folder Include="Design\.svn\tmp\props\" />
+    <Folder Include="Design\.svn\tmp\text-base\" />
+  </ItemGroup>
+
+</Project>
