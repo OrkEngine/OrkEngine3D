@@ -6,15 +6,20 @@ on:
   pull_request:
     branches: [ main ]
 
+
+
 jobs:
   build:
 
     runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./source
+        
 
     steps:
     - uses: actions/checkout@v2
-    - name: Move to correct dir
-      run: cd ./source
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
