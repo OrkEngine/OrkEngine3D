@@ -1,4 +1,5 @@
 ﻿using System;
+using OrkEngine3D.Graphics;
 
 namespace OrkEngine3D
 {
@@ -7,6 +8,9 @@ namespace OrkEngine3D
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            GraphicsContext ctx = new GraphicsContext();
+
+            ctx.Run("Hello World");
         }
     }
 }
