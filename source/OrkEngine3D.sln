@@ -30,7 +30,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrkEngine3D.Editor", "OrkEn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrkEngine3D.UI", "OrkEngine3D.UI\OrkEngine3D.UI.csproj", "{44FAB247-A399-4449-8EC5-B80A3FA06901}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrkEngine3D.Annotations", "OrkEngine3D.Annotations\OrkEngine3D.Annotations.csproj", "{6580BC72-35F6-4F83-8027-88C870889503}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrkEngine3D.Annotations", "OrkEngine3D.Annotations\OrkEngine3D.Annotations.csproj", "{6580BC72-35F6-4F83-8027-88C870889503}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrkEngine3D.Scripting", "OrkEngine3D.Scripting\OrkEngine3D.Scripting.csproj", "{309F6BB2-F842-4AC5-9ED3-E11DDBB9FFF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,6 +76,10 @@ Global
 		{6580BC72-35F6-4F83-8027-88C870889503}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6580BC72-35F6-4F83-8027-88C870889503}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6580BC72-35F6-4F83-8027-88C870889503}.Release|Any CPU.Build.0 = Release|Any CPU
+		{309F6BB2-F842-4AC5-9ED3-E11DDBB9FFF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{309F6BB2-F842-4AC5-9ED3-E11DDBB9FFF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{309F6BB2-F842-4AC5-9ED3-E11DDBB9FFF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{309F6BB2-F842-4AC5-9ED3-E11DDBB9FFF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +94,7 @@ Global
 		{2F27DD33-E65F-4AF2-BC7C-B6FA5DC32C92} = {665B67C8-0515-4550-B248-C5D75DCE314B}
 		{44FAB247-A399-4449-8EC5-B80A3FA06901} = {38B4460E-DD35-4845-95EB-93D07D9D2CC1}
 		{6580BC72-35F6-4F83-8027-88C870889503} = {C5E5E9BB-F254-4260-9F14-CD0A9B206CDD}
+		{309F6BB2-F842-4AC5-9ED3-E11DDBB9FFF6} = {A8C5865D-7059-490F-9257-5517658D73A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {16ECB4E9-6035-405C-BE9A-CD3CCF3B196C}
