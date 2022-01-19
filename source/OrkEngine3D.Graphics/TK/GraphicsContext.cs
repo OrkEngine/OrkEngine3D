@@ -10,6 +10,7 @@ using Color4 = OrkEngine3D.Mathematics.Color4;
 using Vector2 = OrkEngine3D.Mathematics.Vector2;
 using System.Runtime.InteropServices;
 using OrkEngine3D.Components.Core;
+using System.Collections.Generic;
 
 namespace OrkEngine3D.Graphics.TK
 {
@@ -43,6 +44,7 @@ namespace OrkEngine3D.Graphics.TK
         ShaderProgram program;
         Camera camera;
         private void OnLoad(){
+            GL.Enable(EnableCap.DepthTest);
             GL.DebugMessageCallback(MessageCallback, IntPtr.Zero);
             
             mesh = new Mesh(glmanager);
@@ -52,23 +54,29 @@ namespace OrkEngine3D.Graphics.TK
             program = new ShaderProgram(glmanager, vshader, fshader);
 
             mesh.shader = program;
-            mesh.verticies = new Vector3[] {
-                new Vector3(-0.5f, -0.5f, 0f),
-                new Vector3( 0.0f,  0.5f, 0f),
-                new Vector3( 0.5f, -0.5f, 0f),
-            };
+            
+            uint vertexIndex = 0;
+            List<Vector3> vertices = new List<Vector3> ();
+            List<uint> triangles = new List<uint> ();
+            List<Vector2> uvs = new List<Vector2> ();
 
-            mesh.colors = new Color4[] {
-                new Color4(1.0f, 1.0f, 0.0f, 0.0f),
-                new Color4(1.0f, 0.0f, 1.0f, 0.0f),
-                new Color4(1.0f, 0.0f, 0.0f, 1.0f)
-            };
+            for (int p = 0; p < 6; p++) { 
+                for (int i = 0; i < 6; i++) {
 
-            mesh.uv = new Vector2[]{
-                new Vector2(1, 0),
-                new Vector2(0, 1),
-                new Vector2(1, 1)
-            };
+                    int triangleIndex = VoxelData.voxelTris [p, i];
+                    vertices.Add (VoxelData.voxelVerts [triangleIndex] - (Vector3.One * 0.5f));
+                    triangles.Add (vertexIndex);
+
+                    uvs.Add (VoxelData.voxelUvs [i]);
+
+                    vertexIndex++;
+
+                }
+            }
+
+            mesh.verticies = vertices.ToArray();
+            mesh.triangles = triangles.ToArray();
+            mesh.uv = uvs.ToArray();
 
             mesh.UpdateGLData();
 
@@ -92,7 +100,8 @@ namespace OrkEngine3D.Graphics.TK
         private void OnUpdate(FrameEventArgs e){
             t += (float)e.Time;
 
-            meshTransform.position.Z = -2f + MathF.Sin(t);
+            meshTransform.position.Z = -2f;// + MathF.Sin(t);
+            meshTransform.Rotate(-Vector3.One * (float)e.Time);
         }
 
         private void Unload(){
@@ -127,7 +136,7 @@ uniform mat4 m_view;
 void main()
 {
     gl_Position = m_view * m_model * vec4(vPos, 1.0);
-    fColor = vCol;
+    fColor = vec4(vUv, 1, 1);
     fPos = vPos;
 }
         ";
@@ -146,4 +155,45 @@ void main()
 
         ";
     }
+
+    public static class VoxelData {
+
+
+	public static readonly Vector3[] voxelVerts = new Vector3[8] {
+
+		new Vector3(0.0f, 0.0f, 0.0f),
+		new Vector3(1.0f, 0.0f, 0.0f),
+		new Vector3(1.0f, 1.0f, 0.0f),
+		new Vector3(0.0f, 1.0f, 0.0f),
+		new Vector3(0.0f, 0.0f, 1.0f),
+		new Vector3(1.0f, 0.0f, 1.0f),
+		new Vector3(1.0f, 1.0f, 1.0f),
+		new Vector3(0.0f, 1.0f, 1.0f),
+
+	};
+
+	public static readonly int[,] voxelTris = new int[6,6] {
+
+		{0, 3, 1, 1, 3, 2}, // Back Face
+		{5, 6, 4, 4, 6, 7}, // Front Face
+		{3, 7, 2, 2, 7, 6}, // Top Face
+		{1, 5, 0, 0, 5, 4}, // Bottom Face
+		{4, 7, 0, 0, 7, 3}, // Left Face
+		{1, 2, 5, 5, 2, 6} // Right Face
+
+	};
+
+	public static readonly Vector2[] voxelUvs = new Vector2[6] {
+
+		new Vector2 (0.0f, 0.0f),
+		new Vector2 (0.0f, 1.0f),
+		new Vector2 (1.0f, 0.0f),
+		new Vector2 (1.0f, 0.0f),
+		new Vector2 (0.0f, 1.0f),
+		new Vector2 (1.0f, 1.0f)
+
+	};
+
+
+}
 }

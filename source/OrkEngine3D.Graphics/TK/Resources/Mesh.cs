@@ -14,6 +14,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
     {
         int VBO;
         int VAO;
+        int EBO;
         int m_view;
         int m_projection;
         int m_model;
@@ -36,7 +37,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
         /// <summary>
         /// The triangles of the mesh
         /// </summary>
-        public int[] triangles = new int[0];
+        public uint[] triangles = new uint[0];
 
         /// <summary>
         /// What shader should the mesh use?
@@ -52,6 +53,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
         {
             VBO = GL.GenBuffer();
             VAO = GL.GenVertexArray();
+            EBO = GL.GenBuffer();
         }
 
         /// <summary>
@@ -94,6 +96,9 @@ namespace OrkEngine3D.Graphics.TK.Resources
 
             GL.BindVertexArray(VAO); // Bind our vertex array
 
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, EBO);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, triangles.Length * sizeof(uint), triangles, BufferUsageHint.StaticDraw);
+
             GL.BindBuffer(BufferTarget.ArrayBuffer, VBO); // Bind buffer
 
             GL.BufferData(BufferTarget.ArrayBuffer, bakedData.Length * sizeof(float), bakedData, BufferUsageHint.StaticDraw); // Set buffer data to baked vertex data
@@ -123,7 +128,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
             GL.UniformMatrix4(m_view, 1, false, camera.GetMatrix(ctx).ToArray());
             GL.UniformMatrix4(m_model, 1, false, t.GetMatrix().ToArray());
 
-            GL.DrawArrays(PrimitiveType.Triangles, 0, verticies.Length);
+            GL.DrawElements(PrimitiveType.Triangles, triangles.Length, DrawElementsType.UnsignedInt, 0);
         }
 
         public override void Unload()
