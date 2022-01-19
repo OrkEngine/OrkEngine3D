@@ -27,6 +27,12 @@ namespace OrkEngine3D.Graphics.TK.Resources
 
         }
 
+
+        public int GetAttribLocation(string name)
+        {
+            return GL.GetAttribLocation(id, name);
+        }
+
         public void Use(){
             GL.UseProgram(id);
         }
