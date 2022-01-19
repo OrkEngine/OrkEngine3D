@@ -4,8 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 
+using System;
+
 namespace OrkEngine3D.Graphics.TK.Resources{
 
+    [Obsolete("Why is this still here? Just to suffer?", true)]
     public class VertexData<T> : IEnumerable where T : struct{
         List<T> data = new List<T>();
         public int Length => data.Count;

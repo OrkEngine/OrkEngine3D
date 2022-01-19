@@ -77,7 +77,6 @@ namespace OrkEngine3D.Graphics.TK
         private void OnRender(FrameEventArgs e){
 
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
             mesh.Render();
 
             window.SwapBuffers();
@@ -112,7 +111,7 @@ out vec3 fPos;
 void main()
 {
     gl_Position = vec4(vPos, 1.0);
-    fColor = vec4(vUv, 0, 1);
+    fColor = vCol;
     fPos = vPos;
 }
         ";

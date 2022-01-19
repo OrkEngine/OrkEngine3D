@@ -7,31 +7,77 @@ using OrkEngine3D.Mathematics;
 
 namespace OrkEngine3D.Graphics.TK.Resources
 {
+    /// <summary>
+    /// A mesh.
+    /// </summary>
     public class Mesh : GLResource
     {
         int VBO;
         int VAO;
+
+        /// <summary>
+        /// The verticies of the mesh
+        /// </summary>
         public Vector3[] verticies = new Vector3[0];
+
+        /// <summary>
+        /// The UVs of the mesh
+        /// </summary>
         public Vector2[] uv = new Vector2[0];
+
+        /// <summary>
+        /// The vertex colours of the mesh
+        /// </summary>
         public Color4[] colors = new Color4[0];
+
+        /// <summary>
+        /// The triangles of the mesh
+        /// </summary>
         public int[] triangles = new int[0];
+
+        /// <summary>
+        /// What shader should the mesh use?
+        /// </summary>
         public ShaderProgram shader;
+
+        /// <summary>
+        /// Creates the mesh and allocates all resources
+        /// </summary>
+        /// <param name="manager"></param>
+        /// <returns>The mesh</returns>
         public Mesh(GLResourceManager manager) : base(manager)
         {
             VBO = GL.GenBuffer();
             VAO = GL.GenVertexArray();
         }
 
-        public void UpdateGLData(){
+        /// <summary>
+        /// Updates the GPU end of the mesh, make sure the meshes shader is set, as it will try to locate shader variables
+        /// </summary>
 
+        public void UpdateGLData(){
+            // We cannot locate variables in a non-existent 
             if(shader == null)
                 throw new NullReferenceException("Shader is null, make sure to set shader before updating data!");
-
+            
+            // Floats per vertex
             int floatsperv = 3 + 2 + 4; // Vec3 + Vec2 + Col4
-            float[] bakedData = new float[verticies.Length * floatsperv];
+            float[] bakedData = new float[verticies.Length * floatsperv]; // The baked vertex data array
 
             for (var i = 0; i < verticies.Length; i++)
             {
+                /* 
+                Each vertex is stored in a piece of bakedData, in the order:
+                pos.x
+                pos.y
+                pos.z
+                uv.x
+                uv.y
+                color.r
+                color.g
+                color.b
+                color.a
+                */
                 bakedData[i * floatsperv + 0] = verticies[i].X;
                 bakedData[i * floatsperv + 1] = verticies[i].Y;
                 bakedData[i * floatsperv + 2] = verticies[i].Z;
@@ -43,11 +89,11 @@ namespace OrkEngine3D.Graphics.TK.Resources
                 bakedData[i * floatsperv + 8] = (colors.Length > 0 ? colors[i].Alpha : 0);
             }
 
-            GL.BindVertexArray(VAO);
+            GL.BindVertexArray(VAO); // Bind our vertex array
 
-            GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, VBO); // Bind buffer
 
-            GL.BufferData(BufferTarget.ArrayBuffer, bakedData.Length * sizeof(float), bakedData, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ArrayBuffer, bakedData.Length * sizeof(float), bakedData, BufferUsageHint.StaticDraw); // Set buffer data to baked vertex data
 
             int vpos = shader.GetAttribLocation("vPos");
             int vuv = shader.GetAttribLocation("vUv");
