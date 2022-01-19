@@ -7,6 +7,7 @@ using OrkEngine3D.Graphics.TK.Resources;
 using OrkEngine3D.Mathematics;
 using Vector3 = OrkEngine3D.Mathematics.Vector3;
 using Color4 = OrkEngine3D.Mathematics.Color4;
+using Vector2 = OrkEngine3D.Mathematics.Vector2;
 
 namespace OrkEngine3D.Graphics.TK
 {
@@ -58,6 +59,12 @@ namespace OrkEngine3D.Graphics.TK
                 new Color4(1.0f, 0.0f, 0.0f, 1.0f)
             };
 
+            mesh.uv = new Vector2[]{
+                new Vector2(1, 0),
+                new Vector2(0, 1),
+                new Vector2(1, 1)
+            };
+
             mesh.UpdateGLData();
             
         }
@@ -83,15 +90,18 @@ namespace OrkEngine3D.Graphics.TK
 
         string vshadersource = @"
 #version 330 core
-layout (location = 0) in vec3 vPos;
-layout (location = 2) in vec4 vCol;
+in vec3 vPos;
+in vec4 vCol;
+in vec2 vUv;
 
-out vec4 vColor;
+out vec4 fColor;
+out vec3 fPos;
 
 void main()
 {
     gl_Position = vec4(vPos, 1.0);
-    vColor = vCol;
+    fColor = vec4(vUv, 1, 1);
+    fPos = vPos;
 }
         ";
 
@@ -99,11 +109,12 @@ void main()
 #version 330 core
 out vec4 FragColor;
 
-in vec4 vColor;
+in vec4 fColor;
+in vec3 fPos;
 
 void main()
 {
-    FragColor = vColor;//vec4(1.0f, 0.5f, 0.2f, 1.0f);
+    FragColor = fColor;//vec4(1.0f, 0.5f, 0.2f, 1.0f);
 }
 
         ";
