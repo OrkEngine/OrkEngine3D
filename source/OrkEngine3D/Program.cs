@@ -1,5 +1,5 @@
 ﻿using System;
-using OrkEngine3D.Graphics;
+using OrkEngine3D.Graphics.TK;
 
 namespace OrkEngine3D
 {

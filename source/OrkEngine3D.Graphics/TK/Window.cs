@@ -4,7 +4,7 @@ using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL4;
 using System;
 
-namespace OrkEngine3D.Graphics
+namespace OrkEngine3D.Graphics.TK
 {
     public class GraphicsContext
     {
