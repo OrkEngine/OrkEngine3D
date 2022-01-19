@@ -8,6 +8,7 @@ using OrkEngine3D.Mathematics;
 using Vector3 = OrkEngine3D.Mathematics.Vector3;
 using Color4 = OrkEngine3D.Mathematics.Color4;
 using Vector2 = OrkEngine3D.Mathematics.Vector2;
+using System.Runtime.InteropServices;
 
 namespace OrkEngine3D.Graphics.TK
 {
@@ -40,6 +41,8 @@ namespace OrkEngine3D.Graphics.TK
         Shader vshader;
         ShaderProgram program;
         private void OnLoad(){
+            GL.DebugMessageCallback(MessageCallback, IntPtr.Zero);
+            
             mesh = new Mesh(glmanager);
             fshader = new Shader(glmanager, fshadersource, ShaderType.FragmentShader);
             vshader = new Shader(glmanager, vshadersource, ShaderType.VertexShader);
@@ -88,6 +91,15 @@ namespace OrkEngine3D.Graphics.TK
             glmanager.Unload();
         }
 
+        void MessageCallback(DebugSource source, DebugType type, int id, DebugSeverity severity, int length, IntPtr message, IntPtr userParam)
+        {
+            if(severity == DebugSeverity.DebugSeverityHigh){
+                Console.Error.WriteLine($"GL ERROR type = {type.ToString()}, severity = {severity.ToString()}, message = {Marshal.PtrToStringAuto(message)}");
+            } else{
+                Console.WriteLine($"GL CALLBACK: {(type == DebugType.DebugTypeError ? "**GL ERROR**" : "")} type = {type.ToString()}, severity = {severity.ToString()}, message = {Marshal.PtrToStringAuto(message)}");
+            }
+        }
+
         string vshadersource = @"
 #version 330 core
 in vec3 vPos;
@@ -100,7 +112,7 @@ out vec3 fPos;
 void main()
 {
     gl_Position = vec4(vPos, 1.0);
-    fColor = vec4(vUv, 1, 1);
+    fColor = vec4(vUv, 0, 1);
     fPos = vPos;
 }
         ";
