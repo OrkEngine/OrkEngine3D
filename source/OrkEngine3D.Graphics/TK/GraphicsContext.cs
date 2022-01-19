@@ -22,7 +22,6 @@ namespace OrkEngine3D.Graphics.TK
 
             nws.Title = title;
             nws.Size = new Vector2i(800, 600);
-            nws.WindowBorder = WindowBorder.Fixed;  
             nws.API = ContextAPI.OpenGL;
             nws.APIVersion = new Version(4, 0, 0);      
 
@@ -32,6 +31,7 @@ namespace OrkEngine3D.Graphics.TK
             window.RenderFrame += OnRender;
             window.UpdateFrame += OnUpdate;
             window.Unload += Unload;
+            window.Resize += OnResize;
 
             glmanager = new GLResourceManager();
 
@@ -40,6 +40,7 @@ namespace OrkEngine3D.Graphics.TK
         Shader fshader;
         Shader vshader;
         ShaderProgram program;
+        Camera camera;
         private void OnLoad(){
             GL.DebugMessageCallback(MessageCallback, IntPtr.Zero);
             
@@ -51,9 +52,9 @@ namespace OrkEngine3D.Graphics.TK
 
             mesh.shader = program;
             mesh.verticies = new Vector3[] {
-                new Vector3(-0.5f, -0.5f, 0),
-                new Vector3( 0.0f,  0.5f, 0),
-                new Vector3( 0.5f, -0.5f, 0),
+                new Vector3(-0.5f, -0.5f, -1f),
+                new Vector3( 0.0f,  0.5f, -1f),
+                new Vector3( 0.5f, -0.5f, -1f),
             };
 
             mesh.colors = new Color4[] {
@@ -69,6 +70,8 @@ namespace OrkEngine3D.Graphics.TK
             };
 
             mesh.UpdateGLData();
+
+            camera = new Camera();
             
         }
 
@@ -77,8 +80,7 @@ namespace OrkEngine3D.Graphics.TK
         private void OnRender(FrameEventArgs e){
 
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
-            mesh.Render();
+            mesh.Render(camera, this);
 
             window.SwapBuffers();
         }
@@ -89,6 +91,10 @@ namespace OrkEngine3D.Graphics.TK
 
         private void Unload(){
             glmanager.Unload();
+        }
+
+        private void OnResize(ResizeEventArgs args){
+            GL.Viewport(0, 0, args.Width, args.Height);
         }
 
         void MessageCallback(DebugSource source, DebugType type, int id, DebugSeverity severity, int length, IntPtr message, IntPtr userParam)
@@ -109,10 +115,12 @@ in vec2 vUv;
 out vec4 fColor;
 out vec3 fPos;
 
+uniform mat4 m_view;
+
 void main()
 {
-    gl_Position = vec4(vPos, 1.0);
-    fColor = vec4(vUv, 0, 1);
+    gl_Position = m_view * vec4(vPos, 1.0);
+    fColor = vCol;
     fPos = vPos;
 }
         ";

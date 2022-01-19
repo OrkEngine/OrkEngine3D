@@ -1,5 +1,9 @@
 namespace OrkEngine3D.Graphics.Resources.TK
 {
+    // Lets not show ANY OpenTK here shall we?
+    /// <summary>
+    /// Shader types
+    /// </summary>
     public enum ShaderType
     {
         ComputeShader = OpenTK.Graphics.OpenGL4.ShaderType.ComputeShader,
