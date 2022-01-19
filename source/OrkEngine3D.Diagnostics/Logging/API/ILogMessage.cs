@@ -10,6 +10,8 @@ namespace OrkEngine3D.Diagnostics.Logging.API
     {
         string Module { get; }
 
+        string Context { get; set; }
+
         string Log(LogMessageType type, string message);
     }
 
@@ -20,6 +22,6 @@ namespace OrkEngine3D.Diagnostics.Logging.API
         WARNING,
         INFORMATION,
         SUCCESS,
-        FAILURE
+        FATAL
     }
 }
