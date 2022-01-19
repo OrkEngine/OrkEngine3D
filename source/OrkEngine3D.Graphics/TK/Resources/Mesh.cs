@@ -14,6 +14,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
     {
         int VBO;
         int VAO;
+        int CameraUniform;
 
         /// <summary>
         /// The verticies of the mesh
@@ -107,12 +108,15 @@ namespace OrkEngine3D.Graphics.TK.Resources
 
             GL.VertexAttribPointer(vcol, 4, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 5 * sizeof(float));
             GL.EnableVertexAttribArray(vcol);
+
+            CameraUniform = shader.GetUniformLocation("m_view");
         
         }
 
-        public void Render(){
+        public void Render(Camera camera, GraphicsContext ctx){
             GL.BindVertexArray(VAO);
             shader.Use();
+            GL.UniformMatrix4(CameraUniform, 1, true, camera.GetMatrix(ctx).ToArray());
             GL.DrawArrays(PrimitiveType.Triangles, 0, verticies.Length);
         }
 

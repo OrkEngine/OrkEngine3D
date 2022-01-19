@@ -44,6 +44,17 @@ namespace OrkEngine3D.Graphics.TK.Resources
         }
 
         /// <summary>
+        /// Get the location of a uniform
+        /// </summary>
+        /// <param name="name">The name of the uniform</param>
+        /// <returns>The OpenGL location</returns>
+
+        public int GetUniformLocation(string name)
+        {
+            return GL.GetUniformLocation(id, name);
+        }
+
+        /// <summary>
         /// Use the shader
         /// </summary>
         public void Use(){
