@@ -53,9 +53,9 @@ namespace OrkEngine3D.Graphics.TK
 
             mesh.shader = program;
             mesh.verticies = new Vector3[] {
-                new Vector3(-0.5f, -0.5f, 0.5f),
-                new Vector3( 0.0f,  0.5f, 0.5f),
-                new Vector3( 0.5f, -0.5f, 0.5f),
+                new Vector3(-0.5f, -0.5f, 0f),
+                new Vector3( 0.0f,  0.5f, 0f),
+                new Vector3( 0.5f, -0.5f, 0f),
             };
 
             mesh.colors = new Color4[] {
@@ -73,6 +73,7 @@ namespace OrkEngine3D.Graphics.TK
             mesh.UpdateGLData();
 
             camera = new Camera();
+            camera.perspective = true;
             meshTransform = new Transform();
             
         }
@@ -90,7 +91,8 @@ namespace OrkEngine3D.Graphics.TK
         float t = 0;
         private void OnUpdate(FrameEventArgs e){
             t += (float)e.Time;
-            //meshTransform.position.Z = 10;// + MathF.Sin(t);
+
+            meshTransform.position.Z = -2f + MathF.Sin(t);
         }
 
         private void Unload(){

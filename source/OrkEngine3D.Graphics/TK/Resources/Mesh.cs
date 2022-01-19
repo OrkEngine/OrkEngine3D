@@ -120,8 +120,8 @@ namespace OrkEngine3D.Graphics.TK.Resources
         public void Render(Camera camera, Transform t, GraphicsContext ctx){
             GL.BindVertexArray(VAO);
             shader.Use();
-            GL.UniformMatrix4(m_view, 1, true, camera.GetMatrix(ctx).ToArray());
-            GL.UniformMatrix4(m_model, 1, true, t.GetMatrix().ToArray());
+            GL.UniformMatrix4(m_view, 1, false, camera.GetMatrix(ctx).ToArray());
+            GL.UniformMatrix4(m_model, 1, false, t.GetMatrix().ToArray());
 
             GL.DrawArrays(PrimitiveType.Triangles, 0, verticies.Length);
         }
