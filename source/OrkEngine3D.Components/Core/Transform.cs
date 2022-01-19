@@ -9,7 +9,7 @@ namespace OrkEngine3D.Components.Core
         public Quaternion rotation = Quaternion.Identity;
         public Vector3 eulers {
             get => Quaternion.ToEulerAngles(rotation);
-            set => rotation = Quaternion.RotationYawPitchRoll(value.X, value.Y, value.Z);
+            set => rotation = Quaternion.RotationYawPitchRoll(value.Y, value.Z, value.X);
         }
 
         public Vector3 forward => Vector3.Transform(Vector3.UnitZ, rotation);
@@ -18,6 +18,10 @@ namespace OrkEngine3D.Components.Core
 
         public Matrix GetMatrix(){
             return Matrix.Transformation(Vector3.Zero, Quaternion.Identity, scale, Vector3.Zero, rotation, position);
+        }
+
+        public void Rotate(Vector3 eulers){
+            rotation = Quaternion.Multiply(rotation, Quaternion.RotationYawPitchRoll(eulers.Y, eulers.Z, eulers.X));
         }
     }
 }
