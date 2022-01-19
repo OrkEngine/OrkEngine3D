@@ -7,4 +7,8 @@
     <StartupObject />
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OrkEngine3D.Mathematics\OrkEngine3D.Mathematics.csproj" />
+  </ItemGroup>
+
 </Project>
