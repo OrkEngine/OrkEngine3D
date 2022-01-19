@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace OrkEngine3D.Graphics.Resources
+namespace OrkEngine3D.Graphics.TK.Resources
 {
     public class GLResourceManager
     {

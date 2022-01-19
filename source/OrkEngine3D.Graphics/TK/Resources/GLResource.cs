@@ -1,4 +1,4 @@
-namespace OrkEngine3D.Graphics.Resources
+namespace OrkEngine3D.Graphics.TK.Resources
 {
     public abstract class GLResource
     {

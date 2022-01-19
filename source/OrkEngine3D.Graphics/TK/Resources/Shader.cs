@@ -1,6 +1,6 @@
 using OpenTK.Graphics.OpenGL4;
 
-namespace OrkEngine3D.Graphics.Resources
+namespace OrkEngine3D.Graphics.TK.Resources
 {
     public class Shader : GLResource
     {
