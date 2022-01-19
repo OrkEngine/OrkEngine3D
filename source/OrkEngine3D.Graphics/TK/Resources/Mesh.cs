@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL4;
 using System.Linq;
 using OrkEngine3D.Mathematics;
-
+using OrkEngine3D.Components.Core;
 
 namespace OrkEngine3D.Graphics.TK.Resources
 {
@@ -14,7 +14,9 @@ namespace OrkEngine3D.Graphics.TK.Resources
     {
         int VBO;
         int VAO;
-        int CameraUniform;
+        int m_view;
+        int m_projection;
+        int m_model;
 
         /// <summary>
         /// The verticies of the mesh
@@ -109,14 +111,18 @@ namespace OrkEngine3D.Graphics.TK.Resources
             GL.VertexAttribPointer(vcol, 4, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 5 * sizeof(float));
             GL.EnableVertexAttribArray(vcol);
 
-            CameraUniform = shader.GetUniformLocation("m_view");
+            m_view = shader.GetUniformLocation("m_view");
+            m_projection = shader.GetUniformLocation("m_projection");
+            m_model = shader.GetUniformLocation("m_model");
         
         }
 
-        public void Render(Camera camera, GraphicsContext ctx){
+        public void Render(Camera camera, Transform t, GraphicsContext ctx){
             GL.BindVertexArray(VAO);
             shader.Use();
-            GL.UniformMatrix4(CameraUniform, 1, true, camera.GetMatrix(ctx).ToArray());
+            GL.UniformMatrix4(m_view, 1, true, camera.GetMatrix(ctx).ToArray());
+            GL.UniformMatrix4(m_model, 1, true, t.GetMatrix().ToArray());
+
             GL.DrawArrays(PrimitiveType.Triangles, 0, verticies.Length);
         }
 

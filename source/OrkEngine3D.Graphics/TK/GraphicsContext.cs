@@ -9,6 +9,7 @@ using Vector3 = OrkEngine3D.Mathematics.Vector3;
 using Color4 = OrkEngine3D.Mathematics.Color4;
 using Vector2 = OrkEngine3D.Mathematics.Vector2;
 using System.Runtime.InteropServices;
+using OrkEngine3D.Components.Core;
 
 namespace OrkEngine3D.Graphics.TK
 {
@@ -52,9 +53,9 @@ namespace OrkEngine3D.Graphics.TK
 
             mesh.shader = program;
             mesh.verticies = new Vector3[] {
-                new Vector3(-0.5f, -0.5f, -1f),
-                new Vector3( 0.0f,  0.5f, -1f),
-                new Vector3( 0.5f, -0.5f, -1f),
+                new Vector3(-0.5f, -0.5f, 0.5f),
+                new Vector3( 0.0f,  0.5f, 0.5f),
+                new Vector3( 0.5f, -0.5f, 0.5f),
             };
 
             mesh.colors = new Color4[] {
@@ -72,21 +73,24 @@ namespace OrkEngine3D.Graphics.TK
             mesh.UpdateGLData();
 
             camera = new Camera();
+            meshTransform = new Transform();
             
         }
 
         Mesh mesh;
+        Transform meshTransform;
 
         private void OnRender(FrameEventArgs e){
 
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            mesh.Render(camera, this);
+            mesh.Render(camera, meshTransform, this);
 
             window.SwapBuffers();
         }
-
+        float t = 0;
         private void OnUpdate(FrameEventArgs e){
-
+            t += (float)e.Time;
+            //meshTransform.position.Z = 10;// + MathF.Sin(t);
         }
 
         private void Unload(){
@@ -115,11 +119,12 @@ in vec2 vUv;
 out vec4 fColor;
 out vec3 fPos;
 
+uniform mat4 m_model;
 uniform mat4 m_view;
 
 void main()
 {
-    gl_Position = m_view * vec4(vPos, 1.0);
+    gl_Position = m_view * m_model * vec4(vPos, 1.0);
     fColor = vCol;
     fPos = vPos;
 }
