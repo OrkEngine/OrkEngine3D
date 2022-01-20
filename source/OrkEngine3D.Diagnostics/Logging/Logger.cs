@@ -128,7 +128,7 @@ namespace OrkEngine3D.Diagnostics.Logging
 		/// <summary>
 		/// This will add a Logger to the global Logger map.
 		/// </summary>
-		static void Add(Logger logger)
+		public static void Add(Logger logger)
 		{
 			// if a logger with this name is already registered
 			if (Loggers.ContainsKey(logger.LoggerID))
@@ -144,7 +144,7 @@ namespace OrkEngine3D.Diagnostics.Logging
 		/// <summary>
 		/// This will look for a Logger with the given name, if it doesnt exist the function will return null.
 		/// </summary>
-		static Logger Find(string name)
+		public static Logger Find(string name)
 		{
 			if (Loggers.ContainsKey(name))
 				return Loggers[name];
@@ -155,7 +155,7 @@ namespace OrkEngine3D.Diagnostics.Logging
 		/// <summary>
 		/// This will look for a Logger with the given name, if it doesnt exist a new Logger will be created.
 		/// </summary>
-		static Logger Get(string name, string module = "null")
+		public static Logger Get(string name, string module = "null")
 		{
 			if (Loggers.ContainsKey(name))
 				return Loggers[name];
@@ -168,7 +168,7 @@ namespace OrkEngine3D.Diagnostics.Logging
 		/// <summary>
 		/// This will check if a logger with the given name is registered.
 		/// </summary>
-		static bool Exists(string name)
+		public static bool Exists(string name)
 		{
 			return Loggers.ContainsKey(name);
 		}
@@ -176,7 +176,7 @@ namespace OrkEngine3D.Diagnostics.Logging
 		/// <summary>
 		/// This will remove a Logger with the given name, if possible.
 		/// </summary>
-		public void Remove(string name)
+		public static void Remove(string name)
         {
 			// left this out because we have no logger to log to lol
             // > Log(LogMessageType.FATAL, $"Logger for ({name}) doesn't exist!");
