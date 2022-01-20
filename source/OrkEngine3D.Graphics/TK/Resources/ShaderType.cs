@@ -1,4 +1,4 @@
-namespace OrkEngine3D.Graphics.Resources.TK
+namespace OrkEngine3D.Graphics.TK.Resources
 {
     // Lets not show ANY OpenTK here shall we?
     /// <summary>
