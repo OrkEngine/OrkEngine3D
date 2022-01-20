@@ -36,6 +36,9 @@ namespace OrkEngine3D
         LightScene lscene;
         public override void Init()
         {
+
+            Rendering.BindContext(context); 
+
             mesh = new Mesh(resourceManager);
             fshader = new Shader(resourceManager, File.ReadAllText("shader.frag"), ShaderType.FragmentShader);
             vshader = new Shader(resourceManager, File.ReadAllText("shader.vert"), ShaderType.VertexShader);
@@ -46,24 +49,24 @@ namespace OrkEngine3D
 
             MeshInformation voxelInformation = ObjLoader.LoadObjData(File.ReadAllText("model.obj"), out string mtlfile);//VoxelData.GenerateVoxelInformation();
             Material mat = ObjLoader.LoadMTLFromFile(File.ReadAllText(mtlfile));
+            Rendering.BindMaterial(mat);
+
             mesh.verticies = voxelInformation.verticies;
             mesh.triangles = voxelInformation.triangles;
             mesh.uv = voxelInformation.uv;
             mesh.normals = voxelInformation.normals;
 
-            Texture testTexture = new Texture(resourceManager, Texture.GetTextureDataFromFile("thevroom.png"));
+            
 
             renderBuffer = new RenderBuffer(resourceManager, 1280, 720);
 
-            mesh.textures = new Texture[] { testTexture };
+            
 
             mesh.UpdateGLData();
 
             camera = new Camera();
             camera.perspective = true;
             meshTransform = new Transform();
-
-            Rendering.BindContext(context);
             
             Rendering.BindCamera(camera);
 

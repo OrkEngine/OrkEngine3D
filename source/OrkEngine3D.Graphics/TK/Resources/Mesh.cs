@@ -48,11 +48,6 @@ namespace OrkEngine3D.Graphics.TK.Resources
         public ShaderProgram shader;
 
         /// <summary>
-        /// The textures passed to the shader
-        /// </summary>
-        public Texture[] textures;
-
-        /// <summary>
         /// Creates the mesh and allocates all resources
         /// </summary>
         /// <param name="manager"></param>
@@ -160,10 +155,10 @@ namespace OrkEngine3D.Graphics.TK.Resources
 
             shader.Uniform3("camera_pos", Rendering.currentCamera.transform.position);
 
-            for (byte i = 0; i < textures.Length; i++)
+            for (byte i = 0; i < Rendering.currentMaterial.textures.Length; i++)
             {
-                shader.Uniform1("mat_texture" + i.ToString(), i);
-                textures[i].Use(i);
+                shader.Uniform1("material.texture" + i.ToString(), i);
+                Rendering.currentMaterial.textures[i].Use(i);
             }
 
             GL.DrawElements(PrimitiveType.Triangles, triangles.Length, DrawElementsType.UnsignedInt, 0);

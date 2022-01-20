@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using OrkEngine3D.Diagnostics;
 using OrkEngine3D.Diagnostics.Logging;
+using OrkEngine3D.Graphics.TK.Resources;
+
 namespace OrkEngine3D.Graphics.MeshData
 {
     public static class ObjLoader
@@ -117,6 +119,7 @@ namespace OrkEngine3D.Graphics.MeshData
             logger.Log(LogMessageType.WARNING, "MTL Loader uses OrkGraphics Flavoured MTL! It doesnt work with all MTL files");
             Material material = new Material();
             string[] lines = content.Split('\n', StringSplitOptions.TrimEntries);
+            List<Texture> textures = new List<Texture>();
             for (int i = 0; i < lines.Length; i++)
             {
                 string line = lines[i];
@@ -158,7 +161,14 @@ namespace OrkEngine3D.Graphics.MeshData
                         logger.Log(LogMessageType.FATAL, "Invalid MTL file!");
                     material.shininess = float.Parse(c[1], CultureInfo.InvariantCulture);
                 }
+                if (line.StartsWith("Tx "))
+                {
+                    string path = line.Substring("Tx ".Length).Trim();
+                    textures.Add(new Texture(Rendering.currentContext.glmanager, Texture.GetTextureDataFromFile(path)));
+                }
+               
             }
+            material.textures = textures.ToArray();
 
             return material;
         }

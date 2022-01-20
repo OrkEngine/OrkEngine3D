@@ -5,8 +5,6 @@ in vec3 Normal;
 in vec2 fUV;
 in vec3 Pos;
 
-uniform sampler2D mat_texture0;
-uniform sampler2D mat_texture1;
 uniform vec3 camera_pos;
 
 struct Light{
@@ -24,6 +22,8 @@ struct Material {
     vec3 diffuse;
     vec3 specular;
 
+    sampler2D texture0;
+
     float shininess;
 };
   
@@ -31,7 +31,7 @@ uniform Material material;
 
 void main()
 {   
-    vec3 objectColor = texture(mat_texture0, fUV).rgb;
+    vec3 objectColor = texture(material.texture0, fUV).rgb;
 
     vec3 ambient = (ambient.color * ambient.strength) * material.ambient;
   	
