@@ -19,7 +19,8 @@ namespace OrkEngine3D
         }
     }
 
-    class TestHandler : GraphicsHandler{
+    class TestHandler : GraphicsHandler
+    {
         Shader fshader;
         Shader vshader;
         ShaderProgram program;
@@ -56,15 +57,27 @@ namespace OrkEngine3D
             camera.perspective = true;
             meshTransform = new Transform();
 
+            Rendering.BindContext(context);
+            Rendering.BindTransform(meshTransform);
+            Rendering.BindCamera(camera);
+
         }
 
         public override void Render()
         {
-            renderBuffer.Target();
-            renderBuffer.Clear();
-            mesh.Render(camera, meshTransform, context);
-            context.ResetFrameBuffer();
-            mesh.Render(camera, meshTransform, context);
+
+            Rendering.BindTarget(renderBuffer);
+            Rendering.ClearTarget();
+
+            mesh.Render();
+
+
+            Rendering.ResetTarget();
+            Rendering.ClearTarget();
+
+            mesh.Render();
+
+            Rendering.SwapBuffers();
         }
 
         public override void Update()

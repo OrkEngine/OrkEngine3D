@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OrkEngine3D.Graphics.TK.Resources
 {
-    public class RenderBuffer : GLResource
+    public class RenderBuffer : GLResource, IRenderTarget
     {
         public int id;
         public int depthBuffer;
@@ -46,7 +46,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
             GL.DrawBuffers(1, DrawBuffers);
         }
 
-        public void Target()
+        public void BindTarget()
         {
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, id);
             GL.Viewport(0, 0, target.width, target.height);

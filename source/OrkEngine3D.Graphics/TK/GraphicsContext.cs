@@ -62,12 +62,16 @@ namespace OrkEngine3D.Graphics.TK
         private void OnRender(FrameEventArgs e){
             mouseDelta = Vector2.Zero;
             deltaTime = (float)e.Time;
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            
             handler.Render();
+        }
 
-
+        public void SwapBuffers()
+        {
             window.SwapBuffers();
         }
+
+
         public Queue<KeyEvent> nonQueriedKeys = new Queue<KeyEvent>();
 
         private void KeyDown(KeyboardKeyEventArgs e){

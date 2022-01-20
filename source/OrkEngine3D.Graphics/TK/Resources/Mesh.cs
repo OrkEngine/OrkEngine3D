@@ -138,11 +138,11 @@ namespace OrkEngine3D.Graphics.TK.Resources
         /// <param name="camera">The active camera object</param>
         /// <param name="t">The meshes transform</param>
         /// <param name="ctx">The current GraphicsContext</param>
-        public void Render(Camera camera, Transform t, GraphicsContext ctx){
+        public void Render(){
             GL.BindVertexArray(VAO);
             shader.Use();
-            shader.UniformMatrix("matx_view", camera.GetMatrix(ctx));
-            shader.UniformMatrix("matx_model", t.GetMatrix());
+            shader.UniformMatrix("matx_view", Rendering.currentCamera.GetMatrix());
+            shader.UniformMatrix("matx_model", Rendering.currentTransform.GetMatrix());
 
             for (byte i = 0; i < textures.Length; i++)
             {
