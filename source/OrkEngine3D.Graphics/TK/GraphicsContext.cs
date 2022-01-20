@@ -11,6 +11,7 @@ using Vector2 = OrkEngine3D.Mathematics.Vector2;
 using System.Runtime.InteropServices;
 using OrkEngine3D.Components.Core;
 using System.Collections.Generic;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace OrkEngine3D.Graphics.TK
 {
@@ -37,6 +38,10 @@ namespace OrkEngine3D.Graphics.TK
             window.Unload += Unload;
             window.Resize += OnResize;
 
+            window.MouseMove += MouseMove;
+            window.KeyDown += KeyDown;
+            window.KeyUp += KeyUp;
+
             this.handler = handler;
             handler.context = this;
             glmanager = new GLResourceManager();
@@ -53,7 +58,9 @@ namespace OrkEngine3D.Graphics.TK
             
         }
 
+        public Vector2 mouseDelta = Vector2.Zero;
         private void OnRender(FrameEventArgs e){
+            mouseDelta = Vector2.Zero;
             deltaTime = (float)e.Time;
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             handler.Render();
@@ -61,10 +68,33 @@ namespace OrkEngine3D.Graphics.TK
 
             window.SwapBuffers();
         }
+        public Queue<KeyEvent> nonQueriedKeys = new Queue<KeyEvent>();
+
+        private void KeyDown(KeyboardKeyEventArgs e){
+            nonQueriedKeys.Enqueue(new KeyEvent(KeyEventType.KeyDown, (Key)e.Key));
+        }
+
+        private void KeyUp(KeyboardKeyEventArgs e){
+            nonQueriedKeys.Enqueue(new KeyEvent(KeyEventType.KeyUp, (Key)e.Key));
+        }
+
+        private void MouseMove(MouseMoveEventArgs e)
+        {
+            mouseDelta.X += e.DeltaX;
+            mouseDelta.Y += e.DeltaY;
+        }
+
+
         public float deltaTime = 0;
         private void OnUpdate(FrameEventArgs e){
             deltaTime = (float)e.Time;
             handler.Update();
+        }
+
+        public void ResetFrameBuffer()
+        {
+            GL.Viewport(0, 0, window.Size.X, window.Size.Y);
+            GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
         }
 
         private void Unload(){
@@ -85,5 +115,19 @@ namespace OrkEngine3D.Graphics.TK
         }
 
         
+    }
+    public enum KeyEventType{
+        KeyDown,
+        KeyUp,
+    }
+    public struct KeyEvent{
+        public KeyEventType eventType;
+        public Key key;
+
+        public KeyEvent(KeyEventType eventType, Key key)
+        {
+            this.eventType = eventType;
+            this.key = key;
+        }
     }
 }

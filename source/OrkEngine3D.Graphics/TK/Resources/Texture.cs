@@ -12,6 +12,8 @@ namespace OrkEngine3D.Graphics.TK.Resources
     public class Texture : GLResource
     {
         public int id;
+        public readonly int width;
+        public readonly int height;
 
         /// <summary>
         /// Generate a texture from data
@@ -21,6 +23,8 @@ namespace OrkEngine3D.Graphics.TK.Resources
         /// <returns>The texture object</returns>
         public Texture(GLResourceManager manager, TextureData data) : base(manager)
         {
+            this.width = data.width;
+            this.height = data.height;
 
             id = GL.GenTexture();
             GL.BindTexture(TextureTarget.Texture2D, id);
@@ -31,6 +35,20 @@ namespace OrkEngine3D.Graphics.TK.Resources
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
 
             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.width, data.height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, data.pixels);
+        }
+
+        /// <summary>
+        /// Generate a texture object from id
+        /// WARNING: UNSAFE!
+        /// </summary>
+        /// <param name="id">The OpenGL texture ID</param>
+        /// <param name="width">Width of the texture</param>
+        /// <param name="height">Height of the texture</param>
+        public Texture(GLResourceManager manager, int id, int width, int height) : base(manager)
+        {
+            this.id = id;
+            this.width = width;
+            this.height = height;
         }
         
         /// <summary>

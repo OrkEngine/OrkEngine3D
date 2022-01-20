@@ -15,7 +15,6 @@ namespace OrkEngine3D
         {
             Console.WriteLine("Hello World!");
             GraphicsContext ctx = new GraphicsContext("Hello World", new TestHandler());
-
             ctx.Run();
         }
     }
@@ -27,6 +26,7 @@ namespace OrkEngine3D
         Camera camera;
         Mesh mesh;
         Transform meshTransform;
+        RenderBuffer renderBuffer;
         public override void Init()
         {
             mesh = new Mesh(resourceManager);
@@ -42,16 +42,23 @@ namespace OrkEngine3D
             mesh.verticies = voxelInformation.verticies;
             mesh.triangles = voxelInformation.triangles;
             mesh.uv = voxelInformation.uv;
+            mesh.normals = voxelInformation.normals;
 
             Texture testTexture = new Texture(resourceManager, Texture.GetTextureDataFromFile("thevroom.png"));
 
-            mesh.textures = new Texture[] {testTexture};
+            renderBuffer = new RenderBuffer(resourceManager, 1280, 720);
+
+            mesh.textures = new Texture[] {testTexture, renderBuffer.target };
 
             mesh.UpdateGLData();
 
             camera = new Camera();
             camera.perspective = true;
             meshTransform = new Transform();
+
+            renderBuffer.Target();
+            mesh.Render(camera, meshTransform, context);
+            context.ResetFrameBuffer();
         }
 
         public override void Render()
@@ -63,6 +70,10 @@ namespace OrkEngine3D
         {
             meshTransform.position.Z = -2f;// + MathF.Sin(t);
             meshTransform.Rotate(-Vector3.One * context.deltaTime);
+            while(context.nonQueriedKeys.Count > 0){
+                KeyEvent e = context.nonQueriedKeys.Dequeue();
+                Console.WriteLine($"Keyboard: {e.eventType.ToString()}, {e.key.ToString()}");
+            }
         }
 
         string vshadersource = @"
@@ -70,10 +81,12 @@ namespace OrkEngine3D
 in vec3 vert_position;
 in vec4 vert_color;
 in vec2 vert_uv;
+in vec3 vert_normal;
 
 out vec4 fColor;
 out vec3 fPos;
 out vec2 fUV;
+out vec3 fNorm;
 
 uniform mat4 matx_model;
 uniform mat4 matx_view;
@@ -96,10 +109,12 @@ in vec3 fPos;
 in vec2 fUV;
 
 uniform sampler2D mat_texture0;
+uniform sampler2D mat_texture1;
 
 void main()
 {
-    FragColor = texture(mat_texture0, fUV);
+    FragColor = texture(mat_texture1, fUV);
+    FragColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
         ";

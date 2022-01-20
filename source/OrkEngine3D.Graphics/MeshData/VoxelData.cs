@@ -44,11 +44,23 @@ namespace OrkEngine3D.Graphics.MeshData
 
         };
 
+        public static readonly Vector3[] faceChecks = new Vector3[6] {
+
+            new Vector3(0.0f, 0.0f, -1.0f),
+            new Vector3(0.0f, 0.0f, 1.0f),
+            new Vector3(0.0f, 1.0f, 0.0f),
+            new Vector3(0.0f, -1.0f, 0.0f),
+            new Vector3(-1.0f, 0.0f, 0.0f),
+            new Vector3(1.0f, 0.0f, 0.0f)
+
+	    };
+
         public static MeshInformation GenerateVoxelInformation(){
             uint vertexIndex = 0;
             List<Vector3> vertices = new List<Vector3> ();
             List<uint> triangles = new List<uint> ();
             List<Vector2> uvs = new List<Vector2> ();
+            List<Vector3> normals = new List<Vector3>();
 
             for (int p = 0; p < 6; p++) { 
                 for (int i = 0; i < 6; i++) {
@@ -56,6 +68,7 @@ namespace OrkEngine3D.Graphics.MeshData
                     int triangleIndex = VoxelData.voxelTris [p, i];
                     vertices.Add (VoxelData.voxelVerts [triangleIndex] - (Vector3.One * 0.5f));
                     triangles.Add (vertexIndex);
+                    normals.Add(faceChecks[p]);
 
                     uvs.Add (VoxelData.voxelUvs [i]);
 
@@ -64,7 +77,7 @@ namespace OrkEngine3D.Graphics.MeshData
                 }
             }
 
-            return new MeshInformation(vertices.ToArray(), new Color4[0], uvs.ToArray(), triangles.ToArray());
+            return new MeshInformation(vertices.ToArray(), new Color4[0], uvs.ToArray(), normals.ToArray(), triangles.ToArray());
         }
 
 
