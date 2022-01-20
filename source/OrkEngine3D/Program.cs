@@ -64,6 +64,10 @@ namespace OrkEngine3D
         {
             meshTransform.position.Z = -2f;// + MathF.Sin(t);
             meshTransform.Rotate(-Vector3.One * context.deltaTime);
+            while(context.nonQueriedKeys.Count > 0){
+                KeyEvent e = context.nonQueriedKeys.Dequeue();
+                Console.WriteLine($"Keyboard: {e.eventType.ToString()}, {e.key.ToString()}");
+            }
         }
 
         string vshadersource = @"

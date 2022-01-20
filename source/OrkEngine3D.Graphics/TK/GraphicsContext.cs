@@ -70,8 +70,7 @@ namespace OrkEngine3D.Graphics.TK
         public Queue<KeyEvent> nonQueriedKeys = new Queue<KeyEvent>();
 
         private void KeyDown(KeyboardKeyEventArgs e){
-            if(e.IsRepeat)
-                nonQueriedKeys.Enqueue(new KeyEvent(KeyEventType.KeyDown, (Key)e.Key));
+            nonQueriedKeys.Enqueue(new KeyEvent(KeyEventType.KeyDown, (Key)e.Key));
         }
 
         private void KeyUp(KeyboardKeyEventArgs e){
