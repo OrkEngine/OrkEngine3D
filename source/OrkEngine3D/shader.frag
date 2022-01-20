@@ -1,9 +1,10 @@
-﻿#version 330 core
+﻿#version 400 core
 out vec4 FragColor;
 
 in vec3 Normal;
 in vec2 fUV;
 in vec3 Pos;
+flat in int mat;
 
 uniform vec3 camera_pos;
 
@@ -22,16 +23,33 @@ struct Material {
     vec3 diffuse;
     vec3 specular;
 
-    sampler2D texture0;
-
     float shininess;
 };
-  
-uniform Material material;
+
+uniform Material material0;
+uniform Material material1;
+uniform Material material2;
+
+uniform sampler2D material1_texture0;
 
 void main()
-{   
-    vec3 objectColor = texture(material.texture0, fUV).rgb;
+{
+    Material material = Material(vec3(0), vec3(0), vec3(0), 0);
+    vec3 objectColor = vec3(0, 0, 0);
+    if(mat == 1){
+        material.ambient = material1.ambient;
+        material.diffuse = material1.diffuse;
+        material.specular = material1.specular;
+        material.shininess = material1.shininess;
+        objectColor = material1.ambient;
+    }
+    if(mat == 2){
+        material.ambient = material2.ambient;
+        material.diffuse = material2.diffuse;
+        material.specular = material2.specular;
+        material.shininess = material2.shininess;
+        objectColor = material2.ambient;
+    }
 
     vec3 ambient = (ambient.color * ambient.strength) * material.ambient;
   	
@@ -48,5 +66,5 @@ void main()
     vec3 specular = (light.color * light.strength) * (spec * material.specular);  
         
     vec3 result = (ambient + diffuse + specular) * objectColor;
-    FragColor = vec4(result, 1.0);
+    FragColor = vec4(result, 0.0);
 }
