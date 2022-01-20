@@ -15,7 +15,7 @@ namespace OrkEngine3D
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Teapot");
             GraphicsContext ctx = new GraphicsContext("Hello World", new TestHandler());
             ctx.Run();
         }
@@ -41,7 +41,7 @@ namespace OrkEngine3D
 
             mesh.shader = program;
 
-            MeshInformation voxelInformation = VoxelData.GenerateVoxelInformation();
+            MeshInformation voxelInformation = ObjLoader.LoadObjData(File.ReadAllText("model.obj"));//VoxelData.GenerateVoxelInformation();
 
             mesh.verticies = voxelInformation.verticies;
             mesh.triangles = voxelInformation.triangles;
@@ -64,9 +64,14 @@ namespace OrkEngine3D
             
             Rendering.BindCamera(camera);
 
-
             lscene = new LightScene();
             Rendering.BindLightning(lscene);
+
+            meshTransform.position.Z = -0.5f;// + MathF.Sin(t);
+            meshTransform.position.Y = -4f;
+            meshTransform.scale = Vector3.One * 1.5f;
+            meshTransform.position.Y = 0f;
+            meshTransform.Rotate(new Vector3(MathF.PI / 3, MathF.PI / 2, 0));
 
         }
 
@@ -92,10 +97,9 @@ namespace OrkEngine3D
         public override void Update()
         {
             t += context.deltaTime;
-            meshTransform.position.Z = -2f;// + MathF.Sin(t);
-            meshTransform.Rotate(-Vector3.One * context.deltaTime);
-
-            lscene.light.color = new Color3((MathF.Sin(t) + 1) / 2, (MathF.Cos(t) + 1) / 2, MathF.Max(MathF.Cos(t), (MathF.Sin(t)) + 1) / 2);
+            meshTransform.position.Z = -3f;// + MathF.Sin(t);
+            //meshTransform.Rotate(Vector3.One * context.deltaTime);
+            //lscene.light.color = new Color3((MathF.Sin(t) + 1) / 2, (MathF.Cos(t) + 1) / 2, MathF.Max(MathF.Cos(t), (MathF.Sin(t)) + 1) / 2);
 
 
             while(context.nonQueriedKeys.Count > 0){
