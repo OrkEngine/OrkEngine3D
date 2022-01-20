@@ -829,6 +829,29 @@ namespace OrkEngine3D.Mathematics
         }
 
         /// <summary>
+        /// Move a point from current to target
+        /// </summary>
+        /// <param name="current">current point</param>
+        /// <param name="target">target point</param>
+        /// <param name="maxDistanceDelta">distance between</param>
+        /// <returns>distance</returns>
+        public static Vector2 MoveTowards(Vector2 current, Vector2 target, float maxDistanceDelta)
+        {
+            float toV_x = target.X - current.X;
+            float toV_y = target.Y - current.Y;
+
+            float sqDistance = toV_x * toV_x + toV_y * toV_y;
+
+            if (sqDistance == 0 || (maxDistanceDelta >= 0 && sqDistance <= maxDistanceDelta * maxDistanceDelta))
+                return target;
+
+            float distance = (float)Math.Sqrt(sqDistance);
+
+            return new Vector2(current.X + toV_x / distance * maxDistanceDelta,
+                               current.Y + toV_y / distance * maxDistanceDelta);
+        }
+
+        /// <summary>
         /// Performs a cubic interpolation between two vectors.
         /// </summary>
         /// <param name="start">Start vector.</param>
