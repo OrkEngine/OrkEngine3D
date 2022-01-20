@@ -6,6 +6,7 @@ using OrkEngine3D.Graphics;
 using OrkEngine3D.Graphics.MeshData;
 using OrkEngine3D.Graphics.TK;
 using OrkEngine3D.Graphics.TK.Resources;
+using OrkEngine3D.Diagnostics.Logging;
 using OrkEngine3D.Mathematics;
 using MathF = OrkEngine3D.Mathematics.MathF;
 
@@ -15,7 +16,9 @@ namespace OrkEngine3D
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Teapot");
+			Logger logger = new Logger("MainLogger", "NoModule");
+			logger.Log(LogMessageType.DEBUG, "Teapot");
+            
             GraphicsContext ctx = new GraphicsContext("Hello World", new TestHandler());
             ctx.Run();
         }
@@ -104,7 +107,7 @@ namespace OrkEngine3D
 
             while(context.nonQueriedKeys.Count > 0){
                 KeyEvent e = context.nonQueriedKeys.Dequeue();
-                Console.WriteLine($"Keyboard: {e.eventType.ToString()}, {e.key.ToString()}");
+				Logger.Get("MainLogger").Log(LogMessageType.DEBUG, $"Keyboard: {e.eventType.ToString()}, {e.key.ToString()}");
             }
         }
 
