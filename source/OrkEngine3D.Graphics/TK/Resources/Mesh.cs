@@ -32,6 +32,11 @@ namespace OrkEngine3D.Graphics.TK.Resources
         public Color4[] colors = new Color4[0];
 
         /// <summary>
+        /// The mesh normals
+        /// </summary>
+        public Vector3[] normals = new Vector3[0];
+
+        /// <summary>
         /// The triangles of the mesh
         /// </summary>
         public uint[] triangles = new uint[0];
@@ -68,7 +73,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
                 throw new NullReferenceException("Shader is null, make sure to set shader before updating data!");
             
             // Floats per vertex
-            int floatsperv = 3 + 2 + 4; // Vec3 + Vec2 + Col4
+            int floatsperv = 3 + 3 + 2 + 4; // Vec3 + Vec3 + Vec2 + Col4
             float[] bakedData = new float[verticies.Length * floatsperv]; // The baked vertex data array
 
             for (var i = 0; i < verticies.Length; i++)
@@ -94,6 +99,9 @@ namespace OrkEngine3D.Graphics.TK.Resources
                 bakedData[i * floatsperv + 6] = (colors.Length > 0 ? colors[i].Green : 0);
                 bakedData[i * floatsperv + 7] = (colors.Length > 0 ? colors[i].Blue : 0);
                 bakedData[i * floatsperv + 8] = (colors.Length > 0 ? colors[i].Alpha : 0);
+                bakedData[i * floatsperv + 9] = (normals.Length > 0 ? normals[i].X : 0);
+                bakedData[i * floatsperv + 10] = (normals.Length > 0 ? normals[i].Y: 0);
+                bakedData[i * floatsperv + 11] = (normals.Length > 0 ? normals[i].Z : 0);
             }
 
             GL.BindVertexArray(VAO); // Bind our vertex array
@@ -108,6 +116,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
             int vpos = shader.GetAttribLocation("vert_position");
             int vuv = shader.GetAttribLocation("vert_uv");
             int vcol = shader.GetAttribLocation("vert_color");
+            int vnorm = shader.GetAttribLocation("vert_normal");
 
             GL.VertexAttribPointer(vpos, 3, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 0 * sizeof(float));
             GL.EnableVertexAttribArray(vpos);
@@ -117,6 +126,9 @@ namespace OrkEngine3D.Graphics.TK.Resources
 
             GL.VertexAttribPointer(vcol, 4, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 5 * sizeof(float));
             GL.EnableVertexAttribArray(vcol);
+
+            GL.VertexAttribPointer(vnorm, 3, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 9 * sizeof(float));
+            GL.EnableVertexAttribArray(vnorm);
         
         }
 

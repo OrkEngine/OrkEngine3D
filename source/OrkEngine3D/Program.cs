@@ -42,6 +42,7 @@ namespace OrkEngine3D
             mesh.verticies = voxelInformation.verticies;
             mesh.triangles = voxelInformation.triangles;
             mesh.uv = voxelInformation.uv;
+            mesh.normals = voxelInformation.normals;
 
             Texture testTexture = new Texture(resourceManager, Texture.GetTextureDataFromFile("thevroom.png"));
 
@@ -70,10 +71,12 @@ namespace OrkEngine3D
 in vec3 vert_position;
 in vec4 vert_color;
 in vec2 vert_uv;
+in vec3 vert_normal;
 
 out vec4 fColor;
 out vec3 fPos;
 out vec2 fUV;
+out vec3 fNorm;
 
 uniform mat4 matx_model;
 uniform mat4 matx_view;

@@ -21,7 +21,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
             GL.GetShaderInfoLog(id, out string log);
 
             if(!string.IsNullOrEmpty(log)){
-                throw new ShaderException(log);
+                throw new ShaderException(type.ToString() + ": " + log);
             }
         }
 
