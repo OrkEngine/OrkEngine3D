@@ -154,6 +154,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
             shader.Uniform3("material.ambient", Rendering.currentMaterial.ambient);
             shader.Uniform3("material.diffuse", Rendering.currentMaterial.diffuse);
             shader.Uniform3("material.specular", Rendering.currentMaterial.specular);
+
             shader.Uniform1("material.shininess", Rendering.currentMaterial.shininess);
 
             shader.Uniform3("camera_pos", Rendering.currentCamera.transform.position);

@@ -7,6 +7,7 @@ using OrkEngine3D.Graphics.MeshData;
 using OrkEngine3D.Graphics.TK;
 using OrkEngine3D.Graphics.TK.Resources;
 using OrkEngine3D.Mathematics;
+using MathF = OrkEngine3D.Mathematics.MathF;
 
 namespace OrkEngine3D
 {
