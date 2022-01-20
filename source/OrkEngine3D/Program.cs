@@ -98,7 +98,7 @@ namespace OrkEngine3D
         {
             t += context.deltaTime;
             meshTransform.position.Z = -3f;// + MathF.Sin(t);
-            //meshTransform.Rotate(Vector3.One * context.deltaTime);
+            meshTransform.Rotate(Vector3.One * context.deltaTime);
             //lscene.light.color = new Color3((MathF.Sin(t) + 1) / 2, (MathF.Cos(t) + 1) / 2, MathF.Max(MathF.Cos(t), (MathF.Sin(t)) + 1) / 2);
 
 
@@ -107,48 +107,5 @@ namespace OrkEngine3D
                 Console.WriteLine($"Keyboard: {e.eventType.ToString()}, {e.key.ToString()}");
             }
         }
-
-        string vshadersource = @"
-#version 330 core
-in vec3 vert_position;
-in vec4 vert_color;
-in vec2 vert_uv;
-in vec3 vert_normal;
-
-out vec4 fColor;
-out vec3 fPos;
-out vec2 fUV;
-out vec3 fNorm;
-
-uniform mat4 matx_model;
-uniform mat4 matx_view;
-
-void main()
-{
-    gl_Position = matx_view * matx_model * vec4(vert_position, 1.0);
-    fColor = vert_color;
-    fUV = vert_uv;
-    fPos = vert_position;
-}
-        ";
-
-        string fshadersource = @"
-#version 330 core
-out vec4 FragColor;
-
-in vec4 fColor;
-in vec3 fPos;
-in vec2 fUV;
-
-uniform sampler2D mat_texture0;
-uniform sampler2D mat_texture1;
-
-void main()
-{
-    FragColor = texture(mat_texture1, fUV);
-    FragColor = texture(mat_texture0, fUV);
-}
-
-        ";
     }
 }

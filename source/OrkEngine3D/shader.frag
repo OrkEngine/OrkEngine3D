@@ -31,7 +31,7 @@ uniform Material material;
 
 void main()
 {   
-    vec3 objectColor = vec3(1, 1, 1);//texture(mat_texture0, fUV).rgb;
+    vec3 objectColor = texture(mat_texture0, fUV).rgb;
 
     vec3 ambient = (ambient.color * ambient.strength) * material.ambient;
   	
