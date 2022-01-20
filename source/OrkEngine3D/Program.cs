@@ -6,6 +6,7 @@ using OrkEngine3D.Graphics.MeshData;
 using OrkEngine3D.Graphics.TK;
 using OrkEngine3D.Graphics.TK.Resources;
 using OrkEngine3D.Mathematics;
+using OrkEngine3D.Diagnostics.Logging;
 
 namespace OrkEngine3D
 {
@@ -13,7 +14,14 @@ namespace OrkEngine3D
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Logger testLogger = new Logger("testLogger", "MainModule");
+			
+			testLogger.Log(LogMessageType.INFORMATION, "Created logger!");
+			testLogger.Log(LogMessageType.SUCCESS, "yay it works");
+			testLogger.Log(LogMessageType.WARNING, "some warning!!");
+			testLogger.Log(LogMessageType.ERROR, "ohno");
+			testLogger.Log(LogMessageType.FATAL, "o h   g o d");
+
             GraphicsContext ctx = new GraphicsContext("Hello World", new TestHandler());
             ctx.Run();
         }
