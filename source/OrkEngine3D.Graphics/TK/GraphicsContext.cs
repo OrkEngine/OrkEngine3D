@@ -57,6 +57,7 @@ namespace OrkEngine3D.Graphics.TK
             handler.Init();
             
         }
+
         public Vector2 mouseDelta = Vector2.Zero;
         private void OnRender(FrameEventArgs e){
             mouseDelta = Vector2.Zero;
@@ -88,6 +89,12 @@ namespace OrkEngine3D.Graphics.TK
         private void OnUpdate(FrameEventArgs e){
             deltaTime = (float)e.Time;
             handler.Update();
+        }
+
+        public void ResetFrameBuffer()
+        {
+            GL.Viewport(0, 0, window.Size.X, window.Size.Y);
+            GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
         }
 
         private void Unload(){
