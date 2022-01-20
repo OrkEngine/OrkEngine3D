@@ -31,7 +31,7 @@ namespace OrkEngine3D.Graphics.MeshData
 
                 if (line.StartsWith("v "))
                 {
-                    var c = line.Split(' ');
+                    var c = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (c.Length < 4)
                         throw new Exception("Invalid OBJ file!");
                     float x = float.Parse(c[1], CultureInfo.InvariantCulture);
@@ -41,7 +41,7 @@ namespace OrkEngine3D.Graphics.MeshData
                 }
                 if (line.StartsWith("vt "))
                 {
-                    var c = line.Split(' ');
+                    var c = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (c.Length < 3)
                         throw new Exception("Invalid OBJ file!");
                     float x = float.Parse(c[1], CultureInfo.InvariantCulture);
@@ -50,7 +50,7 @@ namespace OrkEngine3D.Graphics.MeshData
                 }
                 if (line.StartsWith("vn "))
                 {
-                    var c = line.Split(' ');
+                    var c = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (c.Length < 4)
                         throw new Exception("Invalid OBJ file!");
                     float x = float.Parse(c[1], CultureInfo.InvariantCulture);
