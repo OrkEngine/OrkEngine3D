@@ -5,6 +5,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="model.mtl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="model.obj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
