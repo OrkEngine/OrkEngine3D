@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using OrkEngine3D.Components.Core;
 using OrkEngine3D.Graphics;
 using OrkEngine3D.Graphics.MeshData;
 using OrkEngine3D.Graphics.TK;
 using OrkEngine3D.Graphics.TK.Resources;
 using OrkEngine3D.Mathematics;
+using MathF = OrkEngine3D.Mathematics.MathF;
 
 namespace OrkEngine3D
 {
@@ -13,7 +15,7 @@ namespace OrkEngine3D
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Teapot");
             GraphicsContext ctx = new GraphicsContext("Hello World", new TestHandler());
             ctx.Run();
         }
@@ -28,17 +30,18 @@ namespace OrkEngine3D
         Mesh mesh;
         Transform meshTransform;
         RenderBuffer renderBuffer;
+        LightScene lscene;
         public override void Init()
         {
             mesh = new Mesh(resourceManager);
-            fshader = new Shader(resourceManager, fshadersource, ShaderType.FragmentShader);
-            vshader = new Shader(resourceManager, vshadersource, ShaderType.VertexShader);
+            fshader = new Shader(resourceManager, File.ReadAllText("shader.frag"), ShaderType.FragmentShader);
+            vshader = new Shader(resourceManager, File.ReadAllText("shader.vert"), ShaderType.VertexShader);
 
             program = new ShaderProgram(resourceManager, vshader, fshader);
 
             mesh.shader = program;
 
-            MeshInformation voxelInformation = VoxelData.GenerateVoxelInformation();
+            MeshInformation voxelInformation = ObjLoader.LoadObjData(File.ReadAllText("model.obj"));//VoxelData.GenerateVoxelInformation();
 
             mesh.verticies = voxelInformation.verticies;
             mesh.triangles = voxelInformation.triangles;
@@ -58,8 +61,17 @@ namespace OrkEngine3D
             meshTransform = new Transform();
 
             Rendering.BindContext(context);
-            Rendering.BindTransform(meshTransform);
+            
             Rendering.BindCamera(camera);
+
+            lscene = new LightScene();
+            Rendering.BindLightning(lscene);
+
+            meshTransform.position.Z = -0.5f;// + MathF.Sin(t);
+            meshTransform.position.Y = -4f;
+            meshTransform.scale = Vector3.One * 1.5f;
+            meshTransform.position.Y = 0f;
+            meshTransform.Rotate(new Vector3(MathF.PI / 3, MathF.PI / 2, 0));
 
         }
 
@@ -69,21 +81,27 @@ namespace OrkEngine3D
             Rendering.BindTarget(renderBuffer);
             Rendering.ClearTarget();
 
+            Rendering.BindTransform(meshTransform);
             mesh.Render();
 
 
             Rendering.ResetTarget();
             Rendering.ClearTarget();
 
+            Rendering.BindTransform(meshTransform);
             mesh.Render();
 
             Rendering.SwapBuffers();
         }
-
+        float t = 0;
         public override void Update()
         {
-            meshTransform.position.Z = -2f;// + MathF.Sin(t);
-            meshTransform.Rotate(-Vector3.One * context.deltaTime);
+            t += context.deltaTime;
+            meshTransform.position.Z = -3f;// + MathF.Sin(t);
+            //meshTransform.Rotate(Vector3.One * context.deltaTime);
+            //lscene.light.color = new Color3((MathF.Sin(t) + 1) / 2, (MathF.Cos(t) + 1) / 2, MathF.Max(MathF.Cos(t), (MathF.Sin(t)) + 1) / 2);
+
+
             while(context.nonQueriedKeys.Count > 0){
                 KeyEvent e = context.nonQueriedKeys.Dequeue();
                 Console.WriteLine($"Keyboard: {e.eventType.ToString()}, {e.key.ToString()}");
