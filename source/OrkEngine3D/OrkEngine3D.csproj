@@ -9,6 +9,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="model.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="monke.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="shader.frag">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="shader.vert">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="thevroom.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

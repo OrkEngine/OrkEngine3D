@@ -48,7 +48,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
             {
                 string name = GL.GetActiveUniform(id, i, out int size, out ActiveUniformType type);
 
-                uniforms.Add(name, i);
+                uniforms.Add(name, GL.GetUniformLocation(id, name));
             }
         }
 
