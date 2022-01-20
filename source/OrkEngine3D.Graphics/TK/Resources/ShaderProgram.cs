@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL4;
 
 namespace OrkEngine3D.Graphics.TK.Resources
@@ -30,7 +31,6 @@ namespace OrkEngine3D.Graphics.TK.Resources
             {
                 GL.DetachShader(id, shaders[i].id);
             }
-
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
         }
 
         /// <summary>
-        /// Dispatch the compute shader
+        /// Dispatch compute shader if the ShaderProgram contains one
         /// </summary>
         public void DispatchCompute(int width, int height, int depth){
             Use();
@@ -70,6 +70,9 @@ namespace OrkEngine3D.Graphics.TK.Resources
             GL.Finish();
         }
 
+        /// <summary>
+        /// Unload the ShaderProgram
+        /// </summary>
         public override void Unload()
         {
             GL.DeleteProgram(id);
