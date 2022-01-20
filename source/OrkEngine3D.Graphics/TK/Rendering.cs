@@ -14,7 +14,7 @@ namespace OrkEngine3D.Graphics.TK
         public static Transform currentTransform { get; private set; }
         public static IRenderTarget renderTarget { get; private set; } = WindowTarget.Global;
         public static LightScene currentLightning { get; private set; }
-        public static Material currentMaterial { get; private set; } = new Material();
+        public static Material[] currentMaterials { get; private set; } = new Material[] { new Material() };
 
         public static void BindCamera(Camera camera)
         {
@@ -33,7 +33,12 @@ namespace OrkEngine3D.Graphics.TK
 
         public static void BindMaterial(Material material)
         {
-            currentMaterial = material;
+            currentMaterials = new[] { material };
+        }
+
+        public static void BindMaterials(params Material[] materials)
+        {
+            currentMaterials = materials;
         }
 
         public static void BindTransform(Transform t)

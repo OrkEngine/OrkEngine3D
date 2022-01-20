@@ -47,6 +47,8 @@ namespace OrkEngine3D.Graphics.TK.Resources
         /// </summary>
         public ShaderProgram shader;
 
+        public int[] materials;
+
         /// <summary>
         /// Creates the mesh and allocates all resources
         /// </summary>
@@ -69,7 +71,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
                 Logger.Get("ShaderLoader", "Graphics").Log(LogMessageType.FATAL, "Shader is null, make sure to set shader before updating data!");
             
             // Floats per vertex
-            int floatsperv = 3 + 3 + 2 + 4; // Vec3 + Vec3 + Vec2 + Col4
+            int floatsperv = 3 + 3 + 2 + 4 + 1; // Vec3 + Vec3 + Vec2 + Col4 + int
             float[] bakedData = new float[verticies.Length * floatsperv]; // The baked vertex data array
 
             for (var i = 0; i < verticies.Length; i++)
@@ -98,6 +100,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
                 bakedData[i * floatsperv + 9] = (normals.Length > 0 ? normals[i].X : 0);
                 bakedData[i * floatsperv + 10] = (normals.Length > 0 ? normals[i].Y: 0);
                 bakedData[i * floatsperv + 11] = (normals.Length > 0 ? normals[i].Z : 0);
+                bakedData[i * floatsperv + 12] = (materials.Length > 0 ? materials[i] : 0);
             }
 
             GL.BindVertexArray(VAO); // Bind our vertex array
@@ -113,6 +116,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
             int vuv = shader.GetAttribLocation("vert_uv");
             int vcol = shader.GetAttribLocation("vert_color");
             int vnorm = shader.GetAttribLocation("vert_normal");
+            int vmat = shader.GetAttribLocation("vert_material");
 
             GL.VertexAttribPointer(vpos, 3, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 0 * sizeof(float));
             GL.EnableVertexAttribArray(vpos);
@@ -125,7 +129,10 @@ namespace OrkEngine3D.Graphics.TK.Resources
 
             GL.VertexAttribPointer(vnorm, 3, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 9 * sizeof(float));
             GL.EnableVertexAttribArray(vnorm);
-        
+
+            GL.VertexAttribPointer(vmat, 1, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 12 * sizeof(float));
+            GL.EnableVertexAttribArray(vmat);
+
         }
 
         /// <summary>
@@ -143,22 +150,29 @@ namespace OrkEngine3D.Graphics.TK.Resources
             shader.Uniform3("ambient.color", Rendering.currentLightning.ambient.color);
             shader.Uniform3("ambient.position", Rendering.currentLightning.ambient.position);
 
+            shader.Uniform3("camera_pos", Rendering.currentCamera.transform.position);
+
             shader.Uniform1("light.strength", Rendering.currentLightning.light.strength);
             shader.Uniform3("light.color", Rendering.currentLightning.light.color);
             shader.Uniform3("light.position", Rendering.currentLightning.light.position);
 
-            shader.Uniform3("material.ambient", Rendering.currentMaterial.ambient);
-            shader.Uniform3("material.diffuse", Rendering.currentMaterial.diffuse);
-            shader.Uniform3("material.specular", Rendering.currentMaterial.specular);
-
-            shader.Uniform1("material.shininess", Rendering.currentMaterial.shininess);
-
-            shader.Uniform3("camera_pos", Rendering.currentCamera.transform.position);
-
-            for (byte i = 0; i < Rendering.currentMaterial.textures.Length; i++)
+            for (int i = 0; i < Rendering.currentMaterials.Length; i++)
             {
-                shader.Uniform1("material.texture" + i.ToString(), i);
-                Rendering.currentMaterial.textures[i].Use(i);
+                Material material = Rendering.currentMaterials[i];
+
+                shader.Uniform3($"material{i}.ambient", material.ambient);
+                shader.Uniform3($"material{i}.diffuse", material.diffuse);
+                shader.Uniform3($"material{i}.specular", material.specular);
+
+                shader.Uniform1($"material{i}.shininess", material.shininess);
+
+
+
+                for (byte t = 0; t < material.textures.Length; t++)
+                {
+                    shader.Uniform1($"material{i}_texture" + t.ToString(), t);
+                    material.textures[t].Use(t);
+                }
             }
 
             GL.DrawElements(PrimitiveType.Triangles, triangles.Length, DrawElementsType.UnsignedInt, 0);

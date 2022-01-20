@@ -47,14 +47,15 @@ namespace OrkEngine3D
 
             mesh.shader = program;
 
-            MeshInformation voxelInformation = ObjLoader.LoadObjData(File.ReadAllText("model.obj"), out string mtlfile);//VoxelData.GenerateVoxelInformation();
-            Material mat = ObjLoader.LoadMTLFromFile(File.ReadAllText(mtlfile));
-            Rendering.BindMaterial(mat);
+            ObjComplete voxelInformation = ObjLoader.LoadObjFromData(File.ReadAllText("model.obj"));//VoxelData.GenerateVoxelInformation();
 
-            mesh.verticies = voxelInformation.verticies;
-            mesh.triangles = voxelInformation.triangles;
-            mesh.uv = voxelInformation.uv;
-            mesh.normals = voxelInformation.normals;
+            Rendering.BindMaterials(voxelInformation.materials);
+
+            mesh.verticies = voxelInformation.meshInformation.verticies;
+            mesh.triangles = voxelInformation.meshInformation.triangles;
+            mesh.uv = voxelInformation.meshInformation.uv;
+            mesh.normals = voxelInformation.meshInformation.normals;
+            mesh.materials = voxelInformation.meshInformation.materials;
 
             
 
@@ -75,9 +76,7 @@ namespace OrkEngine3D
 
             meshTransform.position.Z = -0.5f;// + MathF.Sin(t);
             meshTransform.position.Y = -4f;
-            meshTransform.scale = Vector3.One * 1.5f;
             meshTransform.position.Y = 0f;
-            meshTransform.Rotate(new Vector3(MathF.PI / 3, MathF.PI / 2, 0));
 
         }
 
@@ -104,7 +103,7 @@ namespace OrkEngine3D
         {
             t += context.deltaTime;
             meshTransform.position.Z = -3f;// + MathF.Sin(t);
-            meshTransform.Rotate(Vector3.One * context.deltaTime);
+            meshTransform.Rotate(Vector3.UnitY * context.deltaTime);
             //lscene.light.color = new Color3((MathF.Sin(t) + 1) / 2, (MathF.Cos(t) + 1) / 2, MathF.Max(MathF.Cos(t), (MathF.Sin(t)) + 1) / 2);
 
 
