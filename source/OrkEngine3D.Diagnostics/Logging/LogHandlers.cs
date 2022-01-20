@@ -19,7 +19,7 @@ namespace OrkEngine3D.Diagnostics.Logging
 			message.LogType == LogMessageType.WARNING     ? ConsoleColor.Yellow   :
 			message.LogType == LogMessageType.SUCCESS     ? ConsoleColor.Green    :
 			message.LogType == LogMessageType.INFORMATION ? ConsoleColor.Cyan     :
-			message.LogType == LogMessageType.UNKOWN      ? ConsoleColor.DarkGray :
+			message.LogType == LogMessageType.UNKNOWN      ? ConsoleColor.DarkGray :
 			ConsoleColor.White;
 
 			Console.WriteLine(message.FormattedMessage);

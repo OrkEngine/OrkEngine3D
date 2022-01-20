@@ -18,7 +18,7 @@ namespace OrkEngine3D.Diagnostics.Logging
 
 	public enum LogMessageType
     {
-		UNKOWN,
+		UNKNOWN,
         DEBUG,
         ERROR,
         WARNING,
