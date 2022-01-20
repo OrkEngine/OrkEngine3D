@@ -143,6 +143,15 @@ namespace OrkEngine3D.Graphics.TK.Resources
             shader.Use();
             shader.UniformMatrix("matx_view", Rendering.currentCamera.GetMatrix());
             shader.UniformMatrix("matx_model", Rendering.currentTransform.GetMatrix());
+            shader.Uniform1("ambient.strength", Rendering.currentLightning.ambient.strength);
+            shader.Uniform3("ambient.color", Rendering.currentLightning.ambient.color);
+            shader.Uniform3("ambient.position", Rendering.currentLightning.ambient.position);
+
+            shader.Uniform1("light.strength", Rendering.currentLightning.light.strength);
+            shader.Uniform3("light.color", Rendering.currentLightning.light.color);
+            shader.Uniform3("light.position", Rendering.currentLightning.light.position);
+
+            shader.Uniform3("camera_pos", Rendering.currentCamera.transform.position);
 
             for (byte i = 0; i < textures.Length; i++)
             {

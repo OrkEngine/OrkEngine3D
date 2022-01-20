@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using OrkEngine3D.Components.Core;
 using OrkEngine3D.Graphics;
 using OrkEngine3D.Graphics.MeshData;
@@ -31,8 +32,8 @@ namespace OrkEngine3D
         public override void Init()
         {
             mesh = new Mesh(resourceManager);
-            fshader = new Shader(resourceManager, fshadersource, ShaderType.FragmentShader);
-            vshader = new Shader(resourceManager, vshadersource, ShaderType.VertexShader);
+            fshader = new Shader(resourceManager, File.ReadAllText("shader.frag"), ShaderType.FragmentShader);
+            vshader = new Shader(resourceManager, File.ReadAllText("shader.vert"), ShaderType.VertexShader);
 
             program = new ShaderProgram(resourceManager, vshader, fshader);
 
@@ -58,8 +59,12 @@ namespace OrkEngine3D
             meshTransform = new Transform();
 
             Rendering.BindContext(context);
-            Rendering.BindTransform(meshTransform);
+            
             Rendering.BindCamera(camera);
+
+
+            LightScene lscene = new LightScene();
+            Rendering.BindLightning(lscene);
 
         }
 
@@ -69,12 +74,14 @@ namespace OrkEngine3D
             Rendering.BindTarget(renderBuffer);
             Rendering.ClearTarget();
 
+            Rendering.BindTransform(meshTransform);
             mesh.Render();
 
 
             Rendering.ResetTarget();
             Rendering.ClearTarget();
 
+            Rendering.BindTransform(meshTransform);
             mesh.Render();
 
             Rendering.SwapBuffers();
