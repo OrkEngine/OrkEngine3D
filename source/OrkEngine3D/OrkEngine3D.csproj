@@ -5,6 +5,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OrkEngine3D.Diagnostics\OrkEngine3D.Diagnostics.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="model.obj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
