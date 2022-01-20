@@ -4,6 +4,7 @@ using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL4;
 using System;
 using OrkEngine3D.Graphics.TK.Resources;
+using OrkEngine3D.Diagnostics.Logging;
 using OrkEngine3D.Mathematics;
 using Vector3 = OrkEngine3D.Mathematics.Vector3;
 using Color4 = OrkEngine3D.Mathematics.Color4;
@@ -112,9 +113,11 @@ namespace OrkEngine3D.Graphics.TK
         void MessageCallback(DebugSource source, DebugType type, int id, DebugSeverity severity, int length, IntPtr message, IntPtr userParam)
         {
             if(severity == DebugSeverity.DebugSeverityHigh){
-                Console.Error.WriteLine($"GL ERROR type = {type.ToString()}, severity = {severity.ToString()}, message = {Marshal.PtrToStringAuto(message)}");
+				Logger.Get("GraphicsLogger", "OrkEngine3D.Graphics").Log(LogMessageType.ERROR,
+				$"GL ERROR type = {type.ToString()}, severity = {severity.ToString()}, message = {Marshal.PtrToStringAuto(message)}");
             } else{
-                Console.WriteLine($"GL CALLBACK: {(type == DebugType.DebugTypeError ? "**GL ERROR**" : "")} type = {type.ToString()}, severity = {severity.ToString()}, message = {Marshal.PtrToStringAuto(message)}");
+				Logger.Get("GraphicsLogger", "OrkEngine3D.Graphics").Log(LogMessageType.INFORMATION,
+				$"GL CALLBACK: {(type == DebugType.DebugTypeError ? "**GL ERROR**" : "")} type = {type.ToString()}, severity = {severity.ToString()}, message = {Marshal.PtrToStringAuto(message)}");
             }
         }
 
