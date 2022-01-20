@@ -4,6 +4,7 @@ using OpenTK.Graphics.OpenGL4;
 using System.Linq;
 using OrkEngine3D.Mathematics;
 using OrkEngine3D.Components.Core;
+using OrkEngine3D.Diagnostics.Logging;
 
 namespace OrkEngine3D.Graphics.TK.Resources
 {
@@ -47,11 +48,6 @@ namespace OrkEngine3D.Graphics.TK.Resources
         public ShaderProgram shader;
 
         /// <summary>
-        /// The textures passed to the shader
-        /// </summary>
-        public Texture[] textures;
-
-        /// <summary>
         /// Creates the mesh and allocates all resources
         /// </summary>
         /// <param name="manager"></param>
@@ -70,7 +66,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
         public void UpdateGLData(){
             // We cannot locate variables in a non-existent 
             if(shader == null)
-                throw new NullReferenceException("Shader is null, make sure to set shader before updating data!");
+                Logger.Get("ShaderLoader", "Graphics").Log(LogMessageType.FATAL, "Shader is null, make sure to set shader before updating data!");
             
             // Floats per vertex
             int floatsperv = 3 + 3 + 2 + 4; // Vec3 + Vec3 + Vec2 + Col4
@@ -159,10 +155,10 @@ namespace OrkEngine3D.Graphics.TK.Resources
 
             shader.Uniform3("camera_pos", Rendering.currentCamera.transform.position);
 
-            for (byte i = 0; i < textures.Length; i++)
+            for (byte i = 0; i < Rendering.currentMaterial.textures.Length; i++)
             {
-                shader.Uniform1("mat_texture" + i.ToString(), i);
-                textures[i].Use(i);
+                shader.Uniform1("material.texture" + i.ToString(), i);
+                Rendering.currentMaterial.textures[i].Use(i);
             }
 
             GL.DrawElements(PrimitiveType.Triangles, triangles.Length, DrawElementsType.UnsignedInt, 0);

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL4;
+using OrkEngine3D.Diagnostics.Logging;
 using OrkEngine3D.Mathematics;
 
 namespace OrkEngine3D.Graphics.TK.Resources
@@ -35,7 +36,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
             GL.GetProgramInfoLog(id, out string log);
 
             if(!string.IsNullOrEmpty(log)){
-                throw new ProgramException(log);
+                Logger.Get("ProgramLinker", "Graphics").Log(LogMessageType.ERROR, log);
             }
             
             for (var i = 0; i < shaders.Length; i++)
