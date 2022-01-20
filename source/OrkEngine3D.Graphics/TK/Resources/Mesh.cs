@@ -15,9 +15,6 @@ namespace OrkEngine3D.Graphics.TK.Resources
         int VBO;
         int VAO;
         int EBO;
-        int m_view;
-        int m_projection;
-        int m_model;
 
         /// <summary>
         /// The verticies of the mesh
@@ -120,9 +117,6 @@ namespace OrkEngine3D.Graphics.TK.Resources
 
             GL.VertexAttribPointer(vcol, 4, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 5 * sizeof(float));
             GL.EnableVertexAttribArray(vcol);
-
-            m_view = shader.GetUniformLocation("matx_view");
-            m_model = shader.GetUniformLocation("matx_model");
         
         }
 
@@ -135,12 +129,12 @@ namespace OrkEngine3D.Graphics.TK.Resources
         public void Render(Camera camera, Transform t, GraphicsContext ctx){
             GL.BindVertexArray(VAO);
             shader.Use();
-            GL.UniformMatrix4(m_view, 1, false, camera.GetMatrix(ctx).ToArray());
-            GL.UniformMatrix4(m_model, 1, false, t.GetMatrix().ToArray());
+            shader.UniformMatrix("matx_view", camera.GetMatrix(ctx));
+            shader.UniformMatrix("matx_model", t.GetMatrix());
 
             for (byte i = 0; i < textures.Length; i++)
             {
-                GL.Uniform1(shader.GetUniformLocation("mat_texture" + i.ToString()), i);
+                shader.Uniform1("mat_texture" + i.ToString(), i);
                 textures[i].Use(i);
             }
 
