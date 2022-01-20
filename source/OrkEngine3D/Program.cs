@@ -29,6 +29,7 @@ namespace OrkEngine3D
         Mesh mesh;
         Transform meshTransform;
         RenderBuffer renderBuffer;
+        LightScene lscene;
         public override void Init()
         {
             mesh = new Mesh(resourceManager);
@@ -63,7 +64,7 @@ namespace OrkEngine3D
             Rendering.BindCamera(camera);
 
 
-            LightScene lscene = new LightScene();
+            lscene = new LightScene();
             Rendering.BindLightning(lscene);
 
         }
@@ -86,11 +87,16 @@ namespace OrkEngine3D
 
             Rendering.SwapBuffers();
         }
-
+        float t = 0;
         public override void Update()
         {
+            t += context.deltaTime;
             meshTransform.position.Z = -2f;// + MathF.Sin(t);
             meshTransform.Rotate(-Vector3.One * context.deltaTime);
+
+            lscene.light.color = new Color3((MathF.Sin(t) + 1) / 2, (MathF.Cos(t) + 1) / 2, MathF.Max(MathF.Cos(t), (MathF.Sin(t)) + 1) / 2);
+
+
             while(context.nonQueriedKeys.Count > 0){
                 KeyEvent e = context.nonQueriedKeys.Dequeue();
                 Console.WriteLine($"Keyboard: {e.eventType.ToString()}, {e.key.ToString()}");

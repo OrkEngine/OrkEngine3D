@@ -10,7 +10,7 @@ namespace OrkEngine3D.Graphics
     public class LightScene
     {
         public Light ambient = new Light(0.2f, new Color3(1f, 1f, 1f), new Vector3(0, 1, 0));
-        public Light light = new Light(1f, new Color3(1f, 1f, 1f), new Vector3(0, 1, 0));
+        public Light light = new Light(2f, new Color3(0f, 0f, 0f), new Vector3(0, 1, 0));
     }
 
     public struct Light
