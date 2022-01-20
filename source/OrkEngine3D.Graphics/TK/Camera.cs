@@ -39,9 +39,10 @@ namespace OrkEngine3D.Graphics.TK
         /// </summary>
         /// <param name="ctx">The current graphics context</param>
         /// <returns>The camera matrix</returns>
-        public Matrix GetMatrix(GraphicsContext ctx)
+        public Matrix GetMatrix()
         {
-            if(perspective)
+            GraphicsContext ctx = Rendering.currentContext;
+            if (perspective)
                 return Matrix.PerspectiveFovRH(fov, (float)ctx.window.Size.X / (float)ctx.window.Size.Y, nearPlane, farPlane);// * Matrix.LookAtRH(transform.position, transform.forward, transform.up);
             else
                 return Matrix.OrthoRH((float)ctx.window.Size.X / (float)ctx.window.Size.Y, 1, nearPlane, farPlane) * Matrix.LookAtRH(transform.position, transform.forward, transform.up);

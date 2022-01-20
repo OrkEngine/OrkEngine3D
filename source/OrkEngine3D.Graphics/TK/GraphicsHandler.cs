@@ -1,6 +1,6 @@
 using OrkEngine3D.Graphics.TK;
 using OrkEngine3D.Graphics.TK.Resources;
-namespace OrkEngine3D.Graphics
+namespace OrkEngine3D.Graphics.TK
 {
     public abstract class GraphicsHandler
     {

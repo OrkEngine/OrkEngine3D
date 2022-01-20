@@ -19,14 +19,15 @@ namespace OrkEngine3D
         }
     }
 
-    class TestHandler : GraphicsHandler{
+    class TestHandler : GraphicsHandler
+    {
         Shader fshader;
         Shader vshader;
         ShaderProgram program;
         Camera camera;
         Mesh mesh;
         Transform meshTransform;
-        //RenderBuffer renderBuffer;
+        RenderBuffer renderBuffer;
         public override void Init()
         {
             mesh = new Mesh(resourceManager);
@@ -46,7 +47,7 @@ namespace OrkEngine3D
 
             Texture testTexture = new Texture(resourceManager, Texture.GetTextureDataFromFile("thevroom.png"));
 
-            //renderBuffer = new RenderBuffer(resourceManager, 1280, 720);
+            renderBuffer = new RenderBuffer(resourceManager, 1280, 720);
 
             mesh.textures = new Texture[] { testTexture };
 
@@ -56,14 +57,27 @@ namespace OrkEngine3D
             camera.perspective = true;
             meshTransform = new Transform();
 
-            //renderBuffer.Target();
-            mesh.Render(camera, meshTransform, context);
-            context.ResetFrameBuffer();
+            Rendering.BindContext(context);
+            Rendering.BindTransform(meshTransform);
+            Rendering.BindCamera(camera);
+
         }
 
         public override void Render()
         {
-            mesh.Render(camera, meshTransform, context);
+
+            Rendering.BindTarget(renderBuffer);
+            Rendering.ClearTarget();
+
+            mesh.Render();
+
+
+            Rendering.ResetTarget();
+            Rendering.ClearTarget();
+
+            mesh.Render();
+
+            Rendering.SwapBuffers();
         }
 
         public override void Update()
@@ -114,7 +128,7 @@ uniform sampler2D mat_texture1;
 void main()
 {
     FragColor = texture(mat_texture1, fUV);
-    FragColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    FragColor = texture(mat_texture0, fUV);
 }
 
         ";
