@@ -1,4 +1,5 @@
-﻿using OrkEngine3D.Mathematics;
+﻿using OrkEngine3D.Graphics.TK;
+using OrkEngine3D.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,7 +11,7 @@ namespace OrkEngine3D.Graphics.MeshData
 {
     public static class ObjLoader
     {
-        public static MeshInformation LoadObjData(string text)
+        public static MeshInformation LoadObjData(string text, out string mtl)
         {
             string[] lines = text.Split('\n');
             List<Vector3> vertices = new List<Vector3>();
@@ -23,7 +24,8 @@ namespace OrkEngine3D.Graphics.MeshData
             List<uint> tuvs = new List<uint>();
             List<uint> tnormals = new List<uint>();
 
-            uint vertexCount = 0;
+            mtl = "";
+
 
             for (int i = 0; i < lines.Length; i++)
             {
@@ -82,6 +84,10 @@ namespace OrkEngine3D.Graphics.MeshData
 
                     }
                 }
+                if(line.StartsWith("mtllib "))
+                {
+                    mtl = line.Substring("mtllib ".Length).Trim();
+                }
             }
 
             List<Vector3> fvertices = new List<Vector3>();
@@ -101,6 +107,56 @@ namespace OrkEngine3D.Graphics.MeshData
             }
 
             return new MeshInformation(fvertices.ToArray(), new Color4[0], fuvs.ToArray(), fnormals.ToArray(), ftriangles.ToArray());
+        }
+
+        public static Material LoadMTLFromFile(string content)
+        {
+            Material material = new Material();
+            string[] lines = content.Split('\n', StringSplitOptions.TrimEntries);
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i];
+
+                if(line.StartsWith("Ka "))
+                {
+                    var c = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    if (c.Length < 4)
+                        throw new Exception("Invalid MTL file!");
+                    float r = float.Parse(c[1], CultureInfo.InvariantCulture);
+                    float g = float.Parse(c[2], CultureInfo.InvariantCulture);
+                    float b = float.Parse(c[3], CultureInfo.InvariantCulture);
+                    material.ambient = new Color3(r, g, b);
+                }
+                if (line.StartsWith("Kd "))
+                {
+                    var c = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    if (c.Length < 4)
+                        throw new Exception("Invalid MTL file!");
+                    float r = float.Parse(c[1], CultureInfo.InvariantCulture);
+                    float g = float.Parse(c[2], CultureInfo.InvariantCulture);
+                    float b = float.Parse(c[3], CultureInfo.InvariantCulture);
+                    material.diffuse = new Color3(r, g, b);
+                }
+                if (line.StartsWith("Ks "))
+                {
+                    var c = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    if (c.Length < 4)
+                        throw new Exception("Invalid MTL file!");
+                    float r = float.Parse(c[1], CultureInfo.InvariantCulture);
+                    float g = float.Parse(c[2], CultureInfo.InvariantCulture);
+                    float b = float.Parse(c[3], CultureInfo.InvariantCulture);
+                    material.specular = new Color3(r, g, b);
+                }
+                if (line.StartsWith("Ns "))
+                {
+                    var c = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    if (c.Length < 2)
+                        throw new Exception("Invalid MTL file!");
+                    material.shininess = float.Parse(c[1], CultureInfo.InvariantCulture);
+                }
+            }
+
+            return material;
         }
     }
 }

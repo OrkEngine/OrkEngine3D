@@ -44,8 +44,8 @@ namespace OrkEngine3D
 
             mesh.shader = program;
 
-            MeshInformation voxelInformation = ObjLoader.LoadObjData(File.ReadAllText("model.obj"));//VoxelData.GenerateVoxelInformation();
-
+            MeshInformation voxelInformation = ObjLoader.LoadObjData(File.ReadAllText("model.obj"), out string mtlfile);//VoxelData.GenerateVoxelInformation();
+            Material mat = ObjLoader.LoadMTLFromFile(File.ReadAllText(mtlfile));
             mesh.verticies = voxelInformation.verticies;
             mesh.triangles = voxelInformation.triangles;
             mesh.uv = voxelInformation.uv;
