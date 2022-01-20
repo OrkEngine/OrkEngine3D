@@ -26,7 +26,7 @@ namespace OrkEngine3D
         Camera camera;
         Mesh mesh;
         Transform meshTransform;
-        RenderBuffer renderBuffer;
+        //RenderBuffer renderBuffer;
         public override void Init()
         {
             mesh = new Mesh(resourceManager);
@@ -46,9 +46,9 @@ namespace OrkEngine3D
 
             Texture testTexture = new Texture(resourceManager, Texture.GetTextureDataFromFile("thevroom.png"));
 
-            renderBuffer = new RenderBuffer(resourceManager, 1280, 720);
+            //renderBuffer = new RenderBuffer(resourceManager, 1280, 720);
 
-            mesh.textures = new Texture[] {testTexture, renderBuffer.target };
+            mesh.textures = new Texture[] { testTexture };
 
             mesh.UpdateGLData();
 
@@ -56,7 +56,7 @@ namespace OrkEngine3D
             camera.perspective = true;
             meshTransform = new Transform();
 
-            renderBuffer.Target();
+            //renderBuffer.Target();
             mesh.Render(camera, meshTransform, context);
             context.ResetFrameBuffer();
         }
