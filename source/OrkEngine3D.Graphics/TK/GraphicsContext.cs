@@ -78,6 +78,10 @@ namespace OrkEngine3D.Graphics.TK
             mesh.triangles = triangles.ToArray();
             mesh.uv = uvs.ToArray();
 
+            Texture testTexture = new Texture(glmanager, Texture.GetTextureDataFromFile("thevroom.png"));
+
+            mesh.textures = new Texture[] {testTexture};
+
             mesh.UpdateGLData();
 
             camera = new Camera();
@@ -123,21 +127,23 @@ namespace OrkEngine3D.Graphics.TK
 
         string vshadersource = @"
 #version 330 core
-in vec3 vPos;
-in vec4 vCol;
-in vec2 vUv;
+in vec3 vert_position;
+in vec4 vert_color;
+in vec2 vert_uv;
 
 out vec4 fColor;
 out vec3 fPos;
+out vec2 fUV;
 
-uniform mat4 m_model;
-uniform mat4 m_view;
+uniform mat4 matx_model;
+uniform mat4 matx_view;
 
 void main()
 {
-    gl_Position = m_view * m_model * vec4(vPos, 1.0);
-    fColor = vec4(vUv, 1, 1);
-    fPos = vPos;
+    gl_Position = matx_view * matx_model * vec4(vert_position, 1.0);
+    fColor = vert_color;
+    fUV = vert_uv;
+    fPos = vert_position;
 }
         ";
 
@@ -147,10 +153,13 @@ out vec4 FragColor;
 
 in vec4 fColor;
 in vec3 fPos;
+in vec2 fUV;
+
+uniform sampler2D mat_texture0;
 
 void main()
 {
-    FragColor = fColor;//vec4(1.0f, 0.5f, 0.2f, 1.0f);
+    FragColor = texture(mat_texture0, fUV);
 }
 
         ";

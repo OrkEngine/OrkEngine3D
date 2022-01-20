@@ -45,6 +45,11 @@ namespace OrkEngine3D.Graphics.TK.Resources
         public ShaderProgram shader;
 
         /// <summary>
+        /// The textures passed to the shader
+        /// </summary>
+        public Texture[] textures;
+
+        /// <summary>
         /// Creates the mesh and allocates all resources
         /// </summary>
         /// <param name="manager"></param>
@@ -103,9 +108,9 @@ namespace OrkEngine3D.Graphics.TK.Resources
 
             GL.BufferData(BufferTarget.ArrayBuffer, bakedData.Length * sizeof(float), bakedData, BufferUsageHint.StaticDraw); // Set buffer data to baked vertex data
 
-            int vpos = shader.GetAttribLocation("vPos");
-            int vuv = shader.GetAttribLocation("vUv");
-            int vcol = shader.GetAttribLocation("vCol");
+            int vpos = shader.GetAttribLocation("vert_position");
+            int vuv = shader.GetAttribLocation("vert_uv");
+            int vcol = shader.GetAttribLocation("vert_color");
 
             GL.VertexAttribPointer(vpos, 3, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 0 * sizeof(float));
             GL.EnableVertexAttribArray(vpos);
@@ -116,21 +121,35 @@ namespace OrkEngine3D.Graphics.TK.Resources
             GL.VertexAttribPointer(vcol, 4, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 5 * sizeof(float));
             GL.EnableVertexAttribArray(vcol);
 
-            m_view = shader.GetUniformLocation("m_view");
-            m_projection = shader.GetUniformLocation("m_projection");
-            m_model = shader.GetUniformLocation("m_model");
+            m_view = shader.GetUniformLocation("matx_view");
+            m_model = shader.GetUniformLocation("matx_model");
         
         }
 
+        /// <summary>
+        /// Render the mesh.
+        /// </summary>
+        /// <param name="camera">The active camera object</param>
+        /// <param name="t">The meshes transform</param>
+        /// <param name="ctx">The current GraphicsContext</param>
         public void Render(Camera camera, Transform t, GraphicsContext ctx){
             GL.BindVertexArray(VAO);
             shader.Use();
             GL.UniformMatrix4(m_view, 1, false, camera.GetMatrix(ctx).ToArray());
             GL.UniformMatrix4(m_model, 1, false, t.GetMatrix().ToArray());
 
+            for (byte i = 0; i < textures.Length; i++)
+            {
+                GL.Uniform1(shader.GetUniformLocation("mat_texture" + i.ToString()), i);
+                textures[i].Use(i);
+            }
+
             GL.DrawElements(PrimitiveType.Triangles, triangles.Length, DrawElementsType.UnsignedInt, 0);
         }
 
+        /// <summary>
+        /// Unload the mesh
+        /// </summary>
         public override void Unload()
         {
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
