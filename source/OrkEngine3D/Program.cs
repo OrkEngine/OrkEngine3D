@@ -26,7 +26,7 @@ namespace OrkEngine3D
         Camera camera;
         Mesh mesh;
         Transform meshTransform;
-        //RenderBuffer renderBuffer;
+        RenderBuffer renderBuffer;
         public override void Init()
         {
             mesh = new Mesh(resourceManager);
@@ -46,7 +46,7 @@ namespace OrkEngine3D
 
             Texture testTexture = new Texture(resourceManager, Texture.GetTextureDataFromFile("thevroom.png"));
 
-            //renderBuffer = new RenderBuffer(resourceManager, 1280, 720);
+            renderBuffer = new RenderBuffer(resourceManager, 1280, 720);
 
             mesh.textures = new Texture[] { testTexture };
 
@@ -56,13 +56,14 @@ namespace OrkEngine3D
             camera.perspective = true;
             meshTransform = new Transform();
 
-            //renderBuffer.Target();
-            mesh.Render(camera, meshTransform, context);
-            context.ResetFrameBuffer();
         }
 
         public override void Render()
         {
+            renderBuffer.Target();
+            renderBuffer.Clear();
+            mesh.Render(camera, meshTransform, context);
+            context.ResetFrameBuffer();
             mesh.Render(camera, meshTransform, context);
         }
 
@@ -114,7 +115,7 @@ uniform sampler2D mat_texture1;
 void main()
 {
     FragColor = texture(mat_texture1, fUV);
-    FragColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    FragColor = texture(mat_texture0, fUV);
 }
 
         ";

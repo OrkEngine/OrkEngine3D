@@ -7,20 +7,11 @@ using System.Threading.Tasks;
 
 namespace OrkEngine3D.Graphics.TK.Resources
 {
-#if !RENDER_BUFFER_ENABLED
-    [Obsolete("WIP: DO NOT USE", true)]
-#endif
     public class RenderBuffer : GLResource
     {
         public int id;
         public int depthBuffer;
         public readonly Texture target;
-
-
-        private RenderBuffer() : base(null)
-        {
-
-        }
 
         public RenderBuffer(GLResourceManager manager, int width, int height) : base(manager)
         {
@@ -59,6 +50,11 @@ namespace OrkEngine3D.Graphics.TK.Resources
         {
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, id);
             GL.Viewport(0, 0, target.width, target.height);
+        }
+
+        public void Clear()
+        {
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         }
 
         public override void Unload()
