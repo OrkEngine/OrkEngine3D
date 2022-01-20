@@ -38,7 +38,7 @@ namespace OrkEngine3D.Graphics.MeshData
                 {
                     var c = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (c.Length < 4)
-                        throw new Exception("Invalid OBJ file!");
+                        logger.Log(LogMessageType.FATAL, "Invalid OBJ file!");
                     float x = float.Parse(c[1], CultureInfo.InvariantCulture);
                     float y = float.Parse(c[2], CultureInfo.InvariantCulture);
                     float z = float.Parse(c[3], CultureInfo.InvariantCulture);
@@ -48,7 +48,7 @@ namespace OrkEngine3D.Graphics.MeshData
                 {
                     var c = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (c.Length < 3)
-                        throw new Exception("Invalid OBJ file!");
+                        logger.Log(LogMessageType.FATAL, "Invalid OBJ file!");
                     float x = float.Parse(c[1], CultureInfo.InvariantCulture);
                     float y = float.Parse(c[2], CultureInfo.InvariantCulture);
                     uvs.Add(new Vector2(x, y));
@@ -57,7 +57,7 @@ namespace OrkEngine3D.Graphics.MeshData
                 {
                     var c = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (c.Length < 4)
-                        throw new Exception("Invalid OBJ file!");
+                        logger.Log(LogMessageType.FATAL, "Invalid OBJ file!");
                     float x = float.Parse(c[1], CultureInfo.InvariantCulture);
                     float y = float.Parse(c[2], CultureInfo.InvariantCulture);
                     float z = float.Parse(c[3], CultureInfo.InvariantCulture);
@@ -67,7 +67,7 @@ namespace OrkEngine3D.Graphics.MeshData
                 {
                     var c = line.Split(' ');
                     if (c.Length < 4)
-                        throw new Exception("Invalid OBJ file!");
+                        logger.Log(LogMessageType.FATAL, "Invalid OBJ file!");
 
                     for (int s = 1; s < 4; s++)
                     {
@@ -75,7 +75,7 @@ namespace OrkEngine3D.Graphics.MeshData
                         string[] t = set.Split('/');
 
                         if (t.Length < 3)
-                            throw new Exception("Invalid OBJ file!");
+                            logger.Log(LogMessageType.FATAL, "Invalid OBJ file!");
 
                         uint v = uint.Parse(t[0]);
                         uint u = uint.Parse(t[1]);
@@ -125,7 +125,7 @@ namespace OrkEngine3D.Graphics.MeshData
                 {
                     var c = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (c.Length < 4)
-                        throw new Exception("Invalid MTL file!");
+                        logger.Log(LogMessageType.FATAL, "Invalid MTL file!");
                     float r = float.Parse(c[1], CultureInfo.InvariantCulture);
                     float g = float.Parse(c[2], CultureInfo.InvariantCulture);
                     float b = float.Parse(c[3], CultureInfo.InvariantCulture);
@@ -135,7 +135,7 @@ namespace OrkEngine3D.Graphics.MeshData
                 {
                     var c = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (c.Length < 4)
-                        throw new Exception("Invalid MTL file!");
+                        logger.Log(LogMessageType.FATAL, "Invalid MTL file!");
                     float r = float.Parse(c[1], CultureInfo.InvariantCulture);
                     float g = float.Parse(c[2], CultureInfo.InvariantCulture);
                     float b = float.Parse(c[3], CultureInfo.InvariantCulture);
@@ -145,7 +145,7 @@ namespace OrkEngine3D.Graphics.MeshData
                 {
                     var c = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (c.Length < 4)
-                        throw new Exception("Invalid MTL file!");
+                        logger.Log(LogMessageType.FATAL, "Invalid MTL file!");
                     float r = float.Parse(c[1], CultureInfo.InvariantCulture);
                     float g = float.Parse(c[2], CultureInfo.InvariantCulture);
                     float b = float.Parse(c[3], CultureInfo.InvariantCulture);
@@ -155,7 +155,7 @@ namespace OrkEngine3D.Graphics.MeshData
                 {
                     var c = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (c.Length < 2)
-                        throw new Exception("Invalid MTL file!");
+                        logger.Log(LogMessageType.FATAL, "Invalid MTL file!");
                     material.shininess = float.Parse(c[1], CultureInfo.InvariantCulture);
                 }
             }
