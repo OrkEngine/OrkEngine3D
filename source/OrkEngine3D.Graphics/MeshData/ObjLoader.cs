@@ -6,13 +6,16 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using OrkEngine3D.Diagnostics;
+using OrkEngine3D.Diagnostics.Logging;
 namespace OrkEngine3D.Graphics.MeshData
 {
     public static class ObjLoader
     {
+        public static readonly Logger logger = Logger.Get("ObjLoader", "Graphics");
         public static MeshInformation LoadObjData(string text, out string mtl)
         {
+            logger.Log(LogMessageType.DEBUG, "Loading OBJ");
             string[] lines = text.Split('\n');
             List<Vector3> vertices = new List<Vector3>();
             List<Vector2> uvs = new List<Vector2>();
@@ -111,6 +114,7 @@ namespace OrkEngine3D.Graphics.MeshData
 
         public static Material LoadMTLFromFile(string content)
         {
+            logger.Log(LogMessageType.WARNING, "MTL Loader uses OrkGraphics Flavoured MTL! It doesnt work with all MTL files");
             Material material = new Material();
             string[] lines = content.Split('\n', StringSplitOptions.TrimEntries);
             for (int i = 0; i < lines.Length; i++)
