@@ -8,7 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="resources\" />
+    <Folder Include="resources\**\*.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="runtimes\**\*.*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>  
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OrkEngine3D.Core\OrkEngine3D.Core.csproj" />
+    <ProjectReference Include="..\vendors\ImGui.NET\src\ImGui.NET\ImGui.NET.csproj" />
   </ItemGroup>
 
 </Project>

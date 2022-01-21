@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "orkbuild",
             "command": "dotnet",
             "type": "process",
             "args": [
@@ -14,7 +14,19 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "publish",
+            "label": "editorbuild",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/source/OrkEngine3D.Editor/OrkEngine3D.Editor.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "orkpublish",
             "command": "dotnet",
             "type": "process",
             "args": [
