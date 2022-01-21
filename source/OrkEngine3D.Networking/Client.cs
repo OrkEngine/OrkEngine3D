@@ -11,6 +11,8 @@ namespace OrkEngine3D.Networking
         private TcpClient client;
         private Logger logger;
         private ClientInterface clientInterface;
+        private Thread mlThread;
+        private bool keepThreadUp;
 
         public Client(ClientInterface clientInterface, ConnectionTarget target)
         {
@@ -28,17 +30,23 @@ namespace OrkEngine3D.Networking
             this.connection = new Connection(this, target, client.GetStream());
             
             clientInterface.OnConnect();
-
-            Thread mlThread = new Thread(MainLoop);        
-            mlThread.Start();
+            keepThreadUp = true;
+            MainLoop();       
             
+        }
+
+        public void Close(){
+            client.Close();
+            keepThreadUp = false;
         }
 
         private void MainLoop(){
             
-            while(true){
+            while(client.Connected){
                 connection.Update();
                 clientInterface.MainLoop();
+                if(!keepThreadUp)
+                    break;
             }
         }
 

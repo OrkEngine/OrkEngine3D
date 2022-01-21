@@ -16,6 +16,11 @@ namespace OrkEngine3D.Networking
             return ip + ":" + port;
         }
 
+        public override int GetHashCode()
+        {
+            return ip.GetHashCode() + port.GetHashCode();
+        }
+
         public override bool Equals(object obj)
         {
             if (obj.GetType() == typeof(ConnectionTarget)){
