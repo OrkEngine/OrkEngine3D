@@ -81,7 +81,7 @@ namespace OrkEngine3D.Editor
                 ImGui.SetNextWindowViewport(viewport.ID);
                 ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, 0.0f);
                 ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0f);
-                if(ImGui.Begin("Main dock", ImGuiWindowFlags.NoTitleBar)){
+                if(ImGui.Begin("Main dock", ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoBringToFrontOnFocus)){
                     ImGui.SetWindowSize(new System.Numerics.Vector2(700, 700));
                     ImGui.DockSpace(ImGui.GetID("Main dock"), new System.Numerics.Vector2(0, 0), ImGuiDockNodeFlags.NoResize);
                     ImGui.End();
