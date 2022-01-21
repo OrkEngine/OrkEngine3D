@@ -9,4 +9,10 @@
     <ProjectReference Include="..\OrkEngine3D.Graphics\OrkEngine3D.Graphics.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="resources\**\*.*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
