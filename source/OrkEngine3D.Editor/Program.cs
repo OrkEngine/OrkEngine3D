@@ -5,6 +5,7 @@ using Silk.NET.Input;
 using Silk.NET.OpenGL;
 using Silk.NET.OpenGL.Extensions.ImGui;
 using ImGuiNET;
+using System.Numerics;
 namespace OrkEngine3D.Editor
 {
     class Program
@@ -45,12 +46,28 @@ namespace OrkEngine3D.Editor
 
                 // These epic lines makes the dock
                 gl.ClearColor(Color.FromArgb(255, (int)(.45f * 255), (int)(.55f * 255), (int)(.60f * 255)));
-                gl.Clear((uint)ClearBufferMask.ColorBufferBit);        
+                gl.Clear((uint)ClearBufferMask.ColorBufferBit);
                 // This is where you'll do all of your ImGUi rendering
                 // Here, we're just showing the ImGui built-in demo window.
 
                 RenderFullScreenDock();
                 ImGui.ShowDemoWindow();
+
+
+
+                if (ImGui.BeginMainMenuBar())
+                {
+                    if (ImGui.BeginMenu("File"))
+                    {
+                        if (ImGui.MenuItem("Exit", "Ctrl+Q"))
+                        {
+
+                        }
+
+                        ImGui.EndMenu();
+                    }
+                    ImGui.EndMainMenuBar();
+                }
 
 
                 // Make sure ImGui renders too!
@@ -74,19 +91,22 @@ namespace OrkEngine3D.Editor
             window.Run();
         }
 
-        public static void RenderFullScreenDock(){
-                ImGuiViewportPtr viewport = ImGui.GetMainViewport();
-                ImGui.SetNextWindowPos(viewport.WorkPos);
-                ImGui.SetNextWindowSize(viewport.WorkSize);
-                ImGui.SetNextWindowViewport(viewport.ID);
-                ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, 0.0f);
-                ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0f);
-                if(ImGui.Begin("Main dock", ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoBringToFrontOnFocus)){
-                    ImGui.SetWindowSize(new System.Numerics.Vector2(700, 700));
-                    ImGui.DockSpace(ImGui.GetID("Main dock"), new System.Numerics.Vector2(0, 0), ImGuiDockNodeFlags.NoResize);
-                    ImGui.End();
-                }
-                    
+        public static void RenderFullScreenDock()
+        {
+            ImGuiViewportPtr viewport = ImGui.GetMainViewport();
+            ImGui.SetNextWindowPos(viewport.WorkPos);
+            ImGui.SetNextWindowSize(viewport.WorkSize);
+            ImGui.SetNextWindowViewport(viewport.ID);
+            ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, 0.0f);
+            ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0f);
+            ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, new Vector2(0, 0));
+            if (ImGui.Begin("Main dock", ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoBringToFrontOnFocus | ImGuiWindowFlags.AlwaysAutoResize))
+            {
+                ImGui.SetWindowSize(new System.Numerics.Vector2(700, 700));
+                ImGui.DockSpace(ImGui.GetID("Main dock"), new System.Numerics.Vector2(0, 0), ImGuiDockNodeFlags.NoResize);
+                ImGui.End();
+            }
+            ImGui.PopStyleVar();
         }
     }
 }

@@ -36,9 +36,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "40 - OrkTests", "40 - OrkTe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrkEngine3D.Graphics.Tests", "OrkEngine3D.Graphics.Tests\OrkEngine3D.Graphics.Tests.csproj", "{9F59CCE7-3C32-4172-AB61-BFFD0DCA5C77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrkEngine3D.Components", "OrkEngine3D.Components\OrkEngine3D.Components.csproj", "{EA7743BC-1005-4E28-9464-72442BF9E978}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrkEngine3D.Components", "OrkEngine3D.Components\OrkEngine3D.Components.csproj", "{EA7743BC-1005-4E28-9464-72442BF9E978}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrkEngine3D.Components.Tests", "OrkEngine3D.Components.Tests\OrkEngine3D.Components.Tests.csproj", "{71698B8A-B88F-4D3D-A150-1A3F44CBE238}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrkEngine3D.Components.Tests", "OrkEngine3D.Components.Tests\OrkEngine3D.Components.Tests.csproj", "{71698B8A-B88F-4D3D-A150-1A3F44CBE238}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImGui.NET", "vendors\ImGui.NET\src\ImGui.NET\ImGui.NET.csproj", "{0DDE91D2-FA94-4277-903E-061FCF5DBAA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -94,6 +96,10 @@ Global
 		{71698B8A-B88F-4D3D-A150-1A3F44CBE238}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71698B8A-B88F-4D3D-A150-1A3F44CBE238}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71698B8A-B88F-4D3D-A150-1A3F44CBE238}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DDE91D2-FA94-4277-903E-061FCF5DBAA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DDE91D2-FA94-4277-903E-061FCF5DBAA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DDE91D2-FA94-4277-903E-061FCF5DBAA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DDE91D2-FA94-4277-903E-061FCF5DBAA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,6 +117,7 @@ Global
 		{9F59CCE7-3C32-4172-AB61-BFFD0DCA5C77} = {A2D7C7B8-4887-41F1-BE4C-AD11AB520927}
 		{EA7743BC-1005-4E28-9464-72442BF9E978} = {38B4460E-DD35-4845-95EB-93D07D9D2CC1}
 		{71698B8A-B88F-4D3D-A150-1A3F44CBE238} = {A2D7C7B8-4887-41F1-BE4C-AD11AB520927}
+		{0DDE91D2-FA94-4277-903E-061FCF5DBAA8} = {665B67C8-0515-4550-B248-C5D75DCE314B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {16ECB4E9-6035-405C-BE9A-CD3CCF3B196C}
