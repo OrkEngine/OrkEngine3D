@@ -1,23 +1,54 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using OrkEngine3D.Components.Core;
-using OrkEngine3D.Graphics;
-using OrkEngine3D.Graphics.MeshData;
-using OrkEngine3D.Graphics.TK;
-using OrkEngine3D.Graphics.TK.Resources;
+using OrkEngine3D.Networking;
 using OrkEngine3D.Diagnostics.Logging;
-using OrkEngine3D.Mathematics;
-using MathF = OrkEngine3D.Mathematics.MathF;
+using System.Threading;
 
 namespace OrkEngine3D
 {
     public class Program
     {
-        static Logger logger = Logger.Get("Program", "Program");
         public static void Main(string[] args)
         {
-            logger.Log(LogMessageType.DEBUG, "Hello World");
+            Server server = new Server(new TestServer(), new ConnectionTarget("127.0.0.1"));
+            Client client = new Client(new TestClient(), new ConnectionTarget("127.0.0.1"));
+        }
+    }
+
+    public class TestClient : ClientInterface
+    {
+
+        public override void OnConnect(){
+            Send("CONNECTED");
+        }
+
+        public override void MainLoop()
+        {
+            Console.Write("> ");
+            Send(Console.ReadLine());
+            Thread.Sleep(100); 
+        }
+
+        public override void OnRecieve(byte[] data)
+        {
+            Console.WriteLine(System.Text.Encoding.Default.GetString(data));
+        }
+    }
+
+    public class TestServer : ServerInterface
+    {
+        public override void MainLoop()
+        {
+            
+        }
+
+        public override void OnConnect(string ip)
+        {
+            //Send($"[Server] {ip} CONNECTED");
+        }
+
+        public override void OnRecieve(byte[] data)
+        {
+            Send("[Server]" + System.Text.Encoding.Default.GetString(data));
         }
     }
 }

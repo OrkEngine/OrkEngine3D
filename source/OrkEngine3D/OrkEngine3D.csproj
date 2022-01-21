@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OrkEngine3D.Diagnostics\OrkEngine3D.Diagnostics.csproj" />
+    <ProjectReference Include="..\OrkEngine3D.Networking\OrkEngine3D.Networking.csproj" />
   </ItemGroup>
 
   <ItemGroup>

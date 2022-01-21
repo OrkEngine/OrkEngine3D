@@ -29,71 +29,89 @@ namespace OrkEngine3D.Graphics.Tests
         Shader vshader;
         ShaderProgram program;
         Camera camera;
-        Mesh mesh;
-        Transform meshTransform;
-        RenderBuffer renderBuffer;
+
         LightScene lscene;
+
+        Transform cubeTransform;
+        Transform teapotTransform;
+
+        Mesh cubeMesh;
+        Mesh teapotMesh;
         public override void Init()
         {
 
             Rendering.BindContext(context);
 
-            mesh = new Mesh(resourceManager);
+            
             fshader = new Shader(resourceManager, File.ReadAllText("resources/shader.frag"), ShaderType.FragmentShader);
             vshader = new Shader(resourceManager, File.ReadAllText("resources/shader.vert"), ShaderType.VertexShader);
 
             program = new ShaderProgram(resourceManager, vshader, fshader);
 
-            mesh.shader = program;
+            cubeMesh = new Mesh(resourceManager);
 
-            ObjComplete voxelInformation = ObjLoader.LoadObjFromFile("resources/model.obj");//VoxelData.GenerateVoxelInformation();
+            ObjComplete voxelInformation = ObjLoader.LoadObjFromFile("resources/2cube.obj");
 
             Rendering.BindMaterials(voxelInformation.materials);
 
-            mesh.verticies = voxelInformation.meshInformation.verticies;
-            mesh.triangles = voxelInformation.meshInformation.triangles;
-            mesh.uv = voxelInformation.meshInformation.uv;
-            mesh.normals = voxelInformation.meshInformation.normals;
-            mesh.materials = voxelInformation.meshInformation.materials;
+            cubeMesh.verticies = voxelInformation.meshInformation.verticies;
+            cubeMesh.uv = voxelInformation.meshInformation.uv;
+            cubeMesh.normals = voxelInformation.meshInformation.normals;
+            cubeMesh.materials = voxelInformation.meshInformation.materials;
+            cubeMesh.shader = program;
+
+            cubeMesh.UpdateGLData();
+
+            cubeTransform = new Transform();
+
+            cubeTransform.position.Z = -0.5f;// + MathF.Sin(t);
+            cubeTransform.position.Y = 0f;
+            //cubeTransform.position.X = -1;
 
 
+            /*
+            teapotMesh = new Mesh(resourceManager);
 
-            renderBuffer = new RenderBuffer(resourceManager, 1280, 720);
+            ObjComplete potInformation = ObjLoader.LoadObjFromFile("resources/teapot.obj");
 
+            Rendering.BindMaterials(potInformation.materials);
 
+            teapotMesh.verticies = potInformation.meshInformation.verticies;
+            teapotMesh.uv = potInformation.meshInformation.uv;
+            teapotMesh.normals = potInformation.meshInformation.normals;
+            teapotMesh.materials = potInformation.meshInformation.materials;
+            teapotMesh.shader = program;
 
-            mesh.UpdateGLData();
+            teapotMesh.UpdateGLData();
+
+            teapotTransform = new Transform();
+
+            teapotTransform.position.Z = -0.5f;// + MathF.Sin(t);
+            teapotTransform.position.Y = 0f;
+            //teapotTransform.position.X = 1;
+            */
 
             camera = new Camera();
             camera.perspective = true;
-            meshTransform = new Transform();
 
             Rendering.BindCamera(camera);
 
             lscene = new LightScene();
             Rendering.BindLightning(lscene);
 
-            meshTransform.position.Z = -0.5f;// + MathF.Sin(t);
-            meshTransform.position.Y = -4f;
-            meshTransform.position.Y = 0f;
-
         }
 
         public override void Render()
         {
-
-            Rendering.BindTarget(renderBuffer);
-            Rendering.ClearTarget();
-
-            Rendering.BindTransform(meshTransform);
-            mesh.Render();
-
-
             Rendering.ResetTarget();
             Rendering.ClearTarget();
 
-            Rendering.BindTransform(meshTransform);
-            mesh.Render();
+
+            Rendering.BindTransform(cubeTransform);
+            cubeMesh.Render();
+
+            //Rendering.BindTransform(teapotTransform);
+            //teapotMesh.Render();
 
             Rendering.SwapBuffers();
         }
@@ -101,9 +119,11 @@ namespace OrkEngine3D.Graphics.Tests
         public override void Update()
         {
             t += context.deltaTime;
-            meshTransform.position.Z = -3f;// + MathF.Sin(t);
-            meshTransform.Rotate(Vector3.UnitY * context.deltaTime);
-            //lscene.light.color = new Color3((MathF.Sin(t) + 1) / 2, (MathF.Cos(t) + 1) / 2, MathF.Max(MathF.Cos(t), (MathF.Sin(t)) + 1) / 2);
+            cubeTransform.position.Z = -3f;
+            cubeTransform.Rotate(Vector3.UnitY * context.deltaTime);
+
+            //teapotTransform.position.Z = -3f;
+            //teapotTransform.Rotate(Vector3.UnitX * context.deltaTime);
 
 
             while (context.nonQueriedKeys.Count > 0)
