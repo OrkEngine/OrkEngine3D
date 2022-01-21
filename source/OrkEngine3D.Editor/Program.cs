@@ -31,7 +31,8 @@ namespace OrkEngine3D.Editor
                     inputContext = window.CreateInput() // create an input context
                 );
 
-                ImGui.GetIO().ConfigFlags |= ImGuiConfigFlags.DockingEnable;
+                ImGui.GetIO().ConfigFlags |= ImGuiConfigFlags.DockingEnable 
+                                          |  ImGuiConfigFlags.ViewportsEnable;
             };
 
             // Handle resizes
@@ -50,7 +51,7 @@ namespace OrkEngine3D.Editor
                 gl.ClearColor(Color.FromArgb(255, (int)(.45f * 255), (int)(.55f * 255), (int)(.60f * 255)));
                 gl.Clear((uint)ClearBufferMask.ColorBufferBit);
                 // This is where you'll do all of your ImGUi rendering
-                // Here, we're just showing the ImGui built-in demo window.
+                // Here, we're just showing the ImGui built-in demo window.                
 
                 RenderFullScreenDock();
                 ImGui.ShowDemoWindow();
@@ -63,7 +64,6 @@ namespace OrkEngine3D.Editor
                     ViewMenu.Dispatch();
                     ImGui.EndMainMenuBar();
                 }
-
 
                 // Make sure ImGui renders too!
                 controller.Render();

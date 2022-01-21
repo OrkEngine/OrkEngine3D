@@ -23,7 +23,7 @@ namespace OrkEngine3D.Editor.Views
             
             if (ImGui.Begin("Hierarchy"))
             {
-                ImGui.SetWindowSize(new Vector2(100, 100));
+                //ImGui.SetWindowSize(new Vector2(100, 100));
                 //ImGui.
                 ImGui.Button("Hello", new Vector2(10, 10));
                 
