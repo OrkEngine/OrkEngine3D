@@ -17,6 +17,8 @@ namespace OrkEngine3D.Networking
         private ConnectionTarget target;
         Logger logger;
 
+        private List<TcpClient> connectedClients = new List<TcpClient>();
+
         public Server(ServerInterface serverInterface, ConnectionTarget target){
             this.serverInterface = serverInterface;
             this.serverInterface.baseServer = this;
@@ -41,17 +43,34 @@ namespace OrkEngine3D.Networking
             logger.Log(LogMessageType.INFORMATION, "Listening at " + target);
             listener.Start(10);
             TcpClient client = listener.AcceptTcpClient();
+
+            Thread clientThread = new Thread(ConnectToClient);
+            clientThread.Start(client);
+
+            Listen();
+        }
+
+        public void ConnectToClient(object cliento){
+            TcpClient client = (TcpClient)cliento;
             connection = new Connection(this, target, client.GetStream());
+            connectedClients.Add(client);
             logger.Log(LogMessageType.INFORMATION, "Connected at " + target);
 
             serverInterface.OnConnect((client.Client.RemoteEndPoint as IPEndPoint).Address.ToString());
 
-            while(true){
+            while(client.Connected){
                 connection.Update();
                 serverInterface.MainLoop();
             }
         }
 
+        public void Close(){
+            
+            foreach(var client in connectedClients){
+                client.Close();
+            }
+            connectedClients.Clear();
+        }
 
         public void Recieve(byte[] data)
         {

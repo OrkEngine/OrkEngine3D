@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "orkbuild",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/source/OrkEngine3D/bin/Debug/net5.0/OrkEngine3D.dll",
+            "program": "${workspaceFolder}/source/OrkEngine3D/bin/Debug/net6.0/OrkEngine3D.dll",
             "args": [],
             "cwd": "${workspaceFolder}/source/OrkEngine3D",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
@@ -26,7 +26,7 @@
             "request": "launch",
             "preLaunchTask": "editorbuild",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/source/OrkEngine3D.Editor/bin/Debug/net5.0/OrkEngine3D.Editor.dll",
+            "program": "${workspaceFolder}/source/OrkEngine3D.Editor/bin/Debug/net6.0/OrkEngine3D.Editor.dll",
             "args": [],
             "cwd": "${workspaceFolder}/source/OrkEngine3D.Editor",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
