@@ -4,3 +4,10 @@ OrkEngine3D An MMORPG/RPG game engine, used for creating great RPG's community d
 
 Graphics Demo:
 ![Utah Teapot](/images/teapot.png)
+
+
+# Cloning
+Open whatever directory you wish, and simply do
+```
+git clone https://github.com/OrkEngine/OrkEngine3D.git --recursive
+```
