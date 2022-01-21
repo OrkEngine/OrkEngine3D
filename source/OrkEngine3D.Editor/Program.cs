@@ -6,6 +6,8 @@ using Silk.NET.OpenGL;
 using Silk.NET.OpenGL.Extensions.ImGui;
 using ImGuiNET;
 using System.Numerics;
+using OrkEngine3D.Editor.Menu;
+
 namespace OrkEngine3D.Editor
 {
     class Program
@@ -53,19 +55,12 @@ namespace OrkEngine3D.Editor
                 RenderFullScreenDock();
                 ImGui.ShowDemoWindow();
 
-
-
                 if (ImGui.BeginMainMenuBar())
                 {
-                    if (ImGui.BeginMenu("File"))
-                    {
-                        if (ImGui.MenuItem("Exit", "Ctrl+Q"))
-                        {
-
-                        }
-
-                        ImGui.EndMenu();
-                    }
+                    //TODO: Change to bools for logging
+                    FileMenu.Dispatch();
+                    EditMenu.Dispatch();
+                    ViewMenu.Dispatch();
                     ImGui.EndMainMenuBar();
                 }
 
@@ -106,7 +101,7 @@ namespace OrkEngine3D.Editor
                 ImGui.DockSpace(ImGui.GetID("Main dock"), new System.Numerics.Vector2(0, 0), ImGuiDockNodeFlags.NoResize);
                 ImGui.End();
             }
-            ImGui.PopStyleVar();
+          //  ImGui.PopStyleVar();
         }
     }
 }
