@@ -118,7 +118,7 @@ namespace OrkEngine3D.Mathematics
         /// <summary>
         /// Gets the raw 16 bit value used to back this half-float.
         /// </summary>
-        [CLSCompliant(false)]
+        // I also removed one line here(that bugged me)
         public ushort RawValue
         {
             get { return value; }

@@ -1302,7 +1302,8 @@ namespace OrkEngine3D.Mathematics
             //Source: Real-Time Collision Detection by Christer Ericson
             //Reference: Page 169
 
-            float p0, p1, p2, r;
+            //NOTE: I, jimmy, removed an unused variable
+            float p0, p2, r;
 
             //Compute box center and extents (if not already given in that format)
             Vector3 center = (box.Minimum + box.Maximum) * 0.5f;
