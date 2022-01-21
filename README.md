@@ -8,6 +8,6 @@ Graphics Demo:
 
 # Cloning
 Open whatever directory you wish, and simply do
-```
+```cmd
 git clone https://github.com/OrkEngine/OrkEngine3D.git --recursive
 ```
