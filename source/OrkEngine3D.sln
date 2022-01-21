@@ -48,6 +48,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BepuPhysics", "vendors\bepu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BepuUtilities", "vendors\bepuphysics2\BepuUtilities\BepuUtilities.csproj", "{2ACAB4BA-4DCE-48F1-8B99-BB14F3407DB4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrkEngine3D.Networking", "OrkEngine3D.Networking\OrkEngine3D.Networking.csproj", "{31B833DE-039D-49CA-B3FB-090C105326D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

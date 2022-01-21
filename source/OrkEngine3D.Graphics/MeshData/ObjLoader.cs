@@ -15,8 +15,10 @@ namespace OrkEngine3D.Graphics.MeshData
     public static class ObjLoader
     {
         public static readonly Logger logger = Logger.Get("MeshLoader", "Graphics");
-        public static ObjComplete LoadObjFromData(string text)
+        public static ObjComplete LoadObjFromFile(string path)
         {
+            string dir = Path.GetDirectoryName(path);
+            string text = File.ReadAllText(path);
             logger.Log(LogMessageType.DEBUG, "Loading OBJ");
             string material = "__null";
 
@@ -105,7 +107,7 @@ namespace OrkEngine3D.Graphics.MeshData
 
 
 
-            Dictionary<string, Material> materials = LoadMTLFromFile(mtl);
+            Dictionary<string, Material> materials = LoadMTLFromFile(dir + "/" + mtl);
 
             List<Vector3> fvertices = new List<Vector3>();
             List<Vector2> fuvs = new List<Vector2>();

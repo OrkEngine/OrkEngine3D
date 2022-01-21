@@ -1,6 +1,6 @@
 # Blender v3.0.0 OBJ File: ''
 # www.blender.org
-mtllib model.mtl
+mtllib redblu.mtl
 o Cube
 v 1.000000 1.000000 -1.000000
 v 1.000000 -1.000000 -1.000000

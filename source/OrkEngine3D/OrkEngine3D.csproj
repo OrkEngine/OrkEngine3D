@@ -5,26 +5,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="model.mtl">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <ProjectReference Include="..\OrkEngine3D.Diagnostics\OrkEngine3D.Diagnostics.csproj" />
+    <ProjectReference Include="..\OrkEngine3D.Networking\OrkEngine3D.Networking.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="model.obj">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="monke.obj">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="shader.frag">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="shader.vert">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="thevroom.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
