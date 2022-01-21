@@ -18,14 +18,17 @@ jobs:
         working-directory: ./source
         
     steps:
-    - name: Checkout submodules
-      # You may pin to the exact commit or the version.
-      # uses: textbook/git-checkout-submodule-action@0cb23c7e6a67085e1dc5e884920bd620f7b9c469
-      uses: textbook/git-checkout-submodule-action@2.1.1
+    - name: Checkout
+      uses: actions/checkout@v2
       with:
-        # Set the --remote flag
-        remote: true
-    - uses: actions/checkout@v2
+        token: ${{ secrets.CI_TOKEN }}
+        submodules: true
+
+    # Update references
+    - name: Git Sumbodule Update
+      run: |
+        git pull --recurse-submodules
+        git submodule update --remote --recursive
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
