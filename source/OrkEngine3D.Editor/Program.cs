@@ -19,7 +19,6 @@ namespace OrkEngine3D.Editor
             GL gl = null;
             IInputContext inputContext = null;
             ImGuiIOPtr io = ImGui.GetIO();
-            ImGuiWindowClassPtr windowClass; //hows this assigned?
             // Our loading function
             window.Load += () =>
             {
@@ -28,6 +27,8 @@ namespace OrkEngine3D.Editor
                     window, // pass in our window
                     inputContext = window.CreateInput() // create an input context
                 );
+
+                ImGui.GetIO().ConfigFlags |= ImGuiConfigFlags.DockingEnable;
             };
 
             // Handle resizes
@@ -36,25 +37,21 @@ namespace OrkEngine3D.Editor
                 // Adjust the viewport to the new window size
                 gl.Viewport(s);
             };
-
             // The render function
             window.Render += delta =>
             {
                 // Make sure ImGui is up-to-date
                 controller.Update((float)delta);
 
-                // This is where you'll do any rendering beneath the ImGui context
-                // Here, we just have a blank screen.
+                // These epic lines makes the dock
                 gl.ClearColor(Color.FromArgb(255, (int)(.45f * 255), (int)(.55f * 255), (int)(.60f * 255)));
-                gl.Clear((uint)ClearBufferMask.ColorBufferBit);
-
+                gl.Clear((uint)ClearBufferMask.ColorBufferBit);        
                 // This is where you'll do all of your ImGUi rendering
                 // Here, we're just showing the ImGui built-in demo window.
-                ImGuiNET.ImGui.ShowDemoWindow();
 
-                ImGui.GetIO().ConfigFlags |= ImGuiConfigFlags.DockingEnable;
+                RenderFullScreenDock();
+                ImGui.ShowDemoWindow();
 
-                ImGui.DockSpace(windowClass.ClassId, new System.Numerics.Vector2(720, 680), ImGuiDockNodeFlags.None, windowClass);
 
                 // Make sure ImGui renders too!
                 controller.Render();
@@ -75,6 +72,21 @@ namespace OrkEngine3D.Editor
 
             // Now that everything's defined, let's run this bad boy!
             window.Run();
+        }
+
+        public static void RenderFullScreenDock(){
+                ImGuiViewportPtr viewport = ImGui.GetMainViewport();
+                ImGui.SetNextWindowPos(viewport.WorkPos);
+                ImGui.SetNextWindowSize(viewport.WorkSize);
+                ImGui.SetNextWindowViewport(viewport.ID);
+                ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, 0.0f);
+                ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0f);
+                if(ImGui.Begin("Main dock", ImGuiWindowFlags.NoTitleBar)){
+                    ImGui.SetWindowSize(new System.Numerics.Vector2(700, 700));
+                    ImGui.DockSpace(ImGui.GetID("Main dock"), new System.Numerics.Vector2(0, 0), ImGuiDockNodeFlags.NoResize);
+                    ImGui.End();
+                }
+                    
         }
     }
 }
