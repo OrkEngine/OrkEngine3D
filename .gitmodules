@@ -1,0 +1,6 @@
+[submodule "source/vendors/-b"]
+	path = source/vendors/-b
+	url = https://github.com/mellinoe/ImGui.NET.git
+[submodule "source/vendors/ImGui.NET"]
+	path = source/vendors/ImGui.NET
+	url = https://github.com/mellinoe/ImGui.NET.git
