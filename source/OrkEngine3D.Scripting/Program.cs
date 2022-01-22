@@ -21,7 +21,7 @@ namespace OrkEngine3D.Scripting
             var stopwatch2 = Stopwatch.StartNew();
             */
             //LuaSE.test();
-            LuaEngine engine = new LuaEngine(true, false);
+            LuaEngine engine = new LuaEngine(true);
             engine.DoString("print(\"Hello, World!\")");
 
             //stopwatch2.Stop();
