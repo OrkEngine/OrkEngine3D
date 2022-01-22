@@ -2,7 +2,7 @@
 using Microsoft.Scripting.Hosting;
 using IronPython.Hosting;
 using System.Diagnostics;
-
+using OrkEngine3D.Scripting.LuaRuntime;
 namespace OrkEngine3D.Scripting
 {
     public class Program
@@ -20,7 +20,9 @@ namespace OrkEngine3D.Scripting
 
             var stopwatch2 = Stopwatch.StartNew();
             */
-            LuaSE.test();
+            //LuaSE.test();
+            LuaEngine engine = new LuaEngine(true, false);
+            engine.DoString("print(\"Hello, World!\")");
 
             //stopwatch2.Stop();
 

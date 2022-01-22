@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NLua;
-namespace OrkEngine3D.Scripting.LuaEngine
+namespace OrkEngine3D.Scripting.LuaRuntime
 {
     public class LuaEngine
     {
@@ -13,24 +13,38 @@ namespace OrkEngine3D.Scripting.LuaEngine
         private LuaFunction? Update;
         private LuaFunction? Render;
 
-        public LuaEngine() : this(false) { }
+        /// <summary>
+        /// Class Constructor
+        /// </summary>
+        public LuaEngine() : this(false, false) { }
 
-        public LuaEngine(bool loadCLR)
+        /// <summary>
+        /// Class Constructor
+        /// </summary>
+        /// <param name="loadCLR">Will use CLR Packages</param>
+        /// <param name="engineInit">Will use engine init</param>
+        public LuaEngine(bool loadCLR, bool engineInit)
         {
             if (loadCLR)
                 engine.LoadCLRPackage();
 
-            Load = (LuaFunction)engine["OnLoad"];
-            Update = (LuaFunction)engine["OnUpdate"];
-            Render = (LuaFunction)engine["OnRender"];
+            if (engineInit)
+            {
+                Load = (LuaFunction)engine["OnLoad"];
+                Update = (LuaFunction)engine["OnUpdate"];
+                Render = (LuaFunction)engine["OnRender"];
+            }
         }
 
+        /// <summary>
+        /// Lua Engine Reference
+        /// </summary>
         public Lua Engine => engine;
 
         #region CodeExecution
 
         /// <summary>
-        /// Run lua String
+        /// Run Lua String
         /// </summary>
         /// <param name="code">Code to run</param>
         /// <returns>returns class instance</returns>
