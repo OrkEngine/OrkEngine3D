@@ -22,6 +22,9 @@ namespace OrkEngine3D.Scripting
         //static LuaFunction OnWillRenderObjectLate;
         public static void test()
         {
+            #region Config
+            lua.LoadCLRPackage();
+            #endregion
             //lua.DoString("print(\"hello from lua\")");
             lua.DoFile("scripts/lua/program.lua");
 

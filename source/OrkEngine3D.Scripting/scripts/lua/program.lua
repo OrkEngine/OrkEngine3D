@@ -1,5 +1,5 @@
+import('System')
 print("Hello, from lua!")
-
 function RunMath(val1, val2)
 	if val1 > val2 then
 		return val1 + 1
@@ -11,6 +11,9 @@ end
 function OnLoad()
 
 	print("OnEngineLoad")
+	
+	Console.WriteLine("test");
+	print(res1)
 
 end
 
