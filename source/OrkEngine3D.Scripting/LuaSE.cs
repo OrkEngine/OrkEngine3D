@@ -9,13 +9,13 @@ namespace OrkEngine3D.Scripting
     internal class LuaSE
     {
         static Lua lua = new Lua();
-        static LuaFunction Load;
-        static LuaFunction Unload;
-        static LuaFunction Update;
+        static LuaFunction? Load;
+      //  static LuaFunction Unload;
+        static LuaFunction? Update;
        // static LuaFunction OnReset;
-        static LuaFunction Execute;
+        //static LuaFunction Execute;
        // static LuaFunction OnExecuteLate;
-        static LuaFunction Render;
+        static LuaFunction? Render;
       //  static LuaFunction OnRenderLate;
        // static LuaFunction OnRenderObject;
         //static LuaFunction OnWillRenderObject;
@@ -26,9 +26,9 @@ namespace OrkEngine3D.Scripting
             lua.DoFile("scripts/lua/program.lua");
 
             var scriptFunc = lua["RunMath"] as LuaFunction;
-            Load = lua["OnLoad"] as LuaFunction;
-            Update = lua["OnUpdate"] as LuaFunction;
-            Render = lua["OnRender"] as LuaFunction;
+            Load = (LuaFunction)lua["OnLoad"];
+            Update = (LuaFunction)lua["OnUpdate"];
+            Render = (LuaFunction)lua["OnRender"];
             //Execute = lua["Execute"] as LuaFunction;
             Int64 res = (Int64)scriptFunc.Call(3, 5).First();
             Console.WriteLine(res);
