@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31424.327
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrkEngine3D", "OrkEngine3D\OrkEngine3D.csproj", "{667F3EBC-144B-445C-98B8-D2885C437921}"
 EndProject
@@ -49,6 +49,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BepuUtilities", "vendors\bepuphysics2\BepuUtilities\BepuUtilities.csproj", "{2ACAB4BA-4DCE-48F1-8B99-BB14F3407DB4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrkEngine3D.Networking", "OrkEngine3D.Networking\OrkEngine3D.Networking.csproj", "{31B833DE-039D-49CA-B3FB-090C105326D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrkEngine3D.Scripting", "OrkEngine3D.Scripting\OrkEngine3D.Scripting.csproj", "{784F1E57-A426-4ABA-B08E-879C4625C4A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -153,6 +155,12 @@ Global
 		{31B833DE-039D-49CA-B3FB-090C105326D8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{31B833DE-039D-49CA-B3FB-090C105326D8}.ReleaseNoProfiling|Any CPU.ActiveCfg = Release|Any CPU
 		{31B833DE-039D-49CA-B3FB-090C105326D8}.ReleaseNoProfiling|Any CPU.Build.0 = Release|Any CPU
+		{784F1E57-A426-4ABA-B08E-879C4625C4A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{784F1E57-A426-4ABA-B08E-879C4625C4A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{784F1E57-A426-4ABA-B08E-879C4625C4A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{784F1E57-A426-4ABA-B08E-879C4625C4A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{784F1E57-A426-4ABA-B08E-879C4625C4A0}.ReleaseNoProfiling|Any CPU.ActiveCfg = Release|Any CPU
+		{784F1E57-A426-4ABA-B08E-879C4625C4A0}.ReleaseNoProfiling|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -175,6 +183,7 @@ Global
 		{93FF3F98-C728-480C-AACD-BBACCA79468B} = {2042D545-EC49-4755-9790-F205CFB15624}
 		{2ACAB4BA-4DCE-48F1-8B99-BB14F3407DB4} = {2042D545-EC49-4755-9790-F205CFB15624}
 		{31B833DE-039D-49CA-B3FB-090C105326D8} = {A8C5865D-7059-490F-9257-5517658D73A5}
+		{784F1E57-A426-4ABA-B08E-879C4625C4A0} = {A8C5865D-7059-490F-9257-5517658D73A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {16ECB4E9-6035-405C-BE9A-CD3CCF3B196C}
