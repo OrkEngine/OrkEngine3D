@@ -7,3 +7,6 @@
 [submodule "source/vendors/bepuphysics2"]
 	path = source/vendors/bepuphysics2
 	url = https://github.com/OrkEngine/bepuphysics2.git
+[submodule "source/vendors/LuaEngine"]
+	path = source/vendors/LuaEngine
+	url = https://github.com/OrkEngine/LuaEngine.git
