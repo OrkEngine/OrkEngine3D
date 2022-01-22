@@ -6,7 +6,7 @@ namespace OrkEngine3D.Scripting
     internal class PythonSE
     {
         static ScriptEngine engine = Python.CreateEngine();
-        static ScriptScope scope;
+        static ScriptScope? scope;
 
         public static void Run()
         {

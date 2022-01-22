@@ -28,12 +28,12 @@ namespace OrkEngine3D.Scripting
             //lua.DoString("print(\"hello from lua\")");
             lua.DoFile("scripts/lua/program.lua");
 
-            var scriptFunc = lua["RunMath"] as LuaFunction;
+            var scriptFunc = (LuaFunction)lua["RunMath"];
             Load = (LuaFunction)lua["OnLoad"];
             Update = (LuaFunction)lua["OnUpdate"];
             Render = (LuaFunction)lua["OnRender"];
             //Execute = lua["Execute"] as LuaFunction;
-            Int64 res = (Int64)scriptFunc.Call(3, 5).First();
+            long res = (long)scriptFunc.Call(3, 5).First();
             Console.WriteLine(res);
 
             OnLoad();
@@ -45,19 +45,19 @@ namespace OrkEngine3D.Scripting
 
         public static void OnLoad()
         {
-            Load.Call();
+            Load?.Call();
            // Console.WriteLine("OnEngineLoad");
         }
 
         public static void OnRender()
         {
-            Render.Call();
+            Render?.Call();
            // Console.WriteLine("OnEngineRender");
         }
 
         public static void OnUpdate()
         {
-            Update.Call();
+            Update?.Call();
            // Console.WriteLine("OnEngineUpdate");
         }
         #endregion
