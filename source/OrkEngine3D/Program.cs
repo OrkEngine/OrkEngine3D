@@ -66,6 +66,9 @@ namespace OrkEngine3D
                         Send("SERVER_STOP");
                         baseServer.Close();
                         break;
+                    case ("help"):
+                        Send("OrkEngine.Networking demo:\nCommands:\n  say - makes the server say something\n  caps - sends back the message in caps\n  stop - stops server-client connection\n  help - shows help message");
+                        break;
                     default:
                         Send("Invalid Command: " + message);
                         break;

@@ -17,7 +17,8 @@ namespace OrkEngine3D.Networking
         private ConnectionTarget target;
         Logger logger;
 
-        private List<TcpClient> connectedClients = new List<TcpClient>();
+        private Dictionary<int, TcpClient> connectedClients = new Dictionary<int, TcpClient>();
+        private Dictionary<int, bool> activeThreads = new Dictionary<int, bool>();
 
         public Server(ServerInterface serverInterface, ConnectionTarget target){
             this.serverInterface = serverInterface;
@@ -35,6 +36,7 @@ namespace OrkEngine3D.Networking
             this.listener = listener;
             this.target = target;
             Thread serverThread = new Thread(() => { Listen(); });
+            serverThread.IsBackground = true;
             serverThread.Start();
             Thread.Sleep(1000);
         }
@@ -45,6 +47,7 @@ namespace OrkEngine3D.Networking
             TcpClient client = listener.AcceptTcpClient();
 
             Thread clientThread = new Thread(ConnectToClient);
+            clientThread.IsBackground = true;
             clientThread.Start(client);
 
             Listen();
@@ -53,23 +56,35 @@ namespace OrkEngine3D.Networking
         public void ConnectToClient(object cliento){
             TcpClient client = (TcpClient)cliento;
             connection = new Connection(this, target, client.GetStream());
-            connectedClients.Add(client);
+            connectedClients.Add(Thread.CurrentThread.ManagedThreadId, client);
             logger.Log(LogMessageType.INFORMATION, "Connected at " + target);
 
             serverInterface.OnConnect((client.Client.RemoteEndPoint as IPEndPoint).Address.ToString());
-
-            while(client.Connected){
+            SetThreadActive(true);
+            while(IsThreadActive() && client.Connected){
                 connection.Update();
                 serverInterface.MainLoop();
             }
         }
+        
+
+        private bool IsThreadActive(){
+            return activeThreads[Thread.CurrentThread.ManagedThreadId];
+        }
+
+        private void SetThreadActive(bool value){
+            if(!activeThreads.ContainsKey(Thread.CurrentThread.ManagedThreadId))
+                activeThreads.Add(Thread.CurrentThread.ManagedThreadId, value);
+            else
+                activeThreads[Thread.CurrentThread.ManagedThreadId] = value;
+        }
 
         public void Close(){
-            
-            foreach(var client in connectedClients){
-                client.Close();
-            }
-            connectedClients.Clear();
+            connectedClients[Thread.CurrentThread.ManagedThreadId].GetStream().Close();
+            connectedClients[Thread.CurrentThread.ManagedThreadId].Close();
+
+            connectedClients.Remove(Thread.CurrentThread.ManagedThreadId);
+            SetThreadActive(false);
         }
 
         public void Recieve(byte[] data)

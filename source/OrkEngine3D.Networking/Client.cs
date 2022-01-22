@@ -36,17 +36,17 @@ namespace OrkEngine3D.Networking
         }
 
         public void Close(){
+            client.GetStream().Close();
             client.Close();
             keepThreadUp = false;
         }
 
         private void MainLoop(){
             
-            while(client.Connected){
+            while(keepThreadUp && client.Connected){
                 connection.Update();
-                clientInterface.MainLoop();
-                if(!keepThreadUp)
-                    break;
+                if(keepThreadUp)
+                    clientInterface.MainLoop();
             }
         }
 
