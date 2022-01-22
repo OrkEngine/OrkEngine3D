@@ -9,31 +9,20 @@ namespace OrkEngine3D.Scripting.LuaRuntime
     public class LuaEngine
     {
         private Lua engine = new Lua();
-        private LuaFunction? Load;
-        private LuaFunction? Update;
-        private LuaFunction? Render;
 
         /// <summary>
         /// Class Constructor
         /// </summary>
-        public LuaEngine() : this(false, false) { }
+        public LuaEngine() : this(false) { }
 
         /// <summary>
         /// Class Constructor
         /// </summary>
         /// <param name="loadCLR">Will use CLR Packages</param>
-        /// <param name="engineInit">Will use engine init</param>
-        public LuaEngine(bool loadCLR, bool engineInit)
+        public LuaEngine(bool loadCLR)
         {
             if (loadCLR)
                 engine.LoadCLRPackage();
-
-            if (engineInit)
-            {
-                Load = (LuaFunction)engine["OnLoad"];
-                Update = (LuaFunction)engine["OnUpdate"];
-                Render = (LuaFunction)engine["OnRender"];
-            }
         }
 
         /// <summary>
@@ -52,6 +41,16 @@ namespace OrkEngine3D.Scripting.LuaRuntime
         {
             engine.DoString(code);
             return this;
+        }
+
+        /// <summary>
+        /// Registers a lua function/method/object
+        /// </summary>
+        /// <param name="luaObject">lua object</param>
+        /// <returns>registered lua object</returns>
+        public LuaFunction RegisterLuaObject(string luaObject)
+        {
+            return (LuaFunction)engine[luaObject];
         }
 
         /// <summary>
@@ -91,25 +90,6 @@ namespace OrkEngine3D.Scripting.LuaRuntime
                 engine.DoFile(pfile);
             }
             return this;
-        }
-
-        #endregion
-
-        #region GameEngine Code
-
-        public virtual void OnLoad()
-        {
-            Load?.Call();
-        }
-
-        public virtual void OnRender()
-        {
-            Render?.Call();
-        }
-
-        public virtual void OnUpdate()
-        {
-            Update?.Call();
         }
 
         #endregion
