@@ -6,6 +6,7 @@ using OpenTK.Graphics.OpenGL4;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
+using OrkEngine3D.Diagnostics.Logging;
 
 namespace OrkEngine3D.Graphics.TK.Resources
 {
@@ -57,7 +58,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
         /// <param name="id">The texure ID(in shader)</param>
         public void Use(byte id){
             if(id > 31 && id < 0)
-                throw new IndexOutOfRangeException("Texture index may only be 0-31");
+                Logger.Get("TextureBinder", "Graphics").Log(LogMessageType.FATAL, "Texture index may only be 0-31");
             GL.ActiveTexture((TextureUnit)Enum.Parse(typeof(TextureUnit), "Texture"+id.ToString()));
             GL.BindTexture(TextureTarget.Texture2D, this.id);
         }

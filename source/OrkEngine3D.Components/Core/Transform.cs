@@ -59,7 +59,7 @@ namespace OrkEngine3D.Components.Core
         /// </summary>
         /// <param name="eulers">The rotation to rotate the object with, in euler angles</param>
         public void Rotate(Vector3 eulers){
-            rotation = Quaternion.Multiply(rotation, Quaternion.RotationYawPitchRoll(eulers.Y, eulers.Z, eulers.X));
+            rotation = Quaternion.Multiply(rotation, Quaternion.RotationYawPitchRoll(eulers.Y, eulers.X, eulers.Z));
         }
     }
 }

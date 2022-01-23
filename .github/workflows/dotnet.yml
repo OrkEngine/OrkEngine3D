@@ -17,13 +17,23 @@ jobs:
       run:
         working-directory: ./source
         
-
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        submodules: true
+
+    # Update references
+    - name: Git Sumbodule Update
+      run: |
+        git pull --recurse-submodules
+        git submodule update --remote --recursive
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 6.0.x
+    - name: Update submodules
+      run: git submodule update --recursive
     - name: Restore dependencies
       run: dotnet restore
     - name: Build

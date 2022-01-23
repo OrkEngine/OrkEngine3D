@@ -1,4 +1,5 @@
 using OpenTK.Graphics.OpenGL4;
+using OrkEngine3D.Diagnostics.Logging;
 
 namespace OrkEngine3D.Graphics.TK.Resources
 {
@@ -21,7 +22,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
             GL.GetShaderInfoLog(id, out string log);
 
             if(!string.IsNullOrEmpty(log)){
-                throw new ShaderException(type.ToString() + ": " + log);
+                Logger.Get("ShaderCompiler", "Graphics").Log(LogMessageType.ERROR, type.ToString() + ": " + log);
             }
         }
 

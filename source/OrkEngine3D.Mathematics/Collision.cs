@@ -1301,7 +1301,8 @@ namespace OrkEngine3D.Mathematics
         {
             //Source: Real-Time Collision Detection by Christer Ericson
             //Reference: Page 169
-
+            
+            //NOTE: I, jimmy, removed an unused variable
             float p0, p2, r;
 
             //Compute box center and extents (if not already given in that format)

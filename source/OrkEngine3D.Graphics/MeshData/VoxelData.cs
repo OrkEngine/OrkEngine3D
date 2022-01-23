@@ -77,7 +77,7 @@ namespace OrkEngine3D.Graphics.MeshData
                 }
             }
 
-            return new MeshInformation(vertices.ToArray(), new Color4[0], uvs.ToArray(), normals.ToArray(), triangles.ToArray());
+            return new MeshInformation(vertices.ToArray(), new Color4[0], uvs.ToArray(), normals.ToArray(), triangles.ToArray(), new int[0]);
         }
 
 

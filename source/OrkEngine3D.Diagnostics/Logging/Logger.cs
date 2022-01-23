@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -30,9 +30,6 @@ namespace OrkEngine3D.Diagnostics.Logging
 
 		// log handler (will be called when theres a new log message)
 		public event HandleLog LogMessageHandler;
-
-		// show logger name in log messages
-		public bool displayLoggerName = false;
 
 
 
@@ -111,7 +108,7 @@ namespace OrkEngine3D.Diagnostics.Logging
 			 * %tim% -> Timestamp
 			 */
 
-			formattedLog = formattedLog.Replace("%mod%", (displayLoggerName ? LoggerIdentifier + ", " : "") + module);
+			formattedLog = formattedLog.Replace("%mod%", module);
 			formattedLog = formattedLog.Replace("%typ%", type);
 			formattedLog = formattedLog.Replace("%msg%", message);
 			formattedLog = formattedLog.Replace("%tim%", GetTimeStamp());

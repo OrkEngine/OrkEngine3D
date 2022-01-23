@@ -1,0 +1,123 @@
+/*
+
+GLTF 2.0 - LOW-LEVEL JSON REPRESENTATION
+COPYRIGHT ORKENGINE 2021
+
+SPECIFICATION: https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html
+
+
+THIS DOES NOT LOAD GLTF FILES INTO A COMPATIBLE FORMAT, IT ONLY PROVIDES A CLASS THAT REPRESENTS A GLTF FILE
+
+*/
+
+
+namespace OrkEngine3D.Graphics.GLTF
+{
+    /// <summary>
+    /// Represents the base structure of a gltf file
+    /// </summary>
+    public class gltfmodel
+    {
+        public asset asset;
+        public node[] nodes;
+        public scene[] scenes;
+        public buffer[] buffers;
+        public accessor[] accessors;
+        public mesh[] meshes;
+    }
+
+    public class scene{
+        public string name;
+        public uint[] nodes;
+    }
+
+    public class node{
+        public uint[] children;
+        public string name;
+        public float[] rotation;
+        public float[] position;
+        public float[] scale;
+        public float[] matrix;
+        public uint mesh;
+    }
+
+    public class asset{
+        public string version;
+        public string minVersion;
+        public string copyright;
+        public string generator;
+    }
+
+    public class buffer{
+        public uint byteLength;
+        public string uri;
+    }
+
+    public class bufferview{
+        public uint buffer;
+        public uint byteLength;
+        public uint byteOffset;
+        public int target;
+    }
+
+    public class mesh{
+        public primitive[] primitives;
+    }
+
+    public class primitive{
+        public Dictionary<string, int> attributes;
+        public uint indicies;
+        public int material;
+        public int mode;
+    }
+
+    public class accessor{
+        public uint bufferView;
+        public uint byteOffset;
+        public int componentType;
+        public uint count;
+        public float[] max;
+        public float[] min;
+        public bool normalized;
+        public string type;
+        public accessor_sparse sparse;
+    }
+
+    public class accessor_sparse{
+        public uint count;
+        public accessor_spare_indicies indicies;
+        public accessor_sparse_values values;
+
+    }
+
+    public class accessor_spare_indicies{
+        public uint bufferView;
+        public uint byteOffset;
+        public int componentType;
+    }
+
+    public class accessor_sparse_values{
+        public uint bufferView;
+        public uint byteOffset;
+    }
+
+    public enum ComponentType{
+        SignedByte = 5120,
+        UnsignedByte = 5121,
+        SignedShort = 5122,
+        UnsignedShort = 5123,
+        SignedInt = 5124,
+        UnsignedInt = 5125,
+        Float = 5126
+    }
+
+    public enum ComponentLength{
+        SCALAR = 1,
+        VEC2 = 2,
+        VEC3 = 3,
+        VEC4 = 4,
+        MAT2 = 4,
+        MAT3 = 9,
+        MAT4 = 16
+    }
+}

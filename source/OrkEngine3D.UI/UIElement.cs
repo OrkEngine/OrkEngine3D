@@ -9,7 +9,7 @@ namespace OrkEngine3D.UI
     /// <summary>
     /// Provides a base class for all the User Interface elements in OrkEngine3D.
     /// </summary>
-    class UIElement
+    public abstract class UIElement
     {
     }
 }

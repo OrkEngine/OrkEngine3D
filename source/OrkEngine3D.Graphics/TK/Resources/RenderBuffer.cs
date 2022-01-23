@@ -59,7 +59,8 @@ namespace OrkEngine3D.Graphics.TK.Resources
 
         public override void Unload()
         {
-            throw new NotImplementedException();
+            GL.DeleteRenderbuffer(id);
+            GL.DeleteFramebuffer(id);
         }
     }
 }

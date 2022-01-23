@@ -1,158 +1,81 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using OrkEngine3D.Components.Core;
-using OrkEngine3D.Graphics;
-using OrkEngine3D.Graphics.MeshData;
-using OrkEngine3D.Graphics.TK;
-using OrkEngine3D.Graphics.TK.Resources;
+﻿﻿using System;
+using OrkEngine3D.Networking;
 using OrkEngine3D.Diagnostics.Logging;
-using OrkEngine3D.Mathematics;
-using MathF = OrkEngine3D.Mathematics.MathF;
+using System.Threading;
 
 namespace OrkEngine3D
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-			Logger logger = new Logger("MainLogger", "NoModule");
-			logger.displayLoggerName = true;
-			logger.Log(LogMessageType.DEBUG, "Teapot");
-            
-            GraphicsContext ctx = new GraphicsContext("Hello World", new TestHandler());
-            ctx.Run();
+            Console.WriteLine("Network demo 1.0");
+            Server server = new Server(new TestServer(), new ConnectionTarget("127.0.0.1"));
+            Client client = new Client(new TestClient(), new ConnectionTarget("127.0.0.1"));
         }
     }
 
-    class TestHandler : GraphicsHandler
+    public class TestClient : ClientInterface
     {
-        Shader fshader;
-        Shader vshader;
-        ShaderProgram program;
-        Camera camera;
-        Mesh mesh;
-        Transform meshTransform;
-        RenderBuffer renderBuffer;
-        LightScene lscene;
-        public override void Init()
+
+        public override void OnConnect(){
+            Send("CONNECTED");
+        }
+
+        public override void MainLoop()
         {
-            mesh = new Mesh(resourceManager);
-            fshader = new Shader(resourceManager, File.ReadAllText("shader.frag"), ShaderType.FragmentShader);
-            vshader = new Shader(resourceManager, File.ReadAllText("shader.vert"), ShaderType.VertexShader);
+            Console.Write("> ");
+            Send(Console.ReadLine());
+            Thread.Sleep(100); 
+        }
 
-            program = new ShaderProgram(resourceManager, vshader, fshader);
+        public override void OnRecieve(byte[] data)
+        {
+            string m = System.Text.Encoding.Default.GetString(data).Trim('\0');
+            if(m == "SERVER_STOP")
+                baseClient.Close();
+            Console.WriteLine(m);
+        }
+    }
 
-            mesh.shader = program;
-
-            MeshInformation voxelInformation = ObjLoader.LoadObjData(File.ReadAllText("model.obj"));//VoxelData.GenerateVoxelInformation();
-
-            mesh.verticies = voxelInformation.verticies;
-            mesh.triangles = voxelInformation.triangles;
-            mesh.uv = voxelInformation.uv;
-            mesh.normals = voxelInformation.normals;
-
-            Texture testTexture = new Texture(resourceManager, Texture.GetTextureDataFromFile("thevroom.png"));
-
-            renderBuffer = new RenderBuffer(resourceManager, 1280, 720);
-
-            mesh.textures = new Texture[] { testTexture };
-
-            mesh.UpdateGLData();
-
-            camera = new Camera();
-            camera.perspective = true;
-            meshTransform = new Transform();
-
-            Rendering.BindContext(context);
+    public class TestServer : ServerInterface
+    {
+        public override void MainLoop()
+        {
             
-            Rendering.BindCamera(camera);
-
-            lscene = new LightScene();
-            Rendering.BindLightning(lscene);
-
-            meshTransform.position.Z = -0.5f;// + MathF.Sin(t);
-            meshTransform.position.Y = -4f;
-            meshTransform.scale = Vector3.One * 1.5f;
-            meshTransform.position.Y = 0f;
-            meshTransform.Rotate(new Vector3(MathF.PI / 3, MathF.PI / 2, 0));
-
         }
 
-        public override void Render()
+        public override void OnConnect(string ip)
         {
-
-            Rendering.BindTarget(renderBuffer);
-            Rendering.ClearTarget();
-
-            Rendering.BindTransform(meshTransform);
-            mesh.Render();
-
-
-            Rendering.ResetTarget();
-            Rendering.ClearTarget();
-
-            Rendering.BindTransform(meshTransform);
-            mesh.Render();
-
-            Rendering.SwapBuffers();
+            //Send($"[Server] {ip} CONNECTED");
         }
-        float t = 0;
-        public override void Update()
+
+        public override void OnRecieve(byte[] data)
         {
-            t += context.deltaTime;
-            meshTransform.position.Z = -3f;// + MathF.Sin(t);
-            //meshTransform.Rotate(Vector3.One * context.deltaTime);
-            //lscene.light.color = new Color3((MathF.Sin(t) + 1) / 2, (MathF.Cos(t) + 1) / 2, MathF.Max(MathF.Cos(t), (MathF.Sin(t)) + 1) / 2);
-
-
-            while(context.nonQueriedKeys.Count > 0){
-                KeyEvent e = context.nonQueriedKeys.Dequeue();
-				Logger.Get("MainLogger").Log(LogMessageType.DEBUG, $"Keyboard: {e.eventType.ToString()}, {e.key.ToString()}");
+            string message = System.Text.Encoding.Default.GetString(data).Trim().Trim('\0');
+            if(message.StartsWith("/")){
+                string[] cmd = message.Substring(1).Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                switch(cmd[0].Trim()){
+                    case ("say"):
+                        Send($"[SERVER] {message.Substring("/say ".Length)}");
+                        break;
+                    case ("caps"):
+                        Send(message.Substring("/say ".Length).ToUpper());
+                        break;
+                    case ("stop"):
+                        Send("SERVER_STOP");
+                        baseServer.Close();
+                        break;
+                    case ("help"):
+                        Send("OrkEngine.Networking demo:\nCommands:\n  say - makes the server say something\n  caps - sends back the message in caps\n  stop - stops server-client connection\n  help - shows help message");
+                        break;
+                    default:
+                        Send("Invalid Command: " + message);
+                        break;
+                }
+            } else{
+                Send("[Client] " + message);
             }
         }
-
-        string vshadersource = @"
-#version 330 core
-in vec3 vert_position;
-in vec4 vert_color;
-in vec2 vert_uv;
-in vec3 vert_normal;
-
-out vec4 fColor;
-out vec3 fPos;
-out vec2 fUV;
-out vec3 fNorm;
-
-uniform mat4 matx_model;
-uniform mat4 matx_view;
-
-void main()
-{
-    gl_Position = matx_view * matx_model * vec4(vert_position, 1.0);
-    fColor = vert_color;
-    fUV = vert_uv;
-    fPos = vert_position;
-}
-        ";
-
-        string fshadersource = @"
-#version 330 core
-out vec4 FragColor;
-
-in vec4 fColor;
-in vec3 fPos;
-in vec2 fUV;
-
-uniform sampler2D mat_texture0;
-uniform sampler2D mat_texture1;
-
-void main()
-{
-    FragColor = texture(mat_texture1, fUV);
-    FragColor = texture(mat_texture0, fUV);
-}
-
-        ";
     }
 }
