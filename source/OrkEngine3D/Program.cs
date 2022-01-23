@@ -10,7 +10,7 @@ namespace OrkEngine3D
         public static void Main(string[] args)
         {
             Console.WriteLine("Network demo 1.0");
-            Server server = new Server(new TestServer(), new ConnectionTarget("127.0.0.1"));
+            Server server = new Server(new TestServer(), new ConnectionTarget("127.0.0.1"), true);
             Client client = new Client(new TestClient(), new ConnectionTarget("127.0.0.1"));
         }
     }
@@ -73,6 +73,8 @@ namespace OrkEngine3D
                         Send("Invalid Command: " + message);
                         break;
                 }
+            } else if (message == "CONNECTED"){
+                Send("New client connected");
             } else{
                 Send("[Client] " + message);
             }
