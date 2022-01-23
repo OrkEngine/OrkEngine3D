@@ -17,6 +17,7 @@ namespace OrkEngine3D
         static void Main(string[] args)
         {
 			Logger logger = new Logger("MainLogger", "NoModule");
+			logger.displayLoggerName = true;
 			logger.Log(LogMessageType.DEBUG, "Teapot");
             
             GraphicsContext ctx = new GraphicsContext("Hello World", new TestHandler());
