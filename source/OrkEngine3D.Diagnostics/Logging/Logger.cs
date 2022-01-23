@@ -31,6 +31,7 @@ namespace OrkEngine3D.Diagnostics.Logging
 		// log handler (will be called when theres a new log message)
 		public event HandleLog LogMessageHandler;
 
+		public bool outputLoggerName = false;
 
 
 		// the module in which the Logger was created
@@ -108,7 +109,7 @@ namespace OrkEngine3D.Diagnostics.Logging
 			 * %tim% -> Timestamp
 			 */
 
-			formattedLog = formattedLog.Replace("%mod%", module);
+			formattedLog = formattedLog.Replace("%mod%", (outputLoggerName ? LoggerIdentifier + ", " : "") +  module);
 			formattedLog = formattedLog.Replace("%typ%", type);
 			formattedLog = formattedLog.Replace("%msg%", message);
 			formattedLog = formattedLog.Replace("%tim%", GetTimeStamp());
