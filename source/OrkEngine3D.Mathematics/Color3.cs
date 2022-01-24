@@ -35,6 +35,11 @@ namespace OrkEngine3D.Mathematics
     public struct Color3 : IEquatable<Color3>, IFormattable
     {
         /// <summary>
+        /// Empty Color3
+        /// </summary>
+        public static readonly Color3 Empty;
+
+        /// <summary>
         /// The red component of the color.
         /// </summary>
         public float Red;
