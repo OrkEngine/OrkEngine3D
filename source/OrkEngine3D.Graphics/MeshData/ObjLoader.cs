@@ -195,11 +195,13 @@ namespace OrkEngine3D.Graphics.MeshData
                 }
                 if(line.StartsWith("newmtl "))
                 {
+
                     material.textures = textures.ToArray();
                     textures.Clear();
                     materials.Add(materialname, material);
                     material = new Material();
                     materialname = line.Substring("newmtl ".Length).Trim();
+
                 }
 
             }

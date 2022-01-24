@@ -16,13 +16,15 @@ namespace OrkEngine3D.Networking
         private ServerInterface serverInterface;
         private ConnectionTarget target;
         Logger logger;
+        public bool multiThreaded;
 
         private Dictionary<int, TcpClient> connectedClients = new Dictionary<int, TcpClient>();
         private Dictionary<int, bool> activeThreads = new Dictionary<int, bool>();
 
-        public Server(ServerInterface serverInterface, ConnectionTarget target){
+        public Server(ServerInterface serverInterface, ConnectionTarget target, bool multiThreaded = false){
             this.serverInterface = serverInterface;
             this.serverInterface.baseServer = this;
+            this.multiThreaded = multiThreaded;
 
             Open(target);
         }
@@ -35,10 +37,15 @@ namespace OrkEngine3D.Networking
             TcpListener listener = new TcpListener(IPAddress.Parse(target.ip), target.port);
             this.listener = listener;
             this.target = target;
-            Thread serverThread = new Thread(() => { Listen(); });
-            serverThread.IsBackground = true;
-            serverThread.Start();
-            Thread.Sleep(1000);
+            if(multiThreaded){
+                Thread serverThread = new Thread(() => { Listen(); });
+                serverThread.IsBackground = true;
+                serverThread.Start();
+                Thread.Sleep(1000);
+            } else{
+                Listen();
+            }
+            
         }
 
         public void Listen(){

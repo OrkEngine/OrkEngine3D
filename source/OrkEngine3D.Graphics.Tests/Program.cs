@@ -50,14 +50,19 @@ namespace OrkEngine3D.Graphics.Tests
 
             cubeMesh = new Mesh(resourceManager);
 
-            ObjComplete voxelInformation = ObjLoader.LoadObjFromFile("resources/2cube.obj");
+            //ObjComplete voxelInformation = ObjLoader.LoadObjFromFile("resources/2cube.obj");
+            Color3 white = new Color3(1f, 1f, 1f);
+            ObjComplete voxelInformation = new ObjComplete(VoxelData.GenerateVoxelInformation(), new Material[] { new Material() });
 
             Rendering.BindMaterials(voxelInformation.materials);
+
+            
 
             cubeMesh.verticies = voxelInformation.meshInformation.verticies;
             cubeMesh.uv = voxelInformation.meshInformation.uv;
             cubeMesh.normals = voxelInformation.meshInformation.normals;
             cubeMesh.materials = voxelInformation.meshInformation.materials;
+            cubeMesh.triangles = voxelInformation.meshInformation.triangles;
             cubeMesh.shader = program;
 
             cubeMesh.UpdateGLData();
