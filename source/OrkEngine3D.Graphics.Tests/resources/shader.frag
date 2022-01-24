@@ -96,5 +96,5 @@ void main()
     // specular
         
     vec3 result = CombineLightning(amb, dif, spec, objectColor);
-    FragColor = vec4(CalculateAmbientLightning(ambient, material), 1);
+    FragColor = vec4(1);
 }

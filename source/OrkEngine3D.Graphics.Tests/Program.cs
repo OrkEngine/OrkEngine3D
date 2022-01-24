@@ -7,6 +7,9 @@ using OrkEngine3D.Mathematics;
 using System;
 using System.IO;
 using System.Linq;
+using OrkEngine3D.Graphics.OMF.OMF1;
+using Mesh = OrkEngine3D.Graphics.TK.Resources.Mesh;
+using Material = OrkEngine3D.Graphics.TK.Material;
 
 namespace OrkEngine3D.Graphics.Tests
 {
@@ -51,6 +54,7 @@ namespace OrkEngine3D.Graphics.Tests
             cubeMesh = new Mesh(resourceManager);
 
             //ObjComplete voxelInformation = ObjLoader.LoadObjFromFile("resources/2cube.obj");
+
             Color3 white = new Color3(1f, 1f, 1f);
             ObjComplete voxelInformation = new ObjComplete(VoxelData.GenerateVoxelInformation(), new Material[] { new Material() });
 
