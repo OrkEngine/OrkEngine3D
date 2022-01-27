@@ -11,6 +11,8 @@ namespace OrkEngine3D.Editor.Views
 {
     internal class HierarchyView
     {
+
+        public static IntPtr TreeNode = IntPtr.Zero;
         public static void Show()
         {
             //ImGuiViewportPtr viewport = ImGui.GetMainViewport();
@@ -23,9 +25,28 @@ namespace OrkEngine3D.Editor.Views
             
             if (ImGui.Begin("Hierarchy"))
             {
-                //ImGui.SetWindowSize(new Vector2(100, 100));
+
+                ImGuiStylePtr style = ImGui.GetStyle();
+                //style.Colors[(int)ImGuiCol.Text] = Imgui
+                ImGui.SetWindowSize(new Vector2(500, 500));
+
+                ImGui.TextColored(new Vector4(255, 0, 0, 255), "ColoredText");
+                if (ImGui.TreeNode(TreeNode, "Items"))
+                {
+                    ImGui.TreePush("Example");
+
+                    ImGui.TextColored(new Vector4(255, 0, 0, 255), "Example");
+
+                    
+
+                    ImGui.End();
+                    
+                    ImGui.End();
+                }
+                
+
                 //ImGui.
-                ImGui.Button("Hello", new Vector2(10, 10));
+                //ImGui.Button("Hello", new Vector2(10, 10));
                 
                 ImGui.End();
             }

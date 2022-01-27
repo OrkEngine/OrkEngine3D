@@ -56,18 +56,27 @@ namespace OrkEngine3D.Editor
                 RenderFullScreenDock();
                 ImGui.ShowDemoWindow();
 
+                Views.HierarchyView.Show();
+
+                /*
+                if ((io.ConfigFlags & ImGuiConfigFlags.ViewportsEnable) != 0)
+                {
+                    ImGui.UpdatePlatformWindows();
+                    ImGui.RenderPlatformWindowsDefault();
+                }*/
+
                 if (ImGui.BeginMainMenuBar())
                 {
                     //TODO: Change to bools for logging
                     FileMenu.Dispatch();
                     EditMenu.Dispatch();
-                    ViewMenu.Dispatch();
                     ImGui.EndMainMenuBar();
                 }
 
                 // Make sure ImGui renders too!
                 controller.Render();
             };
+            
 
             // The closing function
             window.Closing += () =>
@@ -102,6 +111,12 @@ namespace OrkEngine3D.Editor
                 ImGui.End();
             }
           //  ImGui.PopStyleVar();
+        }
+
+        public void Theme()
+        {
+            ImGuiStylePtr style = ImGui.GetStyle();
+            
         }
     }
 }
