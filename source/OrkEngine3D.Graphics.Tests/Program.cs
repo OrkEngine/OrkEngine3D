@@ -1,6 +1,7 @@
 ﻿using OrkEngine3D.Components.Core;
 using OrkEngine3D.Diagnostics.Logging;
 using OrkEngine3D.Graphics.MeshData;
+using OrkEngine3D.Graphics.OMF.OMF1;
 using OrkEngine3D.Graphics.TK;
 using OrkEngine3D.Graphics.TK.Resources;
 using OrkEngine3D.Mathematics;
@@ -53,14 +54,13 @@ namespace OrkEngine3D.Graphics.Tests
 
             cubeMesh = new Mesh(resourceManager);
 
-            //ObjComplete voxelInformation = ObjLoader.LoadObjFromFile("resources/2cube.obj");
-
+            ObjComplete voxelInformation = OrkModelFile.OMFToObjComplete(OrkModelFile.LoadFromFile("resources/2cube.json"));//ObjLoader.LoadObjFromFile("resources/2cube.obj");
+            //ObjComplete voxelInformation = ObjLoader.LoadObjFromFile("resources/teapot.obj");
+            //OrkModelFile.SaveToFile("resources/teapot.json", OrkModelFile.ObjCompleteToOMF(voxelInformation));
             Color3 white = new Color3(1f, 1f, 1f);
-            ObjComplete voxelInformation = new ObjComplete(VoxelData.GenerateVoxelInformation(), new Material[] { new Material() });
+            //ObjComplete voxelInformation = new ObjComplete(VoxelData.GenerateVoxelInformation(), new Material[] { new Material() });
 
             Rendering.BindMaterials(voxelInformation.materials);
-
-            
 
             cubeMesh.verticies = voxelInformation.meshInformation.verticies;
             cubeMesh.uv = voxelInformation.meshInformation.uv;
@@ -73,7 +73,7 @@ namespace OrkEngine3D.Graphics.Tests
 
             cubeTransform = new Transform();
 
-            cubeTransform.position.Z = -0.5f;// + MathF.Sin(t);
+            cubeTransform.position.Z = -5f;// + MathF.Sin(t);
             cubeTransform.position.Y = 0f;
             //cubeTransform.position.X = -1;
 
@@ -129,7 +129,7 @@ namespace OrkEngine3D.Graphics.Tests
         {
             t += context.deltaTime;
             cubeTransform.position.Z = -3f;
-            cubeTransform.Rotate(Vector3.UnitY * context.deltaTime);
+            cubeTransform.Rotate(Vector3.One * context.deltaTime);
 
             //teapotTransform.position.Z = -3f;
             //teapotTransform.Rotate(Vector3.UnitX * context.deltaTime);

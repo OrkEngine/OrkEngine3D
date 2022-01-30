@@ -9,7 +9,7 @@ namespace OrkEngine3D.Graphics
 {
     public class LightScene
     {
-        public Light ambient = new Light(1f, new Color3(1f, 1f, 1f), new Vector3(0, 0, 0));
+        public Light ambient = new Light(0.2f, new Color3(1f, 1f, 1f), new Vector3(0, 0, 0));
         public Light light = new Light(0.9f, new Color3(1f, 1f, 1f), new Vector3(0, 1, 0));
     }
 
