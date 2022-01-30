@@ -8,7 +8,7 @@
             "preLaunchTask": "grptbuild",
             "program": "${workspaceFolder}/source/OrkEngine3D.Graphics.Tests/bin/Debug/net6.0/OrkEngine3D.Graphics.Tests.dll",
             "args": [],
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/source/OrkEngine3D.Graphics.Tests/bin/Debug/net6.0/",
             "stopAtEntry": false,
             "console": "internalConsole"
         },

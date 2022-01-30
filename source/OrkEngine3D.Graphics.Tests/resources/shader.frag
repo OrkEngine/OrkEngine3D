@@ -85,16 +85,20 @@ vec3 CombineLightning(vec3 ambient, vec3 diffuse, vec3 specular, vec3 objcolor){
 
 void main()
 {
-    Material material = GetMaterial(0);
+    Material material = GetMaterial(mat);
+
+    Light currentLight = Light(light.strength, light.color, light.position);
+    Light ambientLight = Light(ambient.strength, ambient.color, ambient.position);
+
 
     vec3 objectColor = vec3(1, 1, 1);//texture2D(material1_texture0, fUV).rgb;
 
-    vec3 amb = CalculateAmbientLightning(ambient, material);
-    vec3 dif = CalculateDiffuseLightning(light, material);
-    vec3 spec = CalculateSpecularLightning(light, material, Normal);
+    vec3 amb = CalculateAmbientLightning(ambientLight, material);
+    vec3 dif = CalculateDiffuseLightning(currentLight, material);
+    vec3 spec = CalculateSpecularLightning(currentLight, material, Normal);
     
     // specular
         
     vec3 result = CombineLightning(amb, dif, spec, objectColor);
-    FragColor = vec4(CalculateAmbientLightning(ambient, material), 1);
+    FragColor = vec4(result, 1.0);
 }
