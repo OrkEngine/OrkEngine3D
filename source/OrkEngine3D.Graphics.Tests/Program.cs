@@ -1,12 +1,14 @@
 ﻿using OrkEngine3D.Components.Core;
 using OrkEngine3D.Diagnostics.Logging;
 using OrkEngine3D.Graphics.MeshData;
+using OrkEngine3D.Graphics.OMF.OMF1;
 using OrkEngine3D.Graphics.TK;
 using OrkEngine3D.Graphics.TK.Resources;
 using OrkEngine3D.Mathematics;
 using System;
 using System.IO;
 using System.Linq;
+using Mesh = OrkEngine3D.Graphics.TK.Resources.Mesh;
 
 namespace OrkEngine3D.Graphics.Tests
 {
