@@ -16,7 +16,7 @@ struct Light{
 
 
 uniform Light ambient;
-uniform Light light;
+uniform Light lights[256];
 
 struct Material {
     vec3 ambient;
@@ -35,8 +35,8 @@ Material GetMaterial(int m){
     return material;
 }
 
-sampler2D GetTexture(int m, int t){
-    return material_textures[m * 16 + t];
+int GetTextureID(int m, int t){
+    return m * 16 + t;
 }
 
 vec3 CalculateAmbientLightning(Light l, Material material){
@@ -70,7 +70,7 @@ void main()
     Material material = GetMaterial(mat);
 
     Light ambientLight = ambient;
-    Light currentLight = light;
+    Light currentLight = lights[0];
 
     vec3 hi = ambient.color;
 

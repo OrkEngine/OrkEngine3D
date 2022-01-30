@@ -152,9 +152,9 @@ namespace OrkEngine3D.Graphics.TK.Resources
 
             shader.Uniform3("camera_pos", Rendering.currentCamera.transform.position);
 
-            shader.Uniform1("light.strength", Rendering.currentLightning.light.strength);
-            shader.Uniform3("light.color", Rendering.currentLightning.light.color);
-            shader.Uniform3("light.position", Rendering.currentLightning.light.position);
+            shader.Uniform1("lights[0].strength", Rendering.currentLightning.light.strength);
+            shader.Uniform3("lights[0].color", Rendering.currentLightning.light.color);
+            shader.Uniform3("lights[0].position", Rendering.currentLightning.light.position);
 
             for (int i = 0; i < Rendering.currentMaterials.Length; i++)
             {
