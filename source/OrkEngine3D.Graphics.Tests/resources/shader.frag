@@ -17,6 +17,7 @@ struct Light{
 
 uniform Light ambient;
 uniform Light lights[256];
+uniform int lights_count;
 
 struct Material {
     vec3 ambient;
@@ -72,17 +73,20 @@ void main()
     Light ambientLight = ambient;
     Light currentLight = lights[0];
 
-    vec3 hi = ambient.color;
-
 
     vec3 objectColor = vec3(1, 1, 1);//texture2D(material1_texture0, fUV).rgb;
 
-    vec3 amb = CalculateAmbientLightning(ambientLight, material);
-    vec3 dif = CalculateDiffuseLightning(currentLight, material);
-    vec3 spec = CalculateSpecularLightning(currentLight, material, Normal);
-    
-    // specular
-        
+    vec3 amb = vec3(0, 0, 0);
+    vec3 dif = vec3(0, 0, 0);
+    vec3 spec = vec3(0, 0, 0);
+
+    amb += CalculateAmbientLightning(ambientLight, material);
+
+    for(int i = 0; i < lights_count; i++){
+        dif += CalculateDiffuseLightning(lights[i], material);
+        spec += CalculateSpecularLightning(lights[i], material, Normal);
+    }
+
     vec3 result = CombineLightning(amb, dif, spec, objectColor);
     FragColor = vec4(result, 1.0);
 }
