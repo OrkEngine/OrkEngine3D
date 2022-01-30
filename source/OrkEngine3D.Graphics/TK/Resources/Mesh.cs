@@ -160,17 +160,17 @@ namespace OrkEngine3D.Graphics.TK.Resources
             {
                 Material material = Rendering.currentMaterials[i];
 
-                shader.Uniform3($"material{i}.ambient", material.ambient);
-                shader.Uniform3($"material{i}.diffuse", material.diffuse);
-                shader.Uniform3($"material{i}.specular", material.specular);
+                shader.Uniform3($"materials[{i}].ambient", material.ambient);
+                shader.Uniform3($"materials[{i}].diffuse", material.diffuse);
+                shader.Uniform3($"materials[{i}].specular", material.specular);
 
-                shader.Uniform1($"material{i}.shininess", material.shininess);
+                shader.Uniform1($"materials[{i}].shininess", material.shininess);
 
 
 
                 for (byte t = 0; t < material.textures.Length; t++)
                 {
-                    shader.Uniform1($"material{i}_texture" + t.ToString(), t);
+                    shader.Uniform1($"material_textures[{i * 16 + t}]" + t.ToString(), t);
                     material.textures[t].Use(t);
                 }
             }
