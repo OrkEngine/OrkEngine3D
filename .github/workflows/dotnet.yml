@@ -18,6 +18,7 @@ jobs:
         working-directory: source
         
     steps:
+    - uses: actions/checkout@v2
     # Update references
     - name: Git Sumbodule Update
       run: |
