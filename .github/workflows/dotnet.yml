@@ -18,11 +18,6 @@ jobs:
         working-directory: ./source
         
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        submodules: true
-
     # Update references
     - name: Git Sumbodule Update
       run: |
