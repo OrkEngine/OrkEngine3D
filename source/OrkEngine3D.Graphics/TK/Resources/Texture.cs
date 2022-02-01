@@ -94,7 +94,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
 
             //ImageSharp loads from the top-left pixel, whereas OpenGL loads from the bottom-left, causing the texture to be flipped vertically.
             //This will correct that, making the texture display properly.
-            image.Mutate(x => x.Flip(FlipMode.Vertical));
+            image.Mutate(x => x.Flip(FlipMode.Horizontal).Flip(FlipMode.Vertical));
 
             //Convert ImageSharp's format into a byte array, so we can use it with OpenGL.
             var pixels = new List<byte>(4 * image.Width * image.Height);

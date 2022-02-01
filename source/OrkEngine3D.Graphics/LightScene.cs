@@ -12,7 +12,6 @@ namespace OrkEngine3D.Graphics
         public Light ambient = new Light(0.2f, new Color3(1f, 1f, 1f), new Vector3(0, 0, 0));
         public Light[] lights = new Light[] {
             new Light(0.9f, new Color3(1f, 1f, 1f), new Vector3(0, 0, 0)),
-            new Light(0.5f, new Color3(1f, 0f, 0f), new Vector3(0, 0, 0))
         };
     }
 

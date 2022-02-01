@@ -74,7 +74,7 @@ void main()
     Light currentLight = lights[0];
 
 
-    vec3 objectColor = vec3(1, 1, 1);//texture2D(material1_texture0, fUV).rgb;
+    vec3 objectColor = texture2D(material_textures[0], fUV).rgb;
 
     vec3 amb = vec3(0, 0, 0);
     vec3 dif = vec3(0, 0, 0);
