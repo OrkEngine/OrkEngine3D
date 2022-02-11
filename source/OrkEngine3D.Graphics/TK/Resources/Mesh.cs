@@ -176,7 +176,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
 
                 for (byte t = 0; t < material.textures.Length; t++)
                 {
-                    shader.Uniform1($"material_textures[{i * 16 + t}]" + t.ToString(), t);
+                    shader.Uniform1($"material_textures[{i * 16 + t}]", t);
                     Rendering.currentResourceManager.GetResource<Texture>(material.textures[t]).Use(t);
                 }
             }

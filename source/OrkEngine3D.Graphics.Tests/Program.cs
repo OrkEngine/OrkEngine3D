@@ -53,9 +53,6 @@ namespace OrkEngine3D.Graphics.Tests
 
             cubeMesh = Rendering.CreateMesh();
 
-            //ObjComplete voxelInformation = OrkModelFile.OMFToObjComplete(OrkModelFile.LoadFromFile("resources/2cube.json"));//ObjLoader.LoadObjFromFile("resources/2cube.obj");
-            //ObjComplete voxelInformation = ObjLoader.LoadObjFromFile("resources/teapot.obj");
-            //OrkModelFile.SaveToFile("resources/teapot.json", OrkModelFile.ObjCompleteToOMF(voxelInformation));
             Color3 white = new Color3(1f, 1f, 1f);
             ObjComplete voxelInformation = new ObjComplete(VoxelData.GenerateVoxelInformation(), new Material[] { new Material() });
             voxelInformation.materials[0].textures = new ID[] {Rendering.CreateTexture(Texture.GetTextureDataFromFile("resources/logo.png"))};
@@ -72,32 +69,8 @@ namespace OrkEngine3D.Graphics.Tests
 
             cubeTransform = new Transform();
 
-            cubeTransform.position.Z = -0.5f;// + MathF.Sin(t);
+            cubeTransform.position.Z = -0.5f;
             cubeTransform.position.Y = 0f;
-            //cubeTransform.position.X = -1;
-
-
-            /*
-            teapotMesh = new Mesh(resourceManager);
-
-            ObjComplete potInformation = ObjLoader.LoadObjFromFile("resources/teapot.obj");
-
-            Rendering.BindMaterials(potInformation.materials);
-
-            teapotMesh.verticies = potInformation.meshInformation.verticies;
-            teapotMesh.uv = potInformation.meshInformation.uv;
-            teapotMesh.normals = potInformation.meshInformation.normals;
-            teapotMesh.materials = potInformation.meshInformation.materials;
-            teapotMesh.shader = program;
-
-            teapotMesh.UpdateGLData();
-
-            teapotTransform = new Transform();
-
-            teapotTransform.position.Z = -0.5f;// + MathF.Sin(t);
-            teapotTransform.position.Y = 0f;
-            //teapotTransform.position.X = 1;
-            */
 
             camera = new Camera();
             camera.perspective = true;
