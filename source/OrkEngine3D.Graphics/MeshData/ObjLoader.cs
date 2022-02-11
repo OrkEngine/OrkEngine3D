@@ -142,7 +142,7 @@ namespace OrkEngine3D.Graphics.MeshData
             Material material = new Material();
             string materialname = "__null";
             string[] lines = content.Split('\n', StringSplitOptions.TrimEntries);
-            List<Texture> textures = new List<Texture>();
+            List<ID> textures = new List<ID>();
 
             Dictionary<string, Material> materials = new Dictionary<string, Material>();
 
@@ -191,7 +191,7 @@ namespace OrkEngine3D.Graphics.MeshData
                 if (line.StartsWith("Tx "))
                 {
                     string path = line.Substring("Tx ".Length).Trim();
-                    textures.Add(new Texture(Rendering.currentContext.glmanager, Texture.GetTextureDataFromFile(path)));
+                    textures.Add(Rendering.CreateTexture(Texture.GetTextureDataFromFile(path)));
                 }
                 if(line.StartsWith("newmtl "))
                 {

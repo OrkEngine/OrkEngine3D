@@ -11,7 +11,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
     /// <summary>
     /// A mesh.
     /// </summary>
-    public class Mesh : GLResource
+    public class Mesh : GLResource, IRenderable
     {
         int VBO;
         int VAO;
@@ -177,7 +177,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
                 for (byte t = 0; t < material.textures.Length; t++)
                 {
                     shader.Uniform1($"material_textures[{i * 16 + t}]" + t.ToString(), t);
-                    material.textures[t].Use(t);
+                    Rendering.currentResourceManager.GetResource<Texture>(material.textures[t]).Use(t);
                 }
             }
 
