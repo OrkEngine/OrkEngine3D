@@ -5,9 +5,11 @@ namespace OrkEngine3D.Graphics.TK.Resources
     /// </summary>
     public abstract class GLResource
     {
+        public ID resourceid;
         public GLResource(GLResourceManager manager){
+            this.resourceid = new ID();
             if(manager != null)
-                manager.resources.Add(this);
+                manager.resources.Add(resourceid, this);
         }
         public abstract void Unload();
     }

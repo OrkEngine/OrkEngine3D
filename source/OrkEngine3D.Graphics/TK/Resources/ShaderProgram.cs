@@ -43,14 +43,6 @@ namespace OrkEngine3D.Graphics.TK.Resources
             {
                 GL.DetachShader(id, shaders[i].id);
             }
-
-            GL.GetProgram(id, GetProgramParameterName.ActiveUniforms, out int uniformCount);
-            for (int i = 0; i < uniformCount; i++)
-            {
-                string name = GL.GetActiveUniform(id, i, out int size, out ActiveUniformType type);
-
-                uniforms.Add(name, GL.GetUniformLocation(id, name));
-            }
         }
 
         /// <summary>
@@ -71,7 +63,18 @@ namespace OrkEngine3D.Graphics.TK.Resources
 
         public int GetUniformLocation(string name)
         {
-            return (uniforms.ContainsKey(name) ? uniforms[name] : -1);
+            if(uniforms.ContainsKey(name))
+                return uniforms[name];
+
+            int uniformID = GL.GetUniformLocation(id, name);
+
+            uniforms.Add(name, uniformID);
+
+            if(uniformID == -1){
+                Logger.Get("ShaderProgram " + id, "Graphics").Log(LogMessageType.WARNING, "Invalid uniform " + name + ", returned ID -1");
+            }
+
+            return GetUniformLocation(name);
         }
 
         /// <summary>

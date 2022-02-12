@@ -11,7 +11,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
     /// <summary>
     /// A mesh.
     /// </summary>
-    public class Mesh : GLResource
+    public class Mesh : GLResource, IRenderable
     {
         int VBO;
         int VAO;
@@ -152,26 +152,32 @@ namespace OrkEngine3D.Graphics.TK.Resources
 
             shader.Uniform3("camera_pos", Rendering.currentCamera.transform.position);
 
-            shader.Uniform1("light.strength", Rendering.currentLightning.light.strength);
-            shader.Uniform3("light.color", Rendering.currentLightning.light.color);
-            shader.Uniform3("light.position", Rendering.currentLightning.light.position);
+            for (int i = 0; i < Rendering.currentLightning.lights.Length; i++)
+            {
+                Light light = Rendering.currentLightning.lights[i];
+                shader.Uniform1("lights[0].strength", light.strength);
+                shader.Uniform3("lights[0].color", light.color);
+                shader.Uniform3("lights[0].position", light.position);
+            }
+
+            shader.Uniform1("lights_count", Rendering.currentLightning.lights.Length);
 
             for (int i = 0; i < Rendering.currentMaterials.Length; i++)
             {
                 Material material = Rendering.currentMaterials[i];
 
-                shader.Uniform3($"material{i}.ambient", material.ambient);
-                shader.Uniform3($"material{i}.diffuse", material.diffuse);
-                shader.Uniform3($"material{i}.specular", material.specular);
+                shader.Uniform3($"materials[{i}].ambient", material.ambient);
+                shader.Uniform3($"materials[{i}].diffuse", material.diffuse);
+                shader.Uniform3($"materials[{i}].specular", material.specular);
 
-                shader.Uniform1($"material{i}.shininess", material.shininess);
+                shader.Uniform1($"materials[{i}].shininess", material.shininess);
 
 
 
                 for (byte t = 0; t < material.textures.Length; t++)
                 {
-                    shader.Uniform1($"material{i}_texture" + t.ToString(), t);
-                    material.textures[t].Use(t);
+                    shader.Uniform1($"material_textures[{i * 16 + t}]", t);
+                    Rendering.currentResourceManager.GetResource<Texture>(material.textures[t]).Use(t);
                 }
             }
 
