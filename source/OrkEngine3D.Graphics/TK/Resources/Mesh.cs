@@ -180,6 +180,10 @@ namespace OrkEngine3D.Graphics.TK.Resources
                     Rendering.currentResourceManager.GetResource<Texture>(material.textures[t]).Use(t);
                 }
             }
+            
+            GL.PolygonMode(MaterialFace.FrontAndBack, 
+                Rendering.isWireframe ? 
+                    PolygonMode.Line : PolygonMode.Fill);
 
             GL.DrawElements(PrimitiveType.Triangles, triangles.Length, DrawElementsType.UnsignedInt, 0);
         }

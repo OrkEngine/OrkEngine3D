@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenTK.Graphics.ES11;
+using ShaderType = OrkEngine3D.Graphics.TK.Resources.ShaderType;
 
 namespace OrkEngine3D.Graphics.TK
 {
@@ -19,6 +21,7 @@ namespace OrkEngine3D.Graphics.TK
         public static Material[] currentMaterials { get; private set; } = new Material[] { new Material() };
         public static IRenderable currentRenderObject { get; private set; }
         public static GLResourceManager currentResourceManager { get; private set; }
+        public static bool isWireframe { get; private set; }
 
         public static void BindCamera(Camera camera)
         {
@@ -142,6 +145,16 @@ namespace OrkEngine3D.Graphics.TK
         public static ID CreateRenderBuffer(int width, int height){
             RenderBuffer renderBuffer = new RenderBuffer(currentResourceManager, width, height);
             return renderBuffer.resourceid;
+        }
+
+        public static void EnableWireframe()
+        {
+            isWireframe = true;
+        }
+        
+        public static void DisableWireframe()
+        {
+            isWireframe = false;
         }
     }
 }

@@ -88,5 +88,5 @@ void main()
     }
 
     vec3 result = CombineLightning(amb, dif, spec, objectColor);
-    FragColor = vec4(result, 1.0);
+    FragColor = vec4(1.0);//vec4(result, 1.0);
 }

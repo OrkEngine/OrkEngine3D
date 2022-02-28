@@ -44,6 +44,7 @@ namespace OrkEngine3D.Graphics.Tests
 
             Rendering.BindContext(context);
             Rendering.BindResourceManager(resourceManager);
+            
 
             
             fshader = Rendering.CreateShader( File.ReadAllText("resources/shader.frag"), ShaderType.FragmentShader);
@@ -111,7 +112,16 @@ namespace OrkEngine3D.Graphics.Tests
             while (context.nonQueriedKeys.Count > 0)
             {
                 KeyEvent e = context.nonQueriedKeys.Dequeue();
-                Logger.Get("MainLogger").Log(LogMessageType.DEBUG, $"Keyboard: {e.eventType.ToString()}, {e.key.ToString()}");
+                //Logger.Get("MainLogger").Log(LogMessageType.DEBUG, $"Keyboard: {e.eventType.ToString()}, {e.key.ToString()}");
+
+                if (e.key == Key.Q && e.eventType == KeyEventType.KeyDown)
+                {
+                    Rendering.EnableWireframe();
+                }
+                if (e.key == Key.E && e.eventType == KeyEventType.KeyDown)
+                {
+                    Rendering.EnableWireframe();
+                }
             }
         }
     }
