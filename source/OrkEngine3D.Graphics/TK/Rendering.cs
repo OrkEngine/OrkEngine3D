@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK.Graphics.ES11;
+using ClearBufferMask = OpenTK.Graphics.OpenGL4.ClearBufferMask;
+using GL = OpenTK.Graphics.OpenGL4.GL;
 using ShaderType = OrkEngine3D.Graphics.TK.Resources.ShaderType;
 
 namespace OrkEngine3D.Graphics.TK
@@ -22,6 +24,8 @@ namespace OrkEngine3D.Graphics.TK
         public static IRenderable currentRenderObject { get; private set; }
         public static GLResourceManager currentResourceManager { get; private set; }
         public static bool isWireframe { get; private set; }
+
+        private static readonly GLTarget GlTarget = new GLTarget();
 
         public static void BindCamera(Camera camera)
         {
@@ -60,7 +64,8 @@ namespace OrkEngine3D.Graphics.TK
 
         public static void ResetTarget()
         {
-            currentContext.ResetFrameBuffer();
+            renderTarget = GlTarget;
+            GlTarget.BindTarget();
         }
 
         public static void ClearTarget()
@@ -155,6 +160,25 @@ namespace OrkEngine3D.Graphics.TK
         public static void DisableWireframe()
         {
             isWireframe = false;
+        }
+
+        public static ID CreateShadowManager()
+        {
+            ShadowHandler shadowHandler = new ShadowHandler(currentResourceManager);
+            return shadowHandler.resourceid;
+        }
+        
+        internal class GLTarget : IRenderTarget
+        {
+            public void BindTarget()
+            {
+                currentContext.ResetFrameBuffer();
+            }
+
+            public void Clear()
+            {
+                GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            }
         }
     }
 }

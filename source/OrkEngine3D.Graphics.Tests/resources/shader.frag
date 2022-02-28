@@ -74,7 +74,7 @@ void main()
     Light currentLight = lights[0];
 
 
-    vec3 objectColor = texture2D(material_textures[0], fUV).rgb;
+    vec3 objectColor = vec3(1);//texture2D(material_textures[0], fUV).rgb;
 
     vec3 amb = vec3(0, 0, 0);
     vec3 dif = vec3(0, 0, 0);
@@ -88,5 +88,5 @@ void main()
     }
 
     vec3 result = CombineLightning(amb, dif, spec, objectColor);
-    FragColor = vec4(1.0);//vec4(result, 1.0);
+    FragColor = vec4(result, 1.0);
 }

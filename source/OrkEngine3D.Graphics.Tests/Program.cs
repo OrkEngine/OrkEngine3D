@@ -39,6 +39,7 @@ namespace OrkEngine3D.Graphics.Tests
 
         ID cubeMesh;
         ID teapotMesh;
+        private ID shadowManager;
         public override void Init()
         {
 
@@ -49,13 +50,14 @@ namespace OrkEngine3D.Graphics.Tests
             
             fshader = Rendering.CreateShader( File.ReadAllText("resources/shader.frag"), ShaderType.FragmentShader);
             vshader = Rendering.CreateShader(File.ReadAllText("resources/shader.vert"), ShaderType.VertexShader);
+            shadowManager = Rendering.CreateShadowManager();
 
             program = Rendering.CreateShaderProgram(vshader, fshader);
 
             cubeMesh = Rendering.CreateMesh();
 
             Color3 white = new Color3(1f, 1f, 1f);
-            ObjComplete voxelInformation = new ObjComplete(VoxelData.GenerateVoxelInformation(), new Material[] { new Material() });
+            ObjComplete voxelInformation = ObjLoader.LoadObjFromFile("resources/scene.obj");//new ObjComplete(VoxelData.GenerateVoxelInformation(), new Material[] { new Material() });
             voxelInformation.materials[0].textures = new ID[] {Rendering.CreateTexture(Texture.GetTextureDataFromFile("resources/logo.png"))};
             Rendering.BindMaterials(voxelInformation.materials);
 
@@ -85,12 +87,14 @@ namespace OrkEngine3D.Graphics.Tests
 
         public override void Render()
         {
-            Rendering.ResetTarget();
-            Rendering.ClearTarget();
-
-
             Rendering.BindTransform(cubeTransform);
             Rendering.BindRenderable(cubeMesh);
+            
+            Rendering.BindTarget(shadowManager);
+            Rendering.Render();
+            
+            Rendering.ResetTarget();
+            Rendering.ClearTarget();
             Rendering.Render();
 
             //Rendering.BindTransform(teapotTransform);
@@ -103,7 +107,8 @@ namespace OrkEngine3D.Graphics.Tests
         {
             t += context.deltaTime;
             cubeTransform.position.Z = -3f;
-            cubeTransform.Rotate(Vector3.One * context.deltaTime);
+            cubeTransform.position.Y = -3f;
+            //cubeTransform.Rotate(Vector3.One * context.deltaTime);
 
             //teapotTransform.position.Z = -3f;
             //teapotTransform.Rotate(Vector3.UnitX * context.deltaTime);
@@ -120,7 +125,7 @@ namespace OrkEngine3D.Graphics.Tests
                 }
                 if (e.key == Key.E && e.eventType == KeyEventType.KeyDown)
                 {
-                    Rendering.EnableWireframe();
+                    Rendering.DisableWireframe();
                 }
             }
         }
