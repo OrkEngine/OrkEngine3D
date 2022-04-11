@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Drawing;
-using Silk.NET.Windowing;
-using Silk.NET.Input;
-using Silk.NET.OpenGL;
-using Silk.NET.OpenGL.Extensions.ImGui;
-using ImGuiNET;
-using System.Numerics;
-using OrkEngine3D.Editor.Menu;
 
 namespace OrkEngine3D.Editor
 {
     class Program
     {
+        /*
+         * I've decided a while ago i'm not using ImGUI anymore, the editor will be build with
+         * C# calls to c++ and built with imgui, I am sure there's an imgui impl for C# but its just
+         * easier to use c# there's no real loss with native code atm.
+         * 
+         */
+        #region Old
+        /*
         static void Main(string[] args)
         {
             // Create a Silk.NET window as usual
@@ -63,7 +64,7 @@ namespace OrkEngine3D.Editor
                 {
                     ImGui.UpdatePlatformWindows();
                     ImGui.RenderPlatformWindowsDefault();
-                }*/
+                }*
 
                 if (ImGui.BeginMainMenuBar())
                 {
@@ -118,5 +119,8 @@ namespace OrkEngine3D.Editor
             ImGuiStylePtr style = ImGui.GetStyle();
             
         }
+
+        */
+        #endregion
     }
 }
