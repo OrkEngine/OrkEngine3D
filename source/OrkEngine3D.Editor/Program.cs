@@ -122,5 +122,10 @@ namespace OrkEngine3D.Editor
 
         */
         #endregion
+
+        public static void Main(string[] args)
+        {
+            /*Empty*/
+        }
     }
 }
