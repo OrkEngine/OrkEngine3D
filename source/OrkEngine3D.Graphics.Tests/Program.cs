@@ -58,7 +58,7 @@ namespace OrkEngine3D.Graphics.Tests
 
             Color3 white = new Color3(1f, 1f, 1f);
             ObjComplete voxelInformation = ObjLoader.LoadObjFromFile("resources/scene.obj");//new ObjComplete(VoxelData.GenerateVoxelInformation(), new Material[] { new Material() });
-            voxelInformation.materials[0].textures = new ID[] {Rendering.CreateTexture(Texture.GetTextureDataFromFile("resources/logo.png"))};
+            voxelInformation.materials[0].textures = new ID[] {Rendering.CreateTexture(Texture.GetTextureDataFromFile("resources/wod.png"))};
             Rendering.BindMaterials(voxelInformation.materials);
 
             Rendering.UpdateMeshVerticies(cubeMesh, voxelInformation.meshInformation.verticies);
@@ -82,6 +82,11 @@ namespace OrkEngine3D.Graphics.Tests
 
             lscene = new LightScene();
             Rendering.BindLightning(lscene);
+            Rendering.BindShadowManager(shadowManager);
+
+            cubeTransform.position.Z = -3f;
+            cubeTransform.position.Y = -3f;
+            cubeTransform.Rotate(Vector3.UnitX * 45);
 
         }
 
@@ -90,8 +95,8 @@ namespace OrkEngine3D.Graphics.Tests
             Rendering.BindTransform(cubeTransform);
             Rendering.BindRenderable(cubeMesh);
             
-            Rendering.BindTarget(shadowManager);
-            Rendering.Render();
+            //Rendering.EnterShadowMode();
+            //Rendering.Render();
             
             Rendering.ResetTarget();
             Rendering.ClearTarget();
@@ -106,9 +111,7 @@ namespace OrkEngine3D.Graphics.Tests
         public override void Update()
         {
             t += context.deltaTime;
-            cubeTransform.position.Z = -3f;
-            cubeTransform.position.Y = -3f;
-            //cubeTransform.Rotate(Vector3.One * context.deltaTime);
+
 
             //teapotTransform.position.Z = -3f;
             //teapotTransform.Rotate(Vector3.UnitX * context.deltaTime);

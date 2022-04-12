@@ -1,4 +1,5 @@
-﻿using OrkEngine3D.Components.Core;
+﻿using OpenTK.Graphics.OpenGL4;
+using OrkEngine3D.Components.Core;
 using OrkEngine3D.Graphics.TK.Resources;
 using OrkEngine3D.Mathematics;
 using System;
@@ -6,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OpenTK.Graphics.ES11;
 using ClearBufferMask = OpenTK.Graphics.OpenGL4.ClearBufferMask;
 using GL = OpenTK.Graphics.OpenGL4.GL;
 using ShaderType = OrkEngine3D.Graphics.TK.Resources.ShaderType;
@@ -23,9 +23,11 @@ namespace OrkEngine3D.Graphics.TK
         public static Material[] currentMaterials { get; private set; } = new Material[] { new Material() };
         public static IRenderable currentRenderObject { get; private set; }
         public static GLResourceManager currentResourceManager { get; private set; }
+        public static ShadowHandler shadowHandler { get; private set; }
         public static bool isWireframe { get; private set; }
 
         private static readonly GLTarget GlTarget = new GLTarget();
+        public static bool inShadowMode { get; private set; }
 
         public static void BindCamera(Camera camera)
         {
@@ -167,7 +169,24 @@ namespace OrkEngine3D.Graphics.TK
             ShadowHandler shadowHandler = new ShadowHandler(currentResourceManager);
             return shadowHandler.resourceid;
         }
-        
+
+        public static void BindShadowManager(ID id)
+        {
+            shadowHandler = currentResourceManager.GetResource<ShadowHandler>(id);
+        }
+
+        public static void EnterShadowMode()
+        {
+            shadowHandler.BindTarget();
+            inShadowMode = true;
+        }
+
+        public static void ExitShadowMode()
+        {
+            inShadowMode = false;
+        }
+
+
         internal class GLTarget : IRenderTarget
         {
             public void BindTarget()
@@ -178,6 +197,11 @@ namespace OrkEngine3D.Graphics.TK
             public void Clear()
             {
                 GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            }
+
+            public void PreRender()
+            {
+                
             }
         }
     }

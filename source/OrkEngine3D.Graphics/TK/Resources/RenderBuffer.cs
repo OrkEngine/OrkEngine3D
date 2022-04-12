@@ -57,6 +57,11 @@ namespace OrkEngine3D.Graphics.TK.Resources
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         }
 
+        public void PreRender()
+        {
+            
+        }
+
         public override void Unload()
         {
             GL.DeleteRenderbuffer(id);

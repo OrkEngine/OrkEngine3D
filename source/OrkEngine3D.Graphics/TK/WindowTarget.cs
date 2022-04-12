@@ -21,5 +21,10 @@ namespace OrkEngine3D.Graphics.TK
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         }
+
+        public void PreRender()
+        {
+            
+        }
     }
 }

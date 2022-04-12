@@ -4,6 +4,7 @@ out vec4 FragColor;
 in vec3 Normal;
 in vec2 fUV;
 in vec3 Pos;
+in vec4 lightFragPos;
 flat in int mat;
 
 uniform vec3 camera_pos;
@@ -27,9 +28,9 @@ struct Material {
     float shininess;
 };
 
-uniform Material materials[64];
+uniform Material materials[8];
 
-uniform sampler2D material_textures[64 * 16];
+uniform sampler2D material_textures[8 * 4];
 
 Material GetMaterial(int m){
     Material material = materials[m];
@@ -66,6 +67,18 @@ vec3 CombineLightning(vec3 ambient, vec3 diffuse, vec3 specular, vec3 objcolor){
     return (ambient + diffuse + specular) * objcolor;
 }
 
+uniform sampler2D material_shadowMap;
+
+float ShadowCalculation(vec4 fragPosLightSpace)
+{
+    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+    projCoords = projCoords * 0.5 + 0.5;
+    float closestDepth = texture(material_shadowMap, projCoords.xy).r;
+    float currentDepth = projCoords.z;
+    float shadow = currentDepth > closestDepth  ? 1.0 : 0.0;
+    return shadow;
+}
+
 void main()
 {
     Material material = GetMaterial(mat);
@@ -74,7 +87,7 @@ void main()
     Light currentLight = lights[0];
 
 
-    vec3 objectColor = vec3(1);//texture2D(material_textures[0], fUV).rgb;
+    vec3 col = texture2D(material_textures[0], fUV).rgb;
 
     vec3 amb = vec3(0, 0, 0);
     vec3 dif = vec3(0, 0, 0);
@@ -87,6 +100,9 @@ void main()
         spec += CalculateSpecularLightning(lights[i], material, Normal);
     }
 
-    vec3 result = CombineLightning(amb, dif, spec, objectColor);
-    FragColor = vec4(result, 1.0);
+    float shadow = ShadowCalculation(lightFragPos);
+    vec3 lighting = (amb + (1.0 - shadow) * (dif + spec)) * col;
+
+    //vec3 result = CombineLightning(amb, dif, spec, objectColor);
+    FragColor = vec4(lighting, 1.0);
 }

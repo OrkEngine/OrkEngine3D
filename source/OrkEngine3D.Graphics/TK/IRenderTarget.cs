@@ -11,5 +11,6 @@ namespace OrkEngine3D.Graphics.TK
     {
         public void BindTarget();
         public void Clear();
+        public void PreRender();
     }
 }

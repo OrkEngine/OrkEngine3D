@@ -51,7 +51,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
             this.width = width;
             this.height = height;
         }
-        
+
         /// <summary>
         /// Use a texture for rendering
         /// </summary>
