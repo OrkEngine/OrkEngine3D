@@ -1,5 +1,5 @@
 ﻿using OrkEngine3D.Resources;
 
-ResourceDirectory resourceDirectory = new ResourceDirectory("../../test.resd");
+ResourceFile resourceDirectory = new ResourceFile("../../test.resd");
 resourceDirectory.Load();
 Console.WriteLine("Done!");
