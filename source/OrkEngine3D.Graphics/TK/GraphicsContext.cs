@@ -21,13 +21,14 @@ namespace OrkEngine3D.Graphics.TK
         public GameWindow window;
         public GLResourceManager glmanager;
         public GraphicsHandler handler;
-        public GraphicsContext(string title, GraphicsHandler handler){
+        public GraphicsContext(string title, GraphicsHandler handler, bool msaa = true){
             var nws = NativeWindowSettings.Default;
             var gws = GameWindowSettings.Default;
 
             nws.Title = title;
             nws.Size = new Vector2i(800, 600);
             nws.API = ContextAPI.OpenGL;
+            nws.NumberOfSamples = 4;
             nws.APIVersion = new Version(4, 0, 0);      
 
             window = new GameWindow(gws, nws);
@@ -53,6 +54,7 @@ namespace OrkEngine3D.Graphics.TK
 
         private void OnLoad(){
             GL.Enable(EnableCap.DepthTest);
+            GL.Enable(EnableCap.Multisample);
             GL.DebugMessageCallback(MessageCallback, IntPtr.Zero);
 
             handler.Init();

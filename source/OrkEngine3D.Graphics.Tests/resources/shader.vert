@@ -8,10 +8,12 @@ in float vert_material;
 out vec2 fUV;
 out vec3 Normal;
 out vec3 Pos;
+out vec4 lightFragPos;
 flat out int mat;
 
 uniform mat4 matx_model;
 uniform mat4 matx_view;
+uniform mat4 matx_light;
 
 void main()
 {
@@ -19,5 +21,6 @@ void main()
     Normal = vert_normal * mat3(inverse(matx_model));
     fUV = vert_uv;
     Pos = vec3(matx_model * vec4(vert_position, 1.0));
+    lightFragPos = matx_light * vec4(Pos, 1.0);
     mat = int(floor(vert_material));
 }

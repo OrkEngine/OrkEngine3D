@@ -39,23 +39,26 @@ namespace OrkEngine3D.Graphics.Tests
 
         ID cubeMesh;
         ID teapotMesh;
+        private ID shadowManager;
         public override void Init()
         {
 
             Rendering.BindContext(context);
             Rendering.BindResourceManager(resourceManager);
+            
 
             
             fshader = Rendering.CreateShader( File.ReadAllText("resources/shader.frag"), ShaderType.FragmentShader);
             vshader = Rendering.CreateShader(File.ReadAllText("resources/shader.vert"), ShaderType.VertexShader);
+            shadowManager = Rendering.CreateShadowManager();
 
             program = Rendering.CreateShaderProgram(vshader, fshader);
 
             cubeMesh = Rendering.CreateMesh();
 
             Color3 white = new Color3(1f, 1f, 1f);
-            ObjComplete voxelInformation = new ObjComplete(VoxelData.GenerateVoxelInformation(), new Material[] { new Material() });
-            voxelInformation.materials[0].textures = new ID[] {Rendering.CreateTexture(Texture.GetTextureDataFromFile("resources/logo.png"))};
+            ObjComplete voxelInformation = ObjLoader.LoadObjFromFile("resources/scene.obj");//new ObjComplete(VoxelData.GenerateVoxelInformation(), new Material[] { new Material() });
+            voxelInformation.materials[0].textures = new ID[] {Rendering.CreateTexture(Texture.GetTextureDataFromFile("resources/wod.png"))};
             Rendering.BindMaterials(voxelInformation.materials);
 
             Rendering.UpdateMeshVerticies(cubeMesh, voxelInformation.meshInformation.verticies);
@@ -79,17 +82,24 @@ namespace OrkEngine3D.Graphics.Tests
 
             lscene = new LightScene();
             Rendering.BindLightning(lscene);
+            Rendering.BindShadowManager(shadowManager);
+
+            cubeTransform.position.Z = -3f;
+            cubeTransform.position.Y = -3f;
+            cubeTransform.Rotate(Vector3.UnitX * 45);
 
         }
 
         public override void Render()
         {
-            Rendering.ResetTarget();
-            Rendering.ClearTarget();
-
-
             Rendering.BindTransform(cubeTransform);
             Rendering.BindRenderable(cubeMesh);
+            
+            //Rendering.EnterShadowMode();
+            //Rendering.Render();
+            
+            Rendering.ResetTarget();
+            Rendering.ClearTarget();
             Rendering.Render();
 
             //Rendering.BindTransform(teapotTransform);
@@ -101,8 +111,7 @@ namespace OrkEngine3D.Graphics.Tests
         public override void Update()
         {
             t += context.deltaTime;
-            cubeTransform.position.Z = -3f;
-            cubeTransform.Rotate(Vector3.One * context.deltaTime);
+
 
             //teapotTransform.position.Z = -3f;
             //teapotTransform.Rotate(Vector3.UnitX * context.deltaTime);
@@ -111,7 +120,16 @@ namespace OrkEngine3D.Graphics.Tests
             while (context.nonQueriedKeys.Count > 0)
             {
                 KeyEvent e = context.nonQueriedKeys.Dequeue();
-                Logger.Get("MainLogger").Log(LogMessageType.DEBUG, $"Keyboard: {e.eventType.ToString()}, {e.key.ToString()}");
+                //Logger.Get("MainLogger").Log(LogMessageType.DEBUG, $"Keyboard: {e.eventType.ToString()}, {e.key.ToString()}");
+
+                if (e.key == Key.Q && e.eventType == KeyEventType.KeyDown)
+                {
+                    Rendering.EnableWireframe();
+                }
+                if (e.key == Key.E && e.eventType == KeyEventType.KeyDown)
+                {
+                    Rendering.DisableWireframe();
+                }
             }
         }
     }

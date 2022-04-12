@@ -142,6 +142,11 @@ namespace OrkEngine3D.Graphics.TK.Resources
         /// <param name="t">The meshes transform</param>
         /// <param name="ctx">The current GraphicsContext</param>
         public void Render(){
+            if (Rendering.inShadowMode)
+            {
+                RenderShadow();
+                return;
+            }
             GL.BindVertexArray(VAO);
             shader.Use();
             shader.UniformMatrix("matx_view", Rendering.currentCamera.GetMatrix());
@@ -176,11 +181,35 @@ namespace OrkEngine3D.Graphics.TK.Resources
 
                 for (byte t = 0; t < material.textures.Length; t++)
                 {
-                    shader.Uniform1($"material_textures[{i * 16 + t}]", t);
+                    shader.Uniform1($"material_textures[{i * 4 + t}]", t);
                     Rendering.currentResourceManager.GetResource<Texture>(material.textures[t]).Use(t);
                 }
+                
+
+            }
+            
+            //TODO: CONTINUE HERE: https://learnopengl.com/Advanced-Lighting/Shadows/Shadow-Mapping
+
+            if (Rendering.shadowHandler != null)
+            {
+                ShadowHandler shadowHandler = Rendering.shadowHandler;
+                shader.Uniform1($"material_shadowMap", 31);
+                GL.ActiveTexture(TextureUnit.Texture31);
+                GL.BindTexture(TextureTarget.Texture2D, shadowHandler.depthMap);
             }
 
+            GL.PolygonMode(MaterialFace.FrontAndBack, 
+                Rendering.isWireframe ? 
+                    PolygonMode.Line : PolygonMode.Fill);
+            Rendering.renderTarget.PreRender();
+            GL.DrawElements(PrimitiveType.Triangles, triangles.Length, DrawElementsType.UnsignedInt, 0);
+        }
+
+        private void RenderShadow()
+        {
+            GL.BindVertexArray(VAO);
+            Rendering.shadowHandler.PreRender();
+            Rendering.shadowHandler.shaderProgram.UniformMatrix("model", Rendering.currentTransform.GetMatrix());
             GL.DrawElements(PrimitiveType.Triangles, triangles.Length, DrawElementsType.UnsignedInt, 0);
         }
 
