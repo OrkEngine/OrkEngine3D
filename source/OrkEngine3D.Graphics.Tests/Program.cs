@@ -107,6 +107,7 @@ namespace OrkEngine3D.Graphics.Tests
 
             Rendering.SwapBuffers();
         }
+
         float t = 0;
         public override void Update()
         {
@@ -131,6 +132,16 @@ namespace OrkEngine3D.Graphics.Tests
                     Rendering.DisableWireframe();
                 }
             }
+        }
+
+        public override void Resize()
+        {
+            
+        }
+
+        public override void Unload()
+        {
+            
         }
     }
 }

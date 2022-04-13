@@ -7,6 +7,8 @@ namespace OrkEngine3D.Graphics.TK
         public GraphicsContext context;
         public GLResourceManager resourceManager { get { return context.glmanager; } }
 
+        public abstract void Resize();
+        public abstract void Unload();
         public abstract void Render();
         public abstract void Update();
         public abstract void Init();
