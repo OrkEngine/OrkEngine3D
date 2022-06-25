@@ -354,3 +354,8 @@ MigrationBackup/
 
 # Graphics Tests
 !source/OrkEngine3D.Graphics.Tests/resources/**.obj
+
+
+# Rider
+.idea/
+source/.idea/
