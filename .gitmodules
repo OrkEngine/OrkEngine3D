@@ -1,0 +1,9 @@
+[submodule "source/vendor/LuaEngine"]
+	path = source/vendor/LuaEngine
+	url = https://github.com/OrkEngine/LuaEngine
+[submodule "source/vendor/ImGui.NET"]
+	path = source/vendor/ImGui.NET
+	url = https://github.com/OrkEngine/ImGui.NET
+[submodule "source/vendor/bepuphysics2"]
+	path = source/vendor/bepuphysics2
+	url = https://github.com/OrkEngine/bepuphysics2
