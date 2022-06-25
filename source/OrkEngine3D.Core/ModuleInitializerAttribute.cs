@@ -1,18 +1,17 @@
 ﻿using System;
 
-namespace OrkEngine3D.Core {
+namespace OrkEngine3D.Core; 
 
-    public class ModuleInitializerAttribute
+public class ModuleInitializerAttribute
+{
+    public ModuleInitializerAttribute()
     {
-        public ModuleInitializerAttribute()
-        {
-        }
-
-        public ModuleInitializerAttribute(int order)
-        {
-            Order = order;
-        }
-
-        public int Order { get; }
     }
+
+    public ModuleInitializerAttribute(int order)
+    {
+        Order = order;
+    }
+
+    public int Order { get; }
 }

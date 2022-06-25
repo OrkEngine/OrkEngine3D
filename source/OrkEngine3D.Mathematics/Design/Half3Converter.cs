@@ -26,98 +26,97 @@ using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
 using System.Globalization;
 
-namespace OrkEngine3D.Mathematics.Design
+namespace OrkEngine3D.Mathematics.Design;
+
+/// <summary>
+/// Defines a type converter for <see cref="Half3"/>.
+/// </summary>
+public class Half3Converter : BaseConverter
 {
     /// <summary>
-    /// Defines a type converter for <see cref="Half3"/>.
+    /// Initializes a new instance of the <see cref="Half3Converter"/> class.
     /// </summary>
-    public class Half3Converter : BaseConverter
+    public Half3Converter()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Half3Converter"/> class.
-        /// </summary>
-        public Half3Converter()
+        var type = typeof(Half3);
+        Properties = new PropertyDescriptorCollection(new[] 
         {
-            var type = typeof(Half3);
-            Properties = new PropertyDescriptorCollection(new[] 
-            {
-                new FieldPropertyDescriptor(type.GetField("X")), 
-                new FieldPropertyDescriptor(type.GetField("Y")),
-                new FieldPropertyDescriptor(type.GetField("Z")) 
-            });
-        }
+            new FieldPropertyDescriptor(type.GetField("X")), 
+            new FieldPropertyDescriptor(type.GetField("Y")),
+            new FieldPropertyDescriptor(type.GetField("Z")) 
+        });
+    }
 
-        /// <summary>
-        /// Converts the given value object to the specified type, using the specified context and culture information.
-        /// </summary>
-        /// <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext"/> that provides a format context.</param>
-        /// <param name="culture">A <see cref="T:System.Globalization.CultureInfo"/>. If null is passed, the current culture is assumed.</param>
-        /// <param name="value">The <see cref="T:System.Object"/> to convert.</param>
-        /// <param name="destinationType">The <see cref="T:System.Type"/> to convert the <paramref name="value"/> parameter to.</param>
-        /// <returns>
-        /// An <see cref="T:System.Object"/> that represents the converted value.
-        /// </returns>
-        /// <exception cref="T:System.ArgumentNullException">
-        /// The <paramref name="destinationType"/> parameter is null.
-        /// </exception>
-        /// <exception cref="T:System.NotSupportedException">
-        /// The conversion cannot be performed.
-        /// </exception>
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+    /// <summary>
+    /// Converts the given value object to the specified type, using the specified context and culture information.
+    /// </summary>
+    /// <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext"/> that provides a format context.</param>
+    /// <param name="culture">A <see cref="T:System.Globalization.CultureInfo"/>. If null is passed, the current culture is assumed.</param>
+    /// <param name="value">The <see cref="T:System.Object"/> to convert.</param>
+    /// <param name="destinationType">The <see cref="T:System.Type"/> to convert the <paramref name="value"/> parameter to.</param>
+    /// <returns>
+    /// An <see cref="T:System.Object"/> that represents the converted value.
+    /// </returns>
+    /// <exception cref="T:System.ArgumentNullException">
+    /// The <paramref name="destinationType"/> parameter is null.
+    /// </exception>
+    /// <exception cref="T:System.NotSupportedException">
+    /// The conversion cannot be performed.
+    /// </exception>
+    public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+    {
+        if (destinationType == null)
+            throw new ArgumentNullException("destinationType");
+
+        if (value is Half3)
         {
-            if (destinationType == null)
-                throw new ArgumentNullException("destinationType");
+            var vector = (Half3)value;
 
-            if (value is Half3)
+            if (destinationType == typeof(string))
+                return ConvertFromValues(context, culture, vector.ToArray());
+
+            if (destinationType == typeof(InstanceDescriptor))
             {
-                var vector = (Half3)value;
-
-                if (destinationType == typeof(string))
-                    return ConvertFromValues(context, culture, vector.ToArray());
-
-                if (destinationType == typeof(InstanceDescriptor))
-                {
-                    var constructor = typeof(Half3).GetConstructor(Utilities.Array(typeof(float), 3));
-                    if (constructor != null)
-                        return new InstanceDescriptor(constructor, vector.ToArray());
-                }
+                var constructor = typeof(Half3).GetConstructor(Utilities.Array(typeof(float), 3));
+                if (constructor != null)
+                    return new InstanceDescriptor(constructor, vector.ToArray());
             }
-
-            return base.ConvertTo(context, culture, value, destinationType);
         }
 
-        /// <summary>
-        /// Converts the given object to the type of this converter, using the specified context and culture information.
-        /// </summary>
-        /// <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext"/> that provides a format context.</param>
-        /// <param name="culture">The <see cref="T:System.Globalization.CultureInfo"/> to use as the current culture.</param>
-        /// <param name="value">The <see cref="T:System.Object"/> to convert.</param>
-        /// <returns>
-        /// An <see cref="T:System.Object"/> that represents the converted value.
-        /// </returns>
-        /// <exception cref="T:System.NotSupportedException">
-        /// The conversion cannot be performed.
-        /// </exception>
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            var values = ConvertToValues<float>(context, culture, value);
-            return values != null ? new Half3(values) : base.ConvertFrom(context, culture, value);
-        }
+        return base.ConvertTo(context, culture, value, destinationType);
+    }
 
-        /// <summary>
-        /// Creates an instance of the type that this <see cref="T:System.ComponentModel.TypeConverter"/> is associated with, using the specified context, given a set of property values for the object.
-        /// </summary>
-        /// <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext"/> that provides a format context.</param>
-        /// <param name="propertyValues">An <see cref="T:System.Collections.IDictionary"/> of new property values.</param>
-        /// <returns>
-        /// An <see cref="T:System.Object"/> representing the given <see cref="T:System.Collections.IDictionary"/>, or null if the object cannot be created. This method always returns null.
-        /// </returns>
-        public override object CreateInstance(ITypeDescriptorContext context, IDictionary propertyValues)
-        {
-            if (propertyValues == null)
-                throw new ArgumentNullException("propertyValues");
+    /// <summary>
+    /// Converts the given object to the type of this converter, using the specified context and culture information.
+    /// </summary>
+    /// <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext"/> that provides a format context.</param>
+    /// <param name="culture">The <see cref="T:System.Globalization.CultureInfo"/> to use as the current culture.</param>
+    /// <param name="value">The <see cref="T:System.Object"/> to convert.</param>
+    /// <returns>
+    /// An <see cref="T:System.Object"/> that represents the converted value.
+    /// </returns>
+    /// <exception cref="T:System.NotSupportedException">
+    /// The conversion cannot be performed.
+    /// </exception>
+    public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+    {
+        var values = ConvertToValues<float>(context, culture, value);
+        return values != null ? new Half3(values) : base.ConvertFrom(context, culture, value);
+    }
 
-            return new Half3((float)propertyValues["X"], (float)propertyValues["Y"], (float)propertyValues["Z"]);
-        }
+    /// <summary>
+    /// Creates an instance of the type that this <see cref="T:System.ComponentModel.TypeConverter"/> is associated with, using the specified context, given a set of property values for the object.
+    /// </summary>
+    /// <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext"/> that provides a format context.</param>
+    /// <param name="propertyValues">An <see cref="T:System.Collections.IDictionary"/> of new property values.</param>
+    /// <returns>
+    /// An <see cref="T:System.Object"/> representing the given <see cref="T:System.Collections.IDictionary"/>, or null if the object cannot be created. This method always returns null.
+    /// </returns>
+    public override object CreateInstance(ITypeDescriptorContext context, IDictionary propertyValues)
+    {
+        if (propertyValues == null)
+            throw new ArgumentNullException("propertyValues");
+
+        return new Half3((float)propertyValues["X"], (float)propertyValues["Y"], (float)propertyValues["Z"]);
     }
 }

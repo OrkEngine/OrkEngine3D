@@ -1,29 +1,28 @@
-namespace OrkEngine3D.Diagnostics.Logging
+namespace OrkEngine3D.Diagnostics.Logging;
+
+public class LogMessage
 {
-	public class LogMessage
-	{
-		public string Module { get; }
-		public LogMessageType LogType { get; }
-		public string Message { get; }
-		public string FormattedMessage { get; }
+    public string Module { get; }
+    public LogMessageType LogType { get; }
+    public string Message { get; }
+    public string FormattedMessage { get; }
 
-		public LogMessage(string module, LogMessageType type, string message, string formattedMessage)
-		{
-			Module           = module;
-			LogType          = type;
-			Message          = message;
-			FormattedMessage = formattedMessage;
-		}
-	}
-
-	public enum LogMessageType
+    public LogMessage(string module, LogMessageType type, string message, string formattedMessage)
     {
-		UNKNOWN,
-        DEBUG,
-        ERROR,
-        WARNING,
-        INFORMATION,
-        SUCCESS,
-        FATAL
+        Module = module;
+        LogType = type;
+        Message = message;
+        FormattedMessage = formattedMessage;
     }
+}
+
+public enum LogMessageType
+{
+    UNKNOWN,
+    DEBUG,
+    ERROR,
+    WARNING,
+    INFORMATION,
+    SUCCESS,
+    FATAL
 }
