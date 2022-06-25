@@ -19,18 +19,12 @@ jobs:
         
     steps:
     - uses: actions/checkout@v2
-    # Update references
-    - name: Git Sumbodule Update
-      run: |
-        git submodule update --init
-        git pull --recurse-submodules
-        git submodule update --remote --recursive
+      with:
+      submodules: recursive
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
-    - name: Update submodules
-      run: git submodule update --recursive
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
