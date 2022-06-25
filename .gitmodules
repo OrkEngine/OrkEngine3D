@@ -1,6 +1,3 @@
-[submodule "source/vendors/-b"]
-	path = source/vendors/-b
-	url = https://github.com/mellinoe/ImGui.NET.git
 [submodule "source/vendors/bepuphysics2"]
 	path = source/vendors/bepuphysics2
 	url = https://github.com/OrkEngine/bepuphysics2.git
