@@ -27,6 +27,7 @@ namespace OrkEngine3D.Graphics.Tests
 
     class TestHandler : GraphicsHandler
     {
+        Logger logger = new Logger("GraphicsTest", "TestHandler");
         ID fshader;
         ID vshader;
         ID program;
@@ -107,6 +108,7 @@ namespace OrkEngine3D.Graphics.Tests
 
             Rendering.SwapBuffers();
         }
+
         float t = 0;
         public override void Update()
         {
@@ -131,6 +133,16 @@ namespace OrkEngine3D.Graphics.Tests
                     Rendering.DisableWireframe();
                 }
             }
+        }
+
+        public override void Resize()
+        {
+            logger.Log(LogMessageType.INFORMATION, "Resize event");
+        }
+
+        public override void Unload()
+        {
+            logger.Log(LogMessageType.INFORMATION, "Unload event");
         }
     }
 }

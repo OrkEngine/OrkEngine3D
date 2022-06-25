@@ -106,10 +106,12 @@ namespace OrkEngine3D.Graphics.TK
 
         private void Unload(){
             glmanager.Unload();
+            handler.Unload();
         }
 
         private void OnResize(ResizeEventArgs args){
             GL.Viewport(0, 0, args.Width, args.Height);
+            handler.Resize();
         }
 
         void MessageCallback(DebugSource source, DebugType type, int id, DebugSeverity severity, int length, IntPtr message, IntPtr userParam)
