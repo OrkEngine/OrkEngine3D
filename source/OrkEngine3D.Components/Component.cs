@@ -1,6 +1,6 @@
-namespace OrkEngine3D.Components
+namespace OrkEngine3D.Components;
+
+public abstract class Component
 {
-    public abstract class Component{
-        
-    }
+    
 }

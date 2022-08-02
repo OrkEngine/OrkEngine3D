@@ -24,53 +24,52 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace OrkEngine3D.Mathematics
-{
+namespace OrkEngine3D.Mathematics;
+
     /*
      * The enumerations defined in this file are in alphabetical order. When
      * adding new enumerations or renaming existing ones, please make sure
      * the ordering is maintained.
     */
 
+/// <summary>
+/// Describes how one bounding volume contains another.
+/// </summary>
+public enum ContainmentType
+{
 	/// <summary>
-	/// Describes how one bounding volume contains another.
+	/// The two bounding volumes don't intersect at all.
 	/// </summary>
-	public enum ContainmentType
-	{
-		/// <summary>
-		/// The two bounding volumes don't intersect at all.
-		/// </summary>
-		Disjoint,
+	Disjoint,
 
-		/// <summary>
-		/// One bounding volume completely contains another.
-		/// </summary>
-		Contains,
-
-		/// <summary>
-		/// The two bounding volumes overlap.
-		/// </summary>
-		Intersects
-	};
-	
 	/// <summary>
-	/// Describes the result of an intersection with a plane in three dimensions.
+	/// One bounding volume completely contains another.
 	/// </summary>
-	public enum PlaneIntersectionType
-	{
-		/// <summary>
-		/// The object is behind the plane.
-		/// </summary>
-		Back,
+	Contains,
 
-		/// <summary>
-		/// The object is in front of the plane.
-		/// </summary>
-		Front,
+	/// <summary>
+	/// The two bounding volumes overlap.
+	/// </summary>
+	Intersects
+};
 
-		/// <summary>
-		/// The object is intersecting the plane.
-		/// </summary>
-		Intersecting
-	};
-}
+/// <summary>
+/// Describes the result of an intersection with a plane in three dimensions.
+/// </summary>
+public enum PlaneIntersectionType
+{
+	/// <summary>
+	/// The object is behind the plane.
+	/// </summary>
+	Back,
+
+	/// <summary>
+	/// The object is in front of the plane.
+	/// </summary>
+	Front,
+
+	/// <summary>
+	/// The object is intersecting the plane.
+	/// </summary>
+	Intersecting
+};

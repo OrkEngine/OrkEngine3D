@@ -4,12 +4,11 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 
-namespace OrkEngine3D.UI
+namespace OrkEngine3D.UI;
+
+/// <summary>
+/// Provides a base class for all the User Interface elements in OrkEngine3D.
+/// </summary>
+public abstract class UIElement
 {
-    /// <summary>
-    /// Provides a base class for all the User Interface elements in OrkEngine3D.
-    /// </summary>
-    public abstract class UIElement
-    {
-    }
 }
