@@ -1723,7 +1723,7 @@ public struct Matrix : IEquatable<Matrix>, IFormattable
         Vector3 final;
         Vector3 difference = objectPosition - cameraPosition;
 
-        float lengthsq = difference.LengthSquared;
+        float lengthsq = difference.LengthSquared();
         if (lengthsq < Utilities.ZeroTolerance)
             difference = -cameraForwardVector;
         else

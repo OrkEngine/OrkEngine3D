@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OpenTK.OpenAL" Version="5.0.0-pre.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OrkEngine3D.Mathematics\OrkEngine3D.Mathematics.csproj" />
+  </ItemGroup>
+
+</Project>

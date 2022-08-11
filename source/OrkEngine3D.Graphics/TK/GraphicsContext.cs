@@ -10,7 +10,6 @@ using Vector3 = OrkEngine3D.Mathematics.Vector3;
 using Color4 = OrkEngine3D.Mathematics.Color4;
 using Vector2 = OrkEngine3D.Mathematics.Vector2;
 using System.Runtime.InteropServices;
-using OrkEngine3D.Components.Core;
 using System.Collections.Generic;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 

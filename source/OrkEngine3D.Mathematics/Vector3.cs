@@ -24,6 +24,7 @@ using System;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace OrkEngine3D.Mathematics;
 
@@ -142,28 +143,40 @@ public struct Vector3 : IEquatable<Vector3>, IFormattable
         get { return Math.Abs((X * X) + (Y * Y) + (Z * Z) - 1f) < Utilities.ZeroTolerance; }
     }
 
-    /// <summary>
-    /// Calculates the length of the vector.
+    // <summary>
+    /// Returns the length of the vector.
     /// </summary>
-    /// <remarks>
-    /// <see cref="SlimMath.Vector3.LengthSquared"/> may be preferred when only the relative length is needed
-    /// and speed is of the essence.
-    /// </remarks>
-    public float Length
+    /// <returns>The vector's length.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public float Length()
     {
-        get { return (float)Math.Sqrt((X * X) + (Y * Y) + (Z * Z)); }
+        if (Vector.IsHardwareAccelerated)
+        {
+            float ls = Vector3.Dot(this, this);
+            return (float)System.Math.Sqrt(ls);
+        }
+        else
+        {
+            float ls = X * X + Y * Y + Z * Z;
+            return (float)System.Math.Sqrt(ls);
+        }
     }
 
     /// <summary>
-    /// Calculates the squared length of the vector.
+    /// Returns the length of the vector squared. This operation is cheaper than Length().
     /// </summary>
-    /// <remarks>
-    /// This property may be preferred to <see cref="SlimMath.Vector3.Length"/> when only a relative length is needed
-    /// and speed is of the essence.
-    /// </remarks>
-    public float LengthSquared
+    /// <returns>The vector's length squared.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public float LengthSquared()
     {
-        get { return (X * X) + (Y * Y) + (Z * Z); }
+        if (Vector.IsHardwareAccelerated)
+        {
+            return Vector3.Dot(this, this);
+        }
+        else
+        {
+            return X * X + Y * Y + Z * Z;
+        }
     }
 
     /// <summary>
@@ -204,7 +217,7 @@ public struct Vector3 : IEquatable<Vector3>, IFormattable
     /// </summary>
     public void Normalize()
     {
-        float length = Length;
+        float length = Length();
         if (length > Utilities.ZeroTolerance)
         {
             float inv = 1.0f / length;
@@ -1458,6 +1471,21 @@ public struct Vector3 : IEquatable<Vector3>, IFormattable
     }
 
     /// <summary>
+    /// Transforms a vector by the given matrix.
+    /// </summary>
+    /// <param name="position">The source vector.</param>
+    /// <param name="matrix">The transformation matrix.</param>
+    /// <returns>The transformed vector.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Vector3 Transform(Vector3 position, Matrix4x4 matrix)
+    {
+        return new Vector3(
+            position.X * matrix.M11 + position.Y * matrix.M21 + position.Z * matrix.M31 + matrix.M41,
+            position.X * matrix.M12 + position.Y * matrix.M22 + position.Z * matrix.M32 + matrix.M42,
+            position.X * matrix.M13 + position.Y * matrix.M23 + position.Z * matrix.M33 + matrix.M43);
+    }
+
+    /// <summary>
     /// Performs a coordinate transformation using the given <see cref="SlimMath.Matrix"/>.
     /// </summary>
     /// <param name="coordinate">The coordinate vector to transform.</param>
@@ -1647,6 +1675,18 @@ public struct Vector3 : IEquatable<Vector3>, IFormattable
     }
 
     /// <summary>
+    /// Divides the first vector by the second.
+    /// </summary>
+    /// <param name="left">The first source vector.</param>
+    /// <param name="right">The second source vector.</param>
+    /// <returns>The vector resulting from the division.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Vector3 operator /(Vector3 left, Vector3 right)
+    {
+        return new Vector3(left.X / right.X, left.Y / right.Y, left.Z / right.Z);
+    }
+
+    /// <summary>
     /// Scales a vector by the given value.
     /// </summary>
     /// <param name="value">The vector to scale.</param>
@@ -1666,6 +1706,18 @@ public struct Vector3 : IEquatable<Vector3>, IFormattable
     public static Vector3 operator *(Vector3 value, float scalar)
     {
         return new Vector3(value.X * scalar, value.Y * scalar, value.Z * scalar);
+    }
+
+    /// <summary>
+    /// Multiplies two vectors together.
+    /// </summary>
+    /// <param name="left">The first source vector.</param>
+    /// <param name="right">The second source vector.</param>
+    /// <returns>The product vector.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Vector3 operator *(Vector3 left, Vector3 right)
+    {
+        return new Vector3(left.X * right.X, left.Y * right.Y, left.Z * right.Z);
     }
 
     /// <summary>

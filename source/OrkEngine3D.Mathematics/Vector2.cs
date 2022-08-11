@@ -124,9 +124,9 @@ public struct Vector2 : IEquatable<Vector2>, IFormattable
     /// <see cref="SlimMath.Vector2.LengthSquared"/> may be preferred when only the relative length is needed
     /// and speed is of the essence.
     /// </remarks>
-    public float Length
+    public float Length()
     {
-        get { return (float)Math.Sqrt((X * X) + (Y * Y)); }
+        return (float)Math.Sqrt((X * X) + (Y * Y));
     }
 
     /// <summary>
@@ -136,9 +136,9 @@ public struct Vector2 : IEquatable<Vector2>, IFormattable
     /// This property may be preferred to <see cref="SlimMath.Vector2.Length"/> when only a relative length is needed
     /// and speed is of the essence.
     /// </remarks>
-    public float LengthSquared
+    public float LengthSquared()
     {
-        get { return (X * X) + (Y * Y); }
+        return (X * X) + (Y * Y);
     }
 
     /// <summary>
@@ -177,7 +177,7 @@ public struct Vector2 : IEquatable<Vector2>, IFormattable
     /// </summary>
     public void Normalize()
     {
-        float length = Length;
+        float length = Length();
         if (length > Utilities.ZeroTolerance)
         {
             float inv = 1.0f / length;

@@ -7,4 +7,17 @@
     <StartupObject />
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="BepuPhysics" Version="2.5.0-beta.7" />
+    <PackageReference Include="Veldrid" Version="4.9.0-beta1" />
+    <PackageReference Include="Veldrid.ImGui" Version="5.72.0" />
+    <PackageReference Include="Veldrid.Utilities" Version="4.9.0-beta1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OrkEngine3D.BEPUtil\OrkEngine3D.BEPUtil.csproj" />
+    <ProjectReference Include="..\OrkEngine3D.BEPU\OrkEngine3D.BEPU.csproj" />
+    <ProjectReference Include="..\OrkEngine3D.Components\OrkEngine3D.Components.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -215,6 +215,15 @@ public static class MathUtil
         return degree * (Pi / 180.0f);
     }
 
+    public static Vector3 DegreesToRadians(Vector3 degrees)
+    {
+        return new Vector3(
+            (float)(degrees.X * Math.PI / 180),
+            (float)(degrees.Y * Math.PI / 180),
+            (float)(degrees.Z * Math.PI / 180)
+            );
+    }
+
     /// <summary>
     /// Converts radians to revolutions.
     /// </summary>
@@ -273,6 +282,26 @@ public static class MathUtil
     public static float RadiansToDegrees(float radian)
     {
         return radian * (180.0f / Pi);
+    }
+
+    public static Vector3 RadiansToDegrees(Vector3 radians)
+    {
+        return new Vector3(
+            (float)(radians.X * 180 / Math.PI),
+            (float)(radians.Y * 180 / Math.PI),
+            (float)(radians.Z * 180 / Math.PI)
+            );
+    }
+
+    public static Vector3 SumAll(IEnumerable<Vector3> vectors)
+    {
+        Vector3 sum = Vector3.Zero;
+        foreach (var vector in vectors)
+        {
+            sum += vector;
+        }
+
+        return sum;
     }
 
     /// <summary>
@@ -665,5 +694,10 @@ public static class MathUtil
     public static float Mod(float value, float divisor)
     {
         return ((value % divisor) + divisor) % divisor;
+    }
+
+    public static Vector3 Projection(Vector3 source, Vector3 direction)
+    {
+        return (Vector3.Dot(source, direction) / Vector3.Dot(direction, direction)) * direction;
     }
 }

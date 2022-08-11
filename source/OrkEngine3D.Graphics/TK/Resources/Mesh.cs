@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL4;
 using System.Linq;
 using OrkEngine3D.Mathematics;
-using OrkEngine3D.Components.Core;
 using OrkEngine3D.Diagnostics.Logging;
 
 namespace OrkEngine3D.Graphics.TK.Resources

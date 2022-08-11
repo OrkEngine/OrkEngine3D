@@ -435,7 +435,7 @@ public static class Collision
         Vector3 cross;
 
         Vector3.Cross(ref ray1.Direction, ref ray2.Direction, out cross);
-        float denominator = cross.Length;
+        float denominator = cross.Length();
         
         //Lines are parallel.
         if (Math.Abs(denominator) < Utilities.ZeroTolerance)
@@ -1579,56 +1579,56 @@ public static class Collision
         vector.Y = sphere.Center.Y - box.Maximum.Y;
         vector.Z = sphere.Center.Z - box.Maximum.Z;
 
-        if (vector.LengthSquared > radiussquared)
+        if (vector.LengthSquared() > radiussquared)
             return ContainmentType.Intersects;
 
         vector.X = sphere.Center.X - box.Maximum.X;
         vector.Y = sphere.Center.Y - box.Maximum.Y;
         vector.Z = sphere.Center.Z - box.Maximum.Z;
 
-        if (vector.LengthSquared > radiussquared)
+        if (vector.LengthSquared() > radiussquared)
             return ContainmentType.Intersects;
 
         vector.X = sphere.Center.X - box.Maximum.X;
         vector.Y = sphere.Center.Y - box.Minimum.Y;
         vector.Z = sphere.Center.Z - box.Maximum.Z;
 
-        if (vector.LengthSquared > radiussquared)
+        if (vector.LengthSquared() > radiussquared)
             return ContainmentType.Intersects;
 
         vector.X = sphere.Center.X - box.Minimum.X;
         vector.Y = sphere.Center.Y - box.Minimum.Y;
         vector.Z = sphere.Center.Z - box.Maximum.Z;
 
-        if (vector.LengthSquared > radiussquared)
+        if (vector.LengthSquared() > radiussquared)
             return ContainmentType.Intersects;
 
         vector.X = sphere.Center.X - box.Minimum.X;
         vector.Y = sphere.Center.Y - box.Maximum.Y;
         vector.Z = sphere.Center.Z - box.Minimum.Z;
 
-        if (vector.LengthSquared > radiussquared)
+        if (vector.LengthSquared() > radiussquared)
             return ContainmentType.Intersects;
 
         vector.X = sphere.Center.X - box.Maximum.X;
         vector.Y = sphere.Center.Y - box.Maximum.Y;
         vector.Z = sphere.Center.Z - box.Minimum.Z;
 
-        if (vector.LengthSquared > radiussquared)
+        if (vector.LengthSquared() > radiussquared)
             return ContainmentType.Intersects;
 
         vector.X = sphere.Center.X - box.Maximum.X;
         vector.Y = sphere.Center.Y - box.Minimum.Y;
         vector.Z = sphere.Center.Z - box.Minimum.Z;
 
-        if (vector.LengthSquared > radiussquared)
+        if (vector.LengthSquared() > radiussquared)
             return ContainmentType.Intersects;
 
         vector.X = sphere.Center.X - box.Minimum.X;
         vector.Y = sphere.Center.Y - box.Minimum.Y;
         vector.Z = sphere.Center.Z - box.Minimum.Z;
 
-        if (vector.LengthSquared > radiussquared)
+        if (vector.LengthSquared() > radiussquared)
             return ContainmentType.Intersects;
 
         return ContainmentType.Contains;
@@ -1696,7 +1696,7 @@ public static class Collision
     /// <param name="result">When the method completes, contains the supporting point.</param>
     public static void SupportPoint(ref BoundingSphere sphere, ref Vector3 direction, out Vector3 result)
     {
-        result = (sphere.Radius / direction.Length) * direction + sphere.Center;
+        result = (sphere.Radius / direction.Length()) * direction + sphere.Center;
     }
 
     /// <summary>

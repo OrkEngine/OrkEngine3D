@@ -215,27 +215,23 @@ public struct Quaternion : IEquatable<Quaternion>, IFormattable
     }
 
     /// <summary>
-    /// Calculates the length of the quaternion.
+    /// Calculates the length of the Quaternion.
     /// </summary>
-    /// <remarks>
-    /// <see cref="SlimMath.Quaternion.LengthSquared"/> may be preferred when only the relative length is needed
-    /// and speed is of the essence.
-    /// </remarks>
-    public float Length
+    /// <returns>The computed length of the Quaternion.</returns>
+    public float Length()
     {
-        get { return (float)Math.Sqrt((X * X) + (Y * Y) + (Z * Z) + (W * W)); }
+        float ls = X * X + Y * Y + Z * Z + W * W;
+
+        return (float)Math.Sqrt((double)ls);
     }
 
     /// <summary>
-    /// Calculates the squared length of the quaternion.
+    /// Calculates the length squared of the Quaternion. This operation is cheaper than Length().
     /// </summary>
-    /// <remarks>
-    /// This property may be preferred to <see cref="SlimMath.Quaternion.Length"/> when only a relative length is needed
-    /// and speed is of the essence.
-    /// </remarks>
-    public float LengthSquared
+    /// <returns>The length squared of the Quaternion.</returns>
+    public float LengthSquared()
     {
-        get { return (X * X) + (Y * Y) + (Z * Z) + (W * W); }
+        return X * X + Y * Y + Z * Z + W * W;
     }
 
     /// <summary>
@@ -299,7 +295,7 @@ public struct Quaternion : IEquatable<Quaternion>, IFormattable
     /// </summary>
     public void Invert()
     {
-        float lengthSq = LengthSquared;
+        float lengthSq = LengthSquared();
         if (lengthSq > Utilities.ZeroTolerance)
         {
             lengthSq = 1.0f / lengthSq;
@@ -316,7 +312,7 @@ public struct Quaternion : IEquatable<Quaternion>, IFormattable
     /// </summary>
     public void Normalize()
     {
-        float length = Length;
+        float length = Length();
         if (length > Utilities.ZeroTolerance)
         {
             float inverse = 1.0f / length;
@@ -575,6 +571,141 @@ public struct Quaternion : IEquatable<Quaternion>, IFormattable
     }
 
     /// <summary>
+    /// Returns the inverse of a Quaternion.
+    /// </summary>
+    /// <param name="value">The source Quaternion.</param>
+    /// <returns>The inverted Quaternion.</returns>
+    public static Quaternion Inverse(Quaternion value)
+    {
+        //  -1   (       a              -v       )
+        // q   = ( -------------   ------------- )
+        //       (  a^2 + |v|^2  ,  a^2 + |v|^2  )
+
+        Quaternion ans;
+
+        float ls = value.X * value.X + value.Y * value.Y + value.Z * value.Z + value.W * value.W;
+        float invNorm = 1.0f / ls;
+
+        ans.X = -value.X * invNorm;
+        ans.Y = -value.Y * invNorm;
+        ans.Z = -value.Z * invNorm;
+        ans.W = value.W * invNorm;
+
+        return ans;
+    }
+
+    /// <summary>
+    /// Creates a Quaternion from a vector and an angle to rotate about the vector.
+    /// </summary>
+    /// <param name="axis">The vector to rotate around.</param>
+    /// <param name="angle">The angle, in radians, to rotate around the vector.</param>
+    /// <returns>The created Quaternion.</returns>
+    public static Quaternion CreateFromAxisAngle(Vector3 axis, float angle)
+    {
+        Quaternion ans;
+
+        float halfAngle = angle * 0.5f;
+        float s = (float)Math.Sin(halfAngle);
+        float c = (float)Math.Cos(halfAngle);
+
+        ans.X = axis.X * s;
+        ans.Y = axis.Y * s;
+        ans.Z = axis.Z * s;
+        ans.W = c;
+
+        return ans;
+    }
+
+    /// <summary>
+    /// Creates a new Quaternion from the given yaw, pitch, and roll, in radians.
+    /// </summary>
+    /// <param name="yaw">The yaw angle, in radians, around the Y-axis.</param>
+    /// <param name="pitch">The pitch angle, in radians, around the X-axis.</param>
+    /// <param name="roll">The roll angle, in radians, around the Z-axis.</param>
+    /// <returns></returns>
+    public static Quaternion CreateFromYawPitchRoll(float yaw, float pitch, float roll)
+    {
+        //  Roll first, about axis the object is facing, then
+        //  pitch upward, then yaw to face into the new heading
+        float sr, cr, sp, cp, sy, cy;
+
+        float halfRoll = roll * 0.5f;
+        sr = (float)Math.Sin(halfRoll);
+        cr = (float)Math.Cos(halfRoll);
+
+        float halfPitch = pitch * 0.5f;
+        sp = (float)Math.Sin(halfPitch);
+        cp = (float)Math.Cos(halfPitch);
+
+        float halfYaw = yaw * 0.5f;
+        sy = (float)Math.Sin(halfYaw);
+        cy = (float)Math.Cos(halfYaw);
+
+        Quaternion result;
+
+        result.X = cy * sp * cr + sy * cp * sr;
+        result.Y = sy * cp * cr - cy * sp * sr;
+        result.Z = cy * cp * sr - sy * sp * cr;
+        result.W = cy * cp * cr + sy * sp * sr;
+
+        return result;
+    }
+
+    /// <summary>
+    /// Creates a Quaternion from the given rotation matrix.
+    /// </summary>
+    /// <param name="matrix">The rotation matrix.</param>
+    /// <returns>The created Quaternion.</returns>
+    public static Quaternion CreateFromRotationMatrix(Matrix4x4 matrix)
+    {
+        float trace = matrix.M11 + matrix.M22 + matrix.M33;
+
+        Quaternion q = new Quaternion();
+
+        if (trace > 0.0f)
+        {
+            float s = (float)Math.Sqrt(trace + 1.0f);
+            q.W = s * 0.5f;
+            s = 0.5f / s;
+            q.X = (matrix.M23 - matrix.M32) * s;
+            q.Y = (matrix.M31 - matrix.M13) * s;
+            q.Z = (matrix.M12 - matrix.M21) * s;
+        }
+        else
+        {
+            if (matrix.M11 >= matrix.M22 && matrix.M11 >= matrix.M33)
+            {
+                float s = (float)Math.Sqrt(1.0f + matrix.M11 - matrix.M22 - matrix.M33);
+                float invS = 0.5f / s;
+                q.X = 0.5f * s;
+                q.Y = (matrix.M12 + matrix.M21) * invS;
+                q.Z = (matrix.M13 + matrix.M31) * invS;
+                q.W = (matrix.M23 - matrix.M32) * invS;
+            }
+            else if (matrix.M22 > matrix.M33)
+            {
+                float s = (float)Math.Sqrt(1.0f + matrix.M22 - matrix.M11 - matrix.M33);
+                float invS = 0.5f / s;
+                q.X = (matrix.M21 + matrix.M12) * invS;
+                q.Y = 0.5f * s;
+                q.Z = (matrix.M32 + matrix.M23) * invS;
+                q.W = (matrix.M31 - matrix.M13) * invS;
+            }
+            else
+            {
+                float s = (float)Math.Sqrt(1.0f + matrix.M33 - matrix.M11 - matrix.M22);
+                float invS = 0.5f / s;
+                q.X = (matrix.M31 + matrix.M13) * invS;
+                q.Y = (matrix.M32 + matrix.M23) * invS;
+                q.Z = 0.5f * s;
+                q.W = (matrix.M12 - matrix.M21) * invS;
+            }
+        }
+
+        return q;
+    }
+
+    /// <summary>
     /// Calculates the dot product of two quaternions.
     /// </summary>
     /// <param name="left">First source quaternion.</param>
@@ -707,6 +838,43 @@ public struct Quaternion : IEquatable<Quaternion>, IFormattable
         Quaternion result;
         Lerp(ref start, ref end, amount, out result);
         return result;
+    }
+
+    /// <summary>
+    /// Concatenates two Quaternions; the result represents the value1 rotation followed by the value2 rotation.
+    /// </summary>
+    /// <param name="value1">The first Quaternion rotation in the series.</param>
+    /// <param name="value2">The second Quaternion rotation in the series.</param>
+    /// <returns>A new Quaternion representing the concatenation of the value1 rotation followed by the value2 rotation.</returns>
+    public static Quaternion Concatenate(Quaternion value1, Quaternion value2)
+    {
+        Quaternion ans;
+
+        // Concatenate rotation is actually q2 * q1 instead of q1 * q2.
+        // So that's why value2 goes q1 and value1 goes q2.
+        float q1x = value2.X;
+        float q1y = value2.Y;
+        float q1z = value2.Z;
+        float q1w = value2.W;
+
+        float q2x = value1.X;
+        float q2y = value1.Y;
+        float q2z = value1.Z;
+        float q2w = value1.W;
+
+        // cross(av, bv)
+        float cx = q1y * q2z - q1z * q2y;
+        float cy = q1z * q2x - q1x * q2z;
+        float cz = q1x * q2y - q1y * q2x;
+
+        float dot = q1x * q2x + q1y * q2y + q1z * q2z;
+
+        ans.X = q1x * q2w + q2x * q1w + cx;
+        ans.Y = q1y * q2w + q2y * q1w + cy;
+        ans.Z = q1z * q2w + q2z * q1w + cz;
+        ans.W = q1w * q2w - dot;
+
+        return ans;
     }
 
     /// <summary>
@@ -1007,9 +1175,9 @@ public struct Quaternion : IEquatable<Quaternion>, IFormattable
     /// <param name="result3">When the method completes, contains the third control point for spherical quadrangle interpolation.</param>
     public static void SquadSetup(ref Quaternion value1, ref Quaternion value2, ref Quaternion value3, ref Quaternion value4, out Quaternion result1, out Quaternion result2, out Quaternion result3)
     {
-        Quaternion q0 = (value1 + value2).LengthSquared < (value1 - value2).LengthSquared ? -value1 : value1;
-        Quaternion q2 = (value2 + value3).LengthSquared < (value2 - value3).LengthSquared ? -value3 : value3;
-        Quaternion q3 = (value3 + value4).LengthSquared < (value3 - value4).LengthSquared ? -value4 : value4;
+        Quaternion q0 = (value1 + value2).LengthSquared() < (value1 - value2).LengthSquared() ? -value1 : value1;
+        Quaternion q2 = (value2 + value3).LengthSquared() < (value2 - value3).LengthSquared() ? -value3 : value3;
+        Quaternion q3 = (value3 + value4).LengthSquared() < (value3 - value4).LengthSquared() ? -value4 : value4;
         Quaternion q1 = value2;
 
         Quaternion q1Exp, q2Exp;

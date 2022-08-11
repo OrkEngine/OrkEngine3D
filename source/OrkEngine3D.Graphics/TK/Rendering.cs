@@ -1,5 +1,5 @@
 ﻿using OpenTK.Graphics.OpenGL4;
-using OrkEngine3D.Components.Core;
+using OrkEngine3D.Components;
 using OrkEngine3D.Graphics.TK.Resources;
 using OrkEngine3D.Mathematics;
 using System;

@@ -1,5 +1,4 @@
-﻿using OrkEngine3D.Components.Core;
-using OrkEngine3D.Diagnostics.Logging;
+﻿using OrkEngine3D.Diagnostics.Logging;
 using OrkEngine3D.Graphics.MeshData;
 using OrkEngine3D.Graphics.TK;
 using OrkEngine3D.Graphics.TK.Resources;
@@ -9,6 +8,7 @@ using System.IO;
 using System.Linq;
 using Mesh = OrkEngine3D.Graphics.TK.Resources.Mesh;
 using Material = OrkEngine3D.Graphics.TK.Material;
+//using OrkEngine3D.Components;
 
 namespace OrkEngine3D.Graphics.Tests
 {
@@ -20,10 +20,12 @@ namespace OrkEngine3D.Graphics.Tests
             Logger logger = new Logger("MainLogger", "NoModule");
             logger.Log(LogMessageType.DEBUG, "Teapot");
 
-            GraphicsContext ctx = new GraphicsContext("Hello World", new TestHandler());
-            ctx.Run();
+            //GraphicsContext ctx = new GraphicsContext("Hello World", new TestHandler());
+            //ctx.Run();
         }
     }
+
+    /*
 
     class TestHandler : GraphicsHandler
     {
@@ -145,4 +147,6 @@ namespace OrkEngine3D.Graphics.Tests
             logger.Log(LogMessageType.INFORMATION, "Unload event");
         }
     }
+
+    */
 }
