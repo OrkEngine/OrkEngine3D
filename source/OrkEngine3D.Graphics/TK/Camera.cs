@@ -1,4 +1,4 @@
-using OrkEngine3D.Components;
+using OrkEngine3D.Core.Components;
 using OrkEngine3D.Mathematics;
 
 namespace OrkEngine3D.Graphics.TK
