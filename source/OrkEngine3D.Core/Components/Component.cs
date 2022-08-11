@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using System.Diagnostics;
 
-namespace OrkEngine3D.Components;
+namespace OrkEngine3D.Core.Components;
 
 public abstract class Component
 {

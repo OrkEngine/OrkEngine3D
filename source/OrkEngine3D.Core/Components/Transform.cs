@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using OrkEngine3D.Mathematics;
 
-namespace OrkEngine3D.Components;
+namespace OrkEngine3D.Core.Components;
 
 /// <summary>
 /// The transformation of an object

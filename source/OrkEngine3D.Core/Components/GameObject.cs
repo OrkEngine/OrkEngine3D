@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 
-namespace OrkEngine3D.Components;
+namespace OrkEngine3D.Core.Components;
 
 public class GameObject
 {
