@@ -22,9 +22,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace OrkEngine3D.Physics;
+using System;
+using System.Collections.Generic;
+using System.Threading;
 
-public static class Conversions
+namespace OrkEngine3D.Core;
+
+public class SynchronizationHelperSystem : GameSystem
 {
-    
+    private Queue<Action> _activeQueue = new Queue<Action>();
+    private Queue<Action> _bufferedQueue = new Queue<Action>();
+
+    public void QueueMainThreadAction(Action a)
+    {
+        _activeQueue.Enqueue(a);
+    }
+
+    protected override void UpdateCore(float deltaSeconds)
+    {
+        Queue<Action> queue = Interlocked.Exchange(ref _activeQueue, _bufferedQueue);
+        while (queue.Count > 0)
+        {
+            queue.Dequeue()();
+        }
+    }
 }

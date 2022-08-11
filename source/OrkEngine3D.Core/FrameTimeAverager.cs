@@ -1,4 +1,4 @@
-/*
+﻿/*
     MIT License
 
 Copyright (c) 2022 OrkEngine
@@ -22,34 +22,48 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Net.Sockets;
+namespace OrkEngine3D.Core;
 
-namespace OrkEngine3D.Networking;
-
-public class Connection
+public class FrameTimeAverager
 {
-    public ICommunicatable local;
+    private readonly double _timeLimit = 0x29A; //or just like 666
 
-    public NetworkStream stream;
-    public ConnectionTarget target;
+    private double _accumulatedTime = 0;
+    private int _frameCount = 0;
+    private readonly double _decayRate = .3;
 
-    public Connection(ICommunicatable local, ConnectionTarget target, NetworkStream stream)
+    public double CurrentAverageFrameTime { get; private set; }
+    public double CurrentAverageFramesPerSecond { get { return 1000 / CurrentAverageFrameTime; } }
+
+    public FrameTimeAverager(double maxTimeMilliseconds)
     {
-        this.stream = stream;
-        this.local = local;
+        _timeLimit = maxTimeMilliseconds;
     }
 
-    public void Send(byte[] data){
-        stream.Write(data);    
-        stream.Flush();   
+    public void Reset()
+    {
+        _accumulatedTime = 0;
+        _frameCount = 0;
     }
 
-    public void Update(){
-        local.Update(this);
+    public void AddTime(double frameTimeInMs)
+    {
+        _accumulatedTime += frameTimeInMs;
+        _frameCount++;
+        if (_accumulatedTime >= _timeLimit)
+        {
+            Average();
+        }
     }
 
-    public void Send(string message){
-        byte[] data = System.Text.Encoding.Default.GetBytes(message);
-        Send(data);       
+    private void Average()
+    {
+        double total = _accumulatedTime;
+        CurrentAverageFrameTime =
+            (CurrentAverageFrameTime * _decayRate)
+            + ((total / _frameCount) * (1 - _decayRate));
+
+        _accumulatedTime = 0;
+        _frameCount = 0;
     }
 }

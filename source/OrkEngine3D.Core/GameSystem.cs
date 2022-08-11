@@ -21,10 +21,29 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+namespace OrkEngine3D.Core;
 
-namespace OrkEngine3D.Physics;
-
-public static class Conversions
+public abstract class GameSystem
 {
-    
+    /// <summary>
+    /// Performs a one-tick update of the GameSystem.
+    /// </summary>
+    public void Update(float deltaSeconds)
+    {
+        if (Enabled)
+        {
+            UpdateCore(deltaSeconds);
+        }
+    }
+
+    protected abstract void UpdateCore(float deltaSeconds);
+
+    public void OnNewSceneLoaded()
+    {
+        OnNewSceneLoadedCore();
+    }
+
+    protected virtual void OnNewSceneLoadedCore() { }
+
+    public bool Enabled { get; set; } = true;
 }

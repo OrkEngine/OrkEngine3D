@@ -22,30 +22,46 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace OrkEngine3D.Common.Utils;
+using Newtonsoft.Json;
+using OrkEngine3D.Common.Utils;
 
-public static class CreatedResourceCache
+namespace OrkEngine3D.Core;
+
+public struct RefOrImmediate<T>
 {
-    private static readonly Dictionary<object, object> s_cache = new Dictionary<object, object>();
-    public static void ClearCache() => s_cache.Clear();
+    [JsonProperty]
+    private AssetRef<T> _ref;
+    [JsonProperty]
+    private T _value;
 
-    public static bool TryGetCachedItem<TKey, TValue>(TKey key, out TValue value)
+    public bool HasValue => _ref == null;
+
+    public AssetRef<T> GetRef()
     {
-        object fromCache;
-        if (!s_cache.TryGetValue(key, out fromCache))
+        return _ref;
+    }
+
+    [JsonConstructor]
+    public RefOrImmediate(AssetRef<T> reference, T value)
+    {
+        _ref = reference;
+        _value = value;
+    }
+
+    public T Get(AssetDatabase ad)
+    {
+        if (_ref != null)
         {
-            value = default(TValue);
-            return false;
+            return ad.LoadAsset(_ref);
         }
         else
         {
-            value = (TValue)fromCache;
-            return true;
+            return _value;
         }
     }
 
-    public static void CacheItem<TKey, TValue>(TKey key, TValue value)
-    {
-        s_cache.Add(key, value);
-    }
+    public static implicit operator RefOrImmediate<T>(T value) => new RefOrImmediate<T>(null, value);
+    public static implicit operator RefOrImmediate<T>(AssetRef<T> reference) => new RefOrImmediate<T>(reference, default);
+    public static implicit operator RefOrImmediate<T>(AssetID id) => new RefOrImmediate<T>(new AssetRef<T>(id), default);
+    public static implicit operator RefOrImmediate<T>(string reference) => new RefOrImmediate<T>(new AssetRef<T>(reference), default);
 }

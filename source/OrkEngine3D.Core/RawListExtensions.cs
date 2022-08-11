@@ -22,9 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace OrkEngine3D.Physics;
+using BEPUutilities.DataStructures;
+using System;
 
-public static class Conversions
+namespace OrkEngine3D.Core;
+
+public static class RawListExtensions
 {
-    
+    public static ArraySegment<T> GetArraySegment<T>(this RawList<T> rawList)
+    {
+        return new ArraySegment<T>(rawList.Elements, 0, rawList.Count);
+    }
 }

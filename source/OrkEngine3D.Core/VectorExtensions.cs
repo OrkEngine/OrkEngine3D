@@ -22,9 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace OrkEngine3D.Physics;
+using OrkEngine3D.Mathematics;
 
-public static class Conversions
+namespace OrkEngine3D.Core;
+
+public static class VectorExtensions
 {
-    
+    public static Vector3 XYZ(this Vector4 v) => new Vector3(v.X, v.Y, v.Z);
+    public static Vector2 XY(this Vector4 v) => new Vector2(v.X, v.Y);
+    public static Vector2 XY(this Vector3 v) => new Vector2(v.X, v.Y);
 }

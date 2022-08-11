@@ -22,9 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace OrkEngine3D.Physics;
+namespace OrkEngine3D.Core.Behaviour;
 
-public static class Conversions
+public interface IUpdateable
 {
-    
+    void Update(float deltaSeconds);
 }

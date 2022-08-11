@@ -17,7 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\OrkEngine3D.BEPUtil\OrkEngine3D.BEPUtil.csproj" />
     <ProjectReference Include="..\OrkEngine3D.BEPU\OrkEngine3D.BEPU.csproj" />
-    <ProjectReference Include="..\OrkEngine3D.Components\OrkEngine3D.Components.csproj" />
+    <ProjectReference Include="..\OrkEngine3D.Core\OrkEngine3D.Core.csproj" />
   </ItemGroup>
 
 </Project>
