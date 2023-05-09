@@ -64,7 +64,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
         }
 
         /// <summary>
-        /// Unload the texture
+        /// OnUnload the texture
         /// </summary>
 
         public override void Unload()

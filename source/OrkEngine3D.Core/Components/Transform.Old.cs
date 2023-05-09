@@ -86,4 +86,11 @@ public partial class Transform
         rotation = Quaternion.Multiply(rotation, Quaternion.RotationYawPitchRoll(eulers.Y, eulers.X, eulers.Z));
     }
 
+    private void LookAt(Transform sourceTransform, Vector3 targetPosition)
+    {
+        Vector3 direction = targetPosition - sourceTransform.position;
+        //float angle = (float)MathF.Atan2(direction.X, direction.Y) * MathF.Rad2Deg;
+        //sourceTransform.rotation = Quaternion.Eular(0, 0, angle);
+    }
+
 }

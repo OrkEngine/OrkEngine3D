@@ -25,6 +25,7 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Xml.Serialization;
 
 namespace OrkEngine3D.Mathematics;
 
@@ -210,6 +211,17 @@ public struct Vector3 : IEquatable<Vector3>, IFormattable
                 default: throw new ArgumentOutOfRangeException("index", "Indices for Vector3 run from 0 to 2, inclusive.");
             }
         }
+    }
+
+    /// <summary>
+    /// Returns a copy of the Vector3 scaled to unit length.
+    /// </summary>
+    /// <returns>The normalized copy.</returns>
+    public Vector3 Normalized()
+    {
+        var v = this;
+        v.Normalize();
+        return v;
     }
 
     /// <summary>
@@ -1631,6 +1643,8 @@ public struct Vector3 : IEquatable<Vector3>, IFormattable
             TransformNormal(ref source[i], ref transform, out destination[i]);
         }
     }
+
+   
 
     /// <summary>
     /// Adds two vectors.

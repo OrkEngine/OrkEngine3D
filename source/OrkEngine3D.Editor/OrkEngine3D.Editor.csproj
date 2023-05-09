@@ -1,24 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ApplicationIcon />
-    <OutputType>Exe</OutputType>
-    <StartupObject />
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="resources\**\*.*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="runtimes\**\*.*">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>  
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\OrkEngine3D.Core\OrkEngine3D.Core.csproj" />
-  </ItemGroup>
 
 </Project>

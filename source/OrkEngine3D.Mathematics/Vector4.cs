@@ -24,6 +24,8 @@ using System;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Xml.Serialization;
 
 namespace OrkEngine3D.Mathematics;
 
@@ -1317,6 +1319,21 @@ public struct Vector4 : IEquatable<Vector4>, IFormattable
         for (int i = 0; i < source.Length; ++i)
         {
             Transform(ref source[i], ref transform, out destination[i]);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets an OpenTK.Vector3 with the X, Y, and Z components of this instance.
+    /// </summary>
+    [XmlIgnore]
+    public Vector3 Xyz
+    {
+        get => Unsafe.As<Vector4, Vector3>(ref this);
+        set
+        {
+            X = value.X;
+            Y = value.Y;
+            Z = value.Z;
         }
     }
 

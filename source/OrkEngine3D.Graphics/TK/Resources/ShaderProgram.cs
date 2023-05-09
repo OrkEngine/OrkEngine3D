@@ -95,7 +95,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
         }
 
         /// <summary>
-        /// Unload the ShaderProgram
+        /// OnUnload the ShaderProgram
         /// </summary>
         public override void Unload()
         {
@@ -221,6 +221,19 @@ namespace OrkEngine3D.Graphics.TK.Resources
                 Use();
             GL.UniformMatrix4(GetUniformLocation(name), 1, transpose, value.ToArray());
         }
+
+        /*
+        public void UniformMatrix(string name, Matrix4 value)
+        {
+            UniformMatrix(name, false, value);
+        }
+        public void UniformMatrix(string name, bool transpose, Matrix4 value)
+        {
+            if (lastBound != id)
+                Use();
+            GL.UniformMatrix4(GetUniformLocation(name), 1, transpose, value.ToArray());
+        }
+        */
         #endregion
     }
 }

@@ -135,11 +135,11 @@ namespace OrkEngine3D.Graphics.TK.Resources
         }
 
         /// <summary>
-        /// Render the mesh.
+        /// OnRender the mesh.
         /// </summary>
         /// <param name="camera">The active camera object</param>
         /// <param name="t">The meshes transform</param>
-        /// <param name="ctx">The current GraphicsContext</param>
+        /// <param name="ctx">The current GContext</param>
         public void Render(){
             if (Rendering.inShadowMode)
             {
@@ -148,12 +148,13 @@ namespace OrkEngine3D.Graphics.TK.Resources
             }
             GL.BindVertexArray(VAO);
             shader.Use();
+            //GetMatrix
             shader.UniformMatrix("matx_view", Rendering.currentCamera.GetMatrix());
             shader.UniformMatrix("matx_model", Rendering.currentTransform.GetMatrix());
             shader.Uniform1("ambient.strength", Rendering.currentLightning.ambient.strength);
             shader.Uniform3("ambient.color", Rendering.currentLightning.ambient.color);
             shader.Uniform3("ambient.position", Rendering.currentLightning.ambient.position);
-
+            //transform.position
             shader.Uniform3("camera_pos", Rendering.currentCamera.transform.position);
 
             for (int i = 0; i < Rendering.currentLightning.lights.Length; i++)
@@ -213,7 +214,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
         }
 
         /// <summary>
-        /// Unload the mesh
+        /// OnUnload the mesh
         /// </summary>
         public override void Unload()
         {

@@ -16,7 +16,7 @@ namespace OrkEngine3D.Graphics.TK
     public static class Rendering
     {
         public static Camera currentCamera { get; private set; }
-        public static GraphicsContext currentContext { get; private set; }
+        public static GContext currentContext { get; private set; }
         public static Transform currentTransform { get; private set; }
         public static IRenderTarget renderTarget { get; private set; } = WindowTarget.Global;
         public static LightScene currentLightning { get; private set; }
@@ -34,7 +34,7 @@ namespace OrkEngine3D.Graphics.TK
             currentCamera = camera;
         }
 
-        public static void BindContext(GraphicsContext ctx)
+        public static void BindContext(GContext ctx)
         {
             currentContext = ctx;
         }

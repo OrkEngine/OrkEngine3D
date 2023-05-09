@@ -18,10 +18,18 @@
 * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
+* ------------------------------------------------------------------------------
+* Licensed under the MIT/X11 license.
+* Copyright (c) 2006-2008 the OpenTK Team.
+* This notice may not be removed from any source distribution.
+* See license.txt for licensing detailed licensing details.
+*
+* Contributions by Andy Gill, James Talton and Georg Wächter.
 */
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Text;
 
 
@@ -38,19 +46,86 @@ public static class MathHelper
     public const float Pi = 3.141592653589793239f;
 
     /// <summary>
-    /// A value specifying the approximation of 2π which is 360 degrees.
+    /// Defines the value of Pi divided by two as a <see cref="float"/>.
     /// </summary>
-    public const float TwoPi = 6.283185307179586477f;
+    public const float PiOver2 = Pi / 2;
 
     /// <summary>
-    /// A value specifying the approximation of π/2 which is 90 degrees.
+    /// Defines the value of Pi divided by three as a <see cref="float"/>.
     /// </summary>
-    public const float PiOverTwo = 1.570796326794896619f;
+    public const float PiOver3 = Pi / 3;
 
     /// <summary>
-    /// A value specifying the approximation of π/4 which is 45 degrees.
+    /// Defines the value of  Pi divided by four as a <see cref="float"/>.
     /// </summary>
-    public const float PiOverFour = 0.785398163397448310f;
+    public const float PiOver4 = Pi / 4;
+
+    /// <summary>
+    /// Defines the value of Pi divided by six as a <see cref="float"/>.
+    /// </summary>
+    public const float PiOver6 = Pi / 6;
+
+    /// <summary>
+    /// Defines the value of Pi multiplied by two as a <see cref="float"/>.
+    /// </summary>
+    public const float TwoPi = 2 * Pi;
+
+    /// <summary>
+    /// Defines the value of Pi multiplied by 3 and divided by two as a <see cref="float"/>.
+    /// </summary>
+    public const float ThreePiOver2 = 3 * Pi / 2;
+
+    /// <summary>
+    /// Defines the value of E as a <see cref="float"/>.
+    /// </summary>
+    public const float E = 2.7182817f;
+
+    /// <summary>
+    /// Defines the base-10 logarithm of E.
+    /// </summary>
+    public const float Log10E = 0.4342945f;
+
+    /// <summary>
+    /// Defines the base-2 logarithm of E.
+    /// </summary>
+    public const float Log2E = 1.442695f;
+
+    /// <summary>
+    /// Clamps a number between a minimum and a maximum.
+    /// </summary>
+    /// <param name="n">The number to clamp.</param>
+    /// <param name="min">The minimum allowed value.</param>
+    /// <param name="max">The maximum allowed value.</param>
+    /// <returns>min, if n is lower than min; max, if n is higher than max; n otherwise.</returns>
+    public static int Clamp(int n, int min, int max)
+    {
+        return Math.Max(Math.Min(n, max), min);
+    }
+
+    /// <summary>
+    /// Clamps a number between a minimum and a maximum.
+    /// </summary>
+    /// <param name="n">The number to clamp.</param>
+    /// <param name="min">The minimum allowed value.</param>
+    /// <param name="max">The maximum allowed value.</param>
+    /// <returns>min, if n is lower than min; max, if n is higher than max; n otherwise.</returns>
+    public static float Clamp(float n, float min, float max)
+    {
+        return Math.Max(Math.Min(n, max), min);
+    }
+
+    /// <summary>
+    /// Clamps a number between a minimum and a maximum.
+    /// </summary>
+    /// <param name="n">The number to clamp.</param>
+    /// <param name="min">The minimum allowed value.</param>
+    /// <param name="max">The maximum allowed value.</param>
+    /// <returns>min, if n is lower than min; max, if n is higher than max; n otherwise.</returns>
+    public static double Clamp(double n, double min, double max)
+    {
+        return Math.Max(Math.Min(n, max), min);
+    }
+
 
     /// <summary>
     /// Converts degrees to radians.
