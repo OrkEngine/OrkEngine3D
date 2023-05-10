@@ -13,6 +13,7 @@ using ShaderType = OrkEngine3D.Graphics.TK.Resources.ShaderType;
 
 namespace OrkEngine3D.Graphics.TK
 {
+    /*
     public static class Rendering
     {
         public static Camera currentCamera { get; private set; }
@@ -122,10 +123,12 @@ namespace OrkEngine3D.Graphics.TK
             return id;
         }
 
+        /*
         public static ID UpdateMeshShader(ID id, ID shader){
             currentResourceManager.GetResource<Mesh>(id).shader = currentResourceManager.GetResource<ShaderProgram>(shader);
             return id;
         }
+        *
 
         public static void UpdateMeshGLData(ID id){
             currentResourceManager.GetResource<Mesh>(id).UpdateGLData();
@@ -137,6 +140,7 @@ namespace OrkEngine3D.Graphics.TK
             return texture.resourceid;
         }
 
+        /*
         public static ID CreateShaderProgram(params ID[] shaders){
             Shader[] s = new Shader[shaders.Length];
             for(int i = 0; i < s.Length; i++) s[i] = currentResourceManager.GetResource<Shader>(shaders[i]); 
@@ -148,6 +152,7 @@ namespace OrkEngine3D.Graphics.TK
             Shader s = new Shader(currentResourceManager, source, type);
             return s.resourceid;
         }
+        *
 
         public static ID CreateRenderBuffer(int width, int height){
             RenderBuffer renderBuffer = new RenderBuffer(currentResourceManager, width, height);
@@ -205,4 +210,5 @@ namespace OrkEngine3D.Graphics.TK
             }
         }
     }
+    */
 }

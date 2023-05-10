@@ -167,7 +167,7 @@ namespace BEPUphysics.Constraints.Collision
             for (int i = 0; i < contactCount; i++)
             {
                 Vector3Ex.Subtract(ref contactManifoldConstraint.penetrationConstraints.Elements[i].contact.Position, ref contactManifoldConstraint.SlidingFriction.manifoldCenter, out contactOffset);
-                leverArms[i] = contactOffset.Length();
+                leverArms[i] = contactOffset.Length;
             }
 
 

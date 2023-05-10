@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace OrkEngine3D.Graphics.TK.Resources
 {
+    /*
     public class RenderBuffer : GLResource, IRenderTarget
     {
         public int id;
@@ -68,4 +69,5 @@ namespace OrkEngine3D.Graphics.TK.Resources
             GL.DeleteFramebuffer(id);
         }
     }
+    */
 }

@@ -922,7 +922,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(aO.M12 * bO.M13 - aO.M13 * bO.M12,
                                        aO.M13 * bO.M11 - aO.M11 * bO.M13,
                                        aO.M11 * bO.M12 - aO.M12 * bO.M11);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -938,7 +938,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(bO.M12 * aO.M13 - bO.M13 * aO.M12,
                                        bO.M13 * aO.M11 - bO.M11 * aO.M13,
                                        bO.M11 * aO.M12 - bO.M12 * aO.M11);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (-tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -976,7 +976,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(aO.M12 * bO.M23 - aO.M13 * bO.M22,
                                        aO.M13 * bO.M21 - aO.M11 * bO.M23,
                                        aO.M11 * bO.M22 - aO.M12 * bO.M21);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -992,7 +992,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(bO.M22 * aO.M13 - bO.M23 * aO.M12,
                                        bO.M23 * aO.M11 - bO.M21 * aO.M13,
                                        bO.M21 * aO.M12 - bO.M22 * aO.M11);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (-tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1030,7 +1030,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(aO.M12 * bO.M33 - aO.M13 * bO.M32,
                                        aO.M13 * bO.M31 - aO.M11 * bO.M33,
                                        aO.M11 * bO.M32 - aO.M12 * bO.M31);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1046,7 +1046,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(bO.M32 * aO.M13 - bO.M33 * aO.M12,
                                        bO.M33 * aO.M11 - bO.M31 * aO.M13,
                                        bO.M31 * aO.M12 - bO.M32 * aO.M11);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (-tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1088,7 +1088,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(aO.M22 * bO.M13 - aO.M23 * bO.M12,
                                        aO.M23 * bO.M11 - aO.M21 * bO.M13,
                                        aO.M21 * bO.M12 - aO.M22 * bO.M11);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1104,7 +1104,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(bO.M12 * aO.M23 - bO.M13 * aO.M22,
                                        bO.M13 * aO.M21 - bO.M11 * aO.M23,
                                        bO.M11 * aO.M22 - bO.M12 * aO.M21);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (-tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1142,7 +1142,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(aO.M22 * bO.M23 - aO.M23 * bO.M22,
                                        aO.M23 * bO.M21 - aO.M21 * bO.M23,
                                        aO.M21 * bO.M22 - aO.M22 * bO.M21);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1158,7 +1158,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(bO.M22 * aO.M23 - bO.M23 * aO.M22,
                                        bO.M23 * aO.M21 - bO.M21 * aO.M23,
                                        bO.M21 * aO.M22 - bO.M22 * aO.M21);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (-tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1196,7 +1196,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(aO.M22 * bO.M33 - aO.M23 * bO.M32,
                                        aO.M23 * bO.M31 - aO.M21 * bO.M33,
                                        aO.M21 * bO.M32 - aO.M22 * bO.M31);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1212,7 +1212,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(bO.M32 * aO.M23 - bO.M33 * aO.M22,
                                        bO.M33 * aO.M21 - bO.M31 * aO.M23,
                                        bO.M31 * aO.M22 - bO.M32 * aO.M21);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (-tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1254,7 +1254,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(aO.M32 * bO.M13 - aO.M33 * bO.M12,
                                        aO.M33 * bO.M11 - aO.M31 * bO.M13,
                                        aO.M31 * bO.M12 - aO.M32 * bO.M11);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1270,7 +1270,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(bO.M12 * aO.M33 - bO.M13 * aO.M32,
                                        bO.M13 * aO.M31 - bO.M11 * aO.M33,
                                        bO.M11 * aO.M32 - bO.M12 * aO.M31);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (-tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1308,7 +1308,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(aO.M32 * bO.M23 - aO.M33 * bO.M22,
                                        aO.M33 * bO.M21 - aO.M31 * bO.M23,
                                        aO.M31 * bO.M22 - aO.M32 * bO.M21);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1324,7 +1324,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(bO.M22 * aO.M33 - bO.M23 * aO.M32,
                                        bO.M23 * aO.M31 - bO.M21 * aO.M33,
                                        bO.M21 * aO.M32 - bO.M22 * aO.M31);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (-tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1362,7 +1362,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(aO.M32 * bO.M33 - aO.M33 * bO.M32,
                                        aO.M33 * bO.M31 - aO.M31 * bO.M33,
                                        aO.M31 * bO.M32 - aO.M32 * bO.M31);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1378,7 +1378,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(bO.M32 * aO.M33 - bO.M33 * aO.M32,
                                        bO.M33 * aO.M31 - bO.M31 * aO.M33,
                                        bO.M31 * aO.M32 - bO.M32 * aO.M31);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (-tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1769,7 +1769,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                                        bO.M13 * aO.M11 - bO.M11 * aO.M13,
                                        bO.M11 * aO.M12 - bO.M12 * aO.M11);
 
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1786,7 +1786,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(aO.M12 * bO.M13 - aO.M13 * bO.M12,
                                        aO.M13 * bO.M11 - aO.M11 * bO.M13,
                                        aO.M11 * bO.M12 - aO.M12 * bO.M11);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (-tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1827,7 +1827,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                                        bO.M23 * aO.M11 - bO.M21 * aO.M13,
                                        bO.M21 * aO.M12 - bO.M22 * aO.M11);
 
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1844,7 +1844,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(aO.M12 * bO.M23 - aO.M13 * bO.M22,
                                        aO.M13 * bO.M21 - aO.M11 * bO.M23,
                                        aO.M11 * bO.M22 - aO.M12 * bO.M21);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (-tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1884,7 +1884,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(bO.M32 * aO.M13 - bO.M33 * aO.M12,
                                        bO.M33 * aO.M11 - bO.M31 * aO.M13,
                                        bO.M31 * aO.M12 - bO.M32 * aO.M11);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1902,7 +1902,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                                        aO.M13 * bO.M31 - aO.M11 * bO.M33,
                                        aO.M11 * bO.M32 - aO.M12 * bO.M31);
 
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (-tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1946,7 +1946,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(bO.M12 * aO.M23 - bO.M13 * aO.M22,
                                        bO.M13 * aO.M21 - bO.M11 * aO.M23,
                                        bO.M11 * aO.M22 - bO.M12 * aO.M21);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -1964,7 +1964,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                                        aO.M23 * bO.M11 - aO.M21 * bO.M13,
                                        aO.M21 * bO.M12 - aO.M22 * bO.M11);
 
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (-tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -2004,7 +2004,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(bO.M22 * aO.M23 - bO.M23 * aO.M22,
                                        bO.M23 * aO.M21 - bO.M21 * aO.M23,
                                        bO.M21 * aO.M22 - bO.M22 * aO.M21);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -2022,7 +2022,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                                        aO.M23 * bO.M21 - aO.M21 * bO.M23,
                                        aO.M21 * bO.M22 - aO.M22 * bO.M21);
 
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (-tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -2062,7 +2062,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(bO.M32 * aO.M23 - bO.M33 * aO.M22,
                                        bO.M33 * aO.M21 - bO.M31 * aO.M23,
                                        bO.M31 * aO.M22 - bO.M32 * aO.M21);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -2080,7 +2080,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                                        aO.M23 * bO.M31 - aO.M21 * bO.M33,
                                        aO.M21 * bO.M32 - aO.M22 * bO.M31);
 
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (-tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -2124,7 +2124,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(bO.M12 * aO.M33 - bO.M13 * aO.M32,
                                        bO.M13 * aO.M31 - bO.M11 * aO.M33,
                                        bO.M11 * aO.M32 - bO.M12 * aO.M31);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -2141,7 +2141,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(aO.M32 * bO.M13 - aO.M33 * bO.M12,
                                        aO.M33 * bO.M11 - aO.M31 * bO.M13,
                                        aO.M31 * bO.M12 - aO.M32 * bO.M11);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (-tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -2181,7 +2181,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(bO.M22 * aO.M33 - bO.M23 * aO.M32,
                                        bO.M23 * aO.M31 - bO.M21 * aO.M33,
                                        bO.M21 * aO.M32 - bO.M22 * aO.M31);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -2198,7 +2198,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(aO.M32 * bO.M23 - aO.M33 * bO.M22,
                                        aO.M33 * bO.M21 - aO.M31 * bO.M23,
                                        aO.M31 * bO.M22 - aO.M32 * bO.M21);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (-tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -2237,7 +2237,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 tempAxis = new OrkEngine3D.Mathematics.Vector3(bO.M32 * aO.M33 - bO.M33 * aO.M32,
                                        bO.M33 * aO.M31 - bO.M31 * aO.M33,
                                        bO.M31 * aO.M32 - bO.M32 * aO.M31);
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {
@@ -2255,7 +2255,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                                        aO.M33 * bO.M31 - aO.M31 * bO.M33,
                                        aO.M31 * bO.M32 - aO.M32 * bO.M31);
 
-                axisLengthInverse = 1 / tempAxis.Length();
+                axisLengthInverse = 1 / tempAxis.Length;
                 tempDistance = (-tl - rarb) * axisLengthInverse;
                 if (tempDistance > minimumDistance)
                 {

@@ -2,6 +2,7 @@ using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using OrkEngine3D.Diagnostics.Logging;
 using OrkEngine3D.Graphics.TK.Resources;
 using System;
@@ -14,6 +15,18 @@ namespace OrkEngine3D.Graphics.TK
     public abstract class GraphicsBehaviour
     {
         public GContext context;
+
+        public CursorState CursorState
+        {
+            get => context.window.CursorState;
+            set => context.window.CursorState = value;
+        }
+
+        public bool IsFocused => context.window.IsFocused;
+
+        public MouseState MouseState => context.window.MouseState;
+
+        public KeyboardState KeyboardState => context.window.KeyboardState;
 
         public Vector2i Size => context.window.Size;
 
@@ -45,6 +58,10 @@ namespace OrkEngine3D.Graphics.TK
         /// On application load event
         /// </summary>
         public abstract void OnLoad();
+
+        public virtual void Close() { context.window.Close(); }
+
+        public virtual void SwapBuffers() { context.window.SwapBuffers(); }
     }
 
     /// <summary>
@@ -122,6 +139,7 @@ namespace OrkEngine3D.Graphics.TK
         public void SwapBuffers()
         {
             window.SwapBuffers();
+            //handler.SwapBuffers();
         }
 
 

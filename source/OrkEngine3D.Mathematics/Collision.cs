@@ -435,7 +435,7 @@ public static class Collision
         Vector3 cross;
 
         Vector3.Cross(ref ray1.Direction, ref ray2.Direction, out cross);
-        float denominator = cross.Length();
+        float denominator = cross.Length;
         
         //Lines are parallel.
         if (Math.Abs(denominator) < Utilities.ZeroTolerance)
@@ -1696,7 +1696,7 @@ public static class Collision
     /// <param name="result">When the method completes, contains the supporting point.</param>
     public static void SupportPoint(ref BoundingSphere sphere, ref Vector3 direction, out Vector3 result)
     {
-        result = (sphere.Radius / direction.Length()) * direction + sphere.Center;
+        result = (sphere.Radius / direction.Length) * direction + sphere.Center;
     }
 
     /// <summary>

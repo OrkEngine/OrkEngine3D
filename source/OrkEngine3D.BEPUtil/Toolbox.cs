@@ -1423,7 +1423,7 @@ namespace BEPUutilities
         public static bool RayCastSphere(ref Ray ray, ref OrkEngine3D.Mathematics.Vector3 spherePosition, float radius, float maximumLength, out RayHit hit)
         {
             OrkEngine3D.Mathematics.Vector3 normalizedDirection;
-            float length = ray.Direction.Length();
+            float length = ray.Direction.Length;
             Vector3Ex.Divide(ref ray.Direction, length, out normalizedDirection);
             maximumLength *= length;
             hit = new RayHit();

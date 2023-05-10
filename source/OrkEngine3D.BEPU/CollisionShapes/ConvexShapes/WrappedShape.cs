@@ -299,7 +299,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
             for (int i = 0; i < shapes.Count; i++)
             {
                 float radius = shapes.WrappedList.Elements[i].CollisionShape.MaximumRadius +
-                               shapes.WrappedList.Elements[i].Transform.Position.Length();
+                               shapes.WrappedList.Elements[i].Transform.Position.Length;
                 if (radius > maxRadius)
                     maxRadius = radius;
             }

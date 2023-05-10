@@ -228,7 +228,7 @@ public sealed class Gjk
         while (!closeenough && !Direction.Equals(Vector3.Zero, Utilities.ZeroTolerance) && currentiteration < maxIterations)
         {
             currentiteration++;
-            float directionlength = Direction.Length();
+            float directionlength = Direction.Length;
 
             var w = supportFunction(-Direction);
             var d = Vector3.Dot(Direction, w) / directionlength;
@@ -254,7 +254,7 @@ public sealed class Gjk
                         if (DoTetrahedronNoDirection(simplex[3], simplex[2], simplex[1], simplex[0]))
                         {
                             //Objects intersect, distance makes no sense
-                            return Direction.Length();
+                            return Direction.Length;
                         }
                         break;
                 }
@@ -278,7 +278,7 @@ public sealed class Gjk
             }
         }
 
-        return Direction.Length();
+        return Direction.Length;
     }
 
     /// <summary>

@@ -246,7 +246,7 @@ public struct BoundingSphere : IEquatable<BoundingSphere>, IFormattable
         SupportMapping(ref direction, out result);
         return result;
     }
-
+    /* TODO: Fix
     /// <summary>
     /// Constructs a <see cref="SlimMath.BoundingSphere"/> that fully contains the given points.
     /// </summary>
@@ -295,7 +295,7 @@ public struct BoundingSphere : IEquatable<BoundingSphere>, IFormattable
         BoundingSphere result;
         FromPoints(points, out result);
         return result;
-    }
+    }*/
 
     /// <summary>
     /// Constructs a <see cref="SlimMath.BoundingSphere"/> from a given box.
@@ -336,7 +336,7 @@ public struct BoundingSphere : IEquatable<BoundingSphere>, IFormattable
     {
         Vector3 difference = value2.Center - value1.Center;
 
-        float length = difference.Length();
+        float length = difference.Length;
         float radius = value1.Radius;
         float radius2 = value2.Radius;
 

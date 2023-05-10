@@ -148,18 +148,21 @@ public struct Vector3 : IEquatable<Vector3>, IFormattable
     /// Returns the length of the vector.
     /// </summary>
     /// <returns>The vector's length.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public float Length()
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public float Length
     {
-        if (Vector.IsHardwareAccelerated)
+        get
         {
-            float ls = Vector3.Dot(this, this);
-            return (float)System.Math.Sqrt(ls);
-        }
-        else
-        {
-            float ls = X * X + Y * Y + Z * Z;
-            return (float)System.Math.Sqrt(ls);
+            if (Vector.IsHardwareAccelerated)
+            {
+                float ls = Vector3.Dot(this, this);
+                return (float)System.Math.Sqrt(ls);
+            }
+            else
+            {
+                float ls = X * X + Y * Y + Z * Z;
+                return (float)System.Math.Sqrt(ls);
+            }
         }
     }
 
@@ -229,7 +232,7 @@ public struct Vector3 : IEquatable<Vector3>, IFormattable
     /// </summary>
     public void Normalize()
     {
-        float length = Length();
+        float length = Length;
         if (length > Utilities.ZeroTolerance)
         {
             float inv = 1.0f / length;
@@ -461,9 +464,16 @@ public struct Vector3 : IEquatable<Vector3>, IFormattable
     /// <param name="left">The first vector to add.</param>
     /// <param name="right">The second vector to add.</param>
     /// <param name="result">When the method completes, contains the sum of the two vectors.</param>
-    public static void Add(ref Vector3 left, ref Vector3 right, out Vector3 result)
+    //public static void Add(ref Vector3 left, ref Vector3 right, out Vector3 result)
+    //{
+    //    result = new Vector3(left.X + right.X, left.Y + right.Y, left.Z + right.Z);
+    //}
+
+    public static void Add(in Vector3 left, in Vector3 right, out Vector3 result)
     {
-        result = new Vector3(left.X + right.X, left.Y + right.Y, left.Z + right.Z);
+        result.X = left.X + right.X;
+        result.Y = left.Y + right.Y;
+        result.Z = left.Z + right.Z;
     }
 
     /// <summary>

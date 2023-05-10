@@ -304,7 +304,7 @@ namespace BEPUphysics.Constraints.TwoEntity.JointLimits
             //Compute the distance.
             OrkEngine3D.Mathematics.Vector3 separation;
             Vector3Ex.Subtract(ref anchorB, ref anchorA, out separation);
-            float distance = separation.Length();
+            float distance = separation.Length;
             if (distance < maximumLength && distance > minimumLength)
             {
                 isActiveInSolver = false;

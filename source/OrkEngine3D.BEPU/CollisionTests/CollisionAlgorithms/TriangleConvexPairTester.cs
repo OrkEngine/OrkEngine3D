@@ -152,7 +152,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                 else contact.Position = new OrkEngine3D.Mathematics.Vector3();
                 Vector3Ex.Add(ref extremePoint, ref contact.Position, out contact.Position); //A + t * AB.
 
-                float normalLength = reverseNormal.Length();
+                float normalLength = reverseNormal.Length;
                 Vector3Ex.Divide(ref reverseNormal, normalLength, out contact.Normal);
                 float distance = normalLength * t;
 

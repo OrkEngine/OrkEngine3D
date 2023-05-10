@@ -46,7 +46,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
             ConnectionA = connectionA;
             ConnectionB = connectionB;
 
-            Distance = (anchorA - anchorB).Length();
+            Distance = (anchorA - anchorB).Length;
 
             WorldAnchorA = anchorA;
             WorldAnchorB = anchorB;
@@ -64,7 +64,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
             ConnectionA = connectionA;
             ConnectionB = connectionB;
 
-            Distance = (anchorA - anchorB).Length();
+            Distance = (anchorA - anchorB).Length;
 
             WorldAnchorA = anchorA;
             WorldAnchorB = anchorB;
@@ -282,7 +282,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
             //Compute the distance.
             OrkEngine3D.Mathematics.Vector3 separation;
             Vector3Ex.Subtract(ref anchorB, ref anchorA, out separation);
-            float currentDistance = separation.Length();
+            float currentDistance = separation.Length;
 
             //Compute jacobians
             if (currentDistance > Toolbox.Epsilon)

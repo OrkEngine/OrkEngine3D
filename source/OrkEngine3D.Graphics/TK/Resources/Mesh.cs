@@ -7,6 +7,7 @@ using OrkEngine3D.Diagnostics.Logging;
 
 namespace OrkEngine3D.Graphics.TK.Resources
 {
+    /*
     /// <summary>
     /// A mesh.
     /// </summary>
@@ -44,7 +45,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
         /// <summary>
         /// What shader should the mesh use?
         /// </summary>
-        public ShaderProgram shader;
+        //public ShaderProgram shader;
 
         public int[] materials;
 
@@ -66,8 +67,8 @@ namespace OrkEngine3D.Graphics.TK.Resources
 
         public void UpdateGLData(){
             // We cannot locate variables in a non-existent 
-            if(shader == null)
-                Logger.Get("ShaderLoader", "Graphics").Log(LogMessageType.FATAL, "Shader is null, make sure to set shader before updating data!");
+            //if(shader == null)
+             //   Logger.Get("ShaderLoader", "Graphics").Log(LogMessageType.FATAL, "Shader is null, make sure to set shader before updating data!");
             
             // Floats per vertex
             int floatsperv = 3 + 3 + 2 + 4 + 1; // Vec3 + Vec3 + Vec2 + Col4 + int
@@ -86,7 +87,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
                 color.g
                 color.b
                 color.a
-                */
+                *
                 bakedData[i * floatsperv + 0] = verticies[i].X;
                 bakedData[i * floatsperv + 1] = verticies[i].Y;
                 bakedData[i * floatsperv + 2] = verticies[i].Z;
@@ -111,26 +112,26 @@ namespace OrkEngine3D.Graphics.TK.Resources
 
             GL.BufferData(BufferTarget.ArrayBuffer, bakedData.Length * sizeof(float), bakedData, BufferUsageHint.StaticDraw); // Set buffer data to baked vertex data
 
-            int vpos = shader.GetAttribLocation("vert_position");
-            int vuv = shader.GetAttribLocation("vert_uv");
-            int vcol = shader.GetAttribLocation("vert_color");
-            int vnorm = shader.GetAttribLocation("vert_normal");
-            int vmat = shader.GetAttribLocation("vert_material");
+           //int vpos = shader.GetAttribLocation("vert_position");
+           // int vuv = shader.GetAttribLocation("vert_uv");
+           // int vcol = shader.GetAttribLocation("vert_color");
+           // int vnorm = shader.GetAttribLocation("vert_normal");
+           // int vmat = shader.GetAttribLocation("vert_material");
 
-            GL.VertexAttribPointer(vpos, 3, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 0 * sizeof(float));
-            GL.EnableVertexAttribArray(vpos);
+          //  GL.VertexAttribPointer(vpos, 3, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 0 * sizeof(float));
+          //  GL.EnableVertexAttribArray(vpos);
 
-            GL.VertexAttribPointer(vuv, 2, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 3 * sizeof(float));
-            GL.EnableVertexAttribArray(vuv);
+          //  GL.VertexAttribPointer(vuv, 2, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 3 * sizeof(float));
+          //  GL.EnableVertexAttribArray(vuv);
 
-            GL.VertexAttribPointer(vcol, 4, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 5 * sizeof(float));
-            GL.EnableVertexAttribArray(vcol);
+          //  GL.VertexAttribPointer(vcol, 4, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 5 * sizeof(float));
+          //  GL.EnableVertexAttribArray(vcol);
 
-            GL.VertexAttribPointer(vnorm, 3, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 9 * sizeof(float));
-            GL.EnableVertexAttribArray(vnorm);
+           // GL.VertexAttribPointer(vnorm, 3, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 9 * sizeof(float));
+          //  GL.EnableVertexAttribArray(vnorm);
 
-            GL.VertexAttribPointer(vmat, 1, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 12 * sizeof(float));
-            GL.EnableVertexAttribArray(vmat);
+          //  GL.VertexAttribPointer(vmat, 1, VertexAttribPointerType.Float, false, floatsperv * sizeof(float), 12 * sizeof(float));
+          //  GL.EnableVertexAttribArray(vmat);
 
         }
 
@@ -147,41 +148,41 @@ namespace OrkEngine3D.Graphics.TK.Resources
                 return;
             }
             GL.BindVertexArray(VAO);
-            shader.Use();
+            //shader.Use();
             //GetMatrix
-            shader.UniformMatrix("matx_view", Rendering.currentCamera.GetMatrix());
-            shader.UniformMatrix("matx_model", Rendering.currentTransform.GetMatrix());
-            shader.Uniform1("ambient.strength", Rendering.currentLightning.ambient.strength);
-            shader.Uniform3("ambient.color", Rendering.currentLightning.ambient.color);
-            shader.Uniform3("ambient.position", Rendering.currentLightning.ambient.position);
+           // shader.UniformMatrix("matx_view", Rendering.currentCamera.GetViewMatrix());
+            //shader.UniformMatrix("matx_model", Rendering.currentTransform.GetMatrix());
+            //shader.Uniform1("ambient.strength", Rendering.currentLightning.ambient.strength);
+            //shader.Uniform3("ambient.color", Rendering.currentLightning.ambient.color);
+            //shader.Uniform3("ambient.position", Rendering.currentLightning.ambient.position);
             //transform.position
-            shader.Uniform3("camera_pos", Rendering.currentCamera.transform.position);
+            //shader.Uniform3("camera_pos", Rendering.currentCamera.Position);
 
             for (int i = 0; i < Rendering.currentLightning.lights.Length; i++)
             {
                 Light light = Rendering.currentLightning.lights[i];
-                shader.Uniform1("lights[0].strength", light.strength);
-                shader.Uniform3("lights[0].color", light.color);
-                shader.Uniform3("lights[0].position", light.position);
+               // shader.Uniform1("lights[0].strength", light.strength);
+               //shader.Uniform3("lights[0].color", light.color);
+                //shader.Uniform3("lights[0].position", light.position);
             }
 
-            shader.Uniform1("lights_count", Rendering.currentLightning.lights.Length);
+            //shader.Uniform1("lights_count", Rendering.currentLightning.lights.Length);
 
             for (int i = 0; i < Rendering.currentMaterials.Length; i++)
             {
                 Material material = Rendering.currentMaterials[i];
 
-                shader.Uniform3($"materials[{i}].ambient", material.ambient);
-                shader.Uniform3($"materials[{i}].diffuse", material.diffuse);
-                shader.Uniform3($"materials[{i}].specular", material.specular);
+               // shader.Uniform3($"materials[{i}].ambient", material.ambient);
+                //shader.Uniform3($"materials[{i}].diffuse", material.diffuse);
+                //shader.Uniform3($"materials[{i}].specular", material.specular);
 
-                shader.Uniform1($"materials[{i}].shininess", material.shininess);
+               // shader.Uniform1($"materials[{i}].shininess", material.shininess);
 
 
 
                 for (byte t = 0; t < material.textures.Length; t++)
                 {
-                    shader.Uniform1($"material_textures[{i * 4 + t}]", t);
+                    //shader.Uniform1($"material_textures[{i * 4 + t}]", t);
                     Rendering.currentResourceManager.GetResource<Texture>(material.textures[t]).Use(t);
                 }
                 
@@ -193,7 +194,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
             if (Rendering.shadowHandler != null)
             {
                 ShadowHandler shadowHandler = Rendering.shadowHandler;
-                shader.Uniform1($"material_shadowMap", 31);
+               // shader.Uniform1($"material_shadowMap", 31);
                 GL.ActiveTexture(TextureUnit.Texture31);
                 GL.BindTexture(TextureTarget.Texture2D, shadowHandler.depthMap);
             }
@@ -223,4 +224,5 @@ namespace OrkEngine3D.Graphics.TK.Resources
             GL.DeleteVertexArray(VAO);
         }
     }
+    */
 }

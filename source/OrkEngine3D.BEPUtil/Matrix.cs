@@ -930,7 +930,7 @@ namespace BEPUutilities
         public static void CreateViewRH(ref OrkEngine3D.Mathematics.Vector3 position, ref OrkEngine3D.Mathematics.Vector3 forward, ref OrkEngine3D.Mathematics.Vector3 upVector, out OrkEngine3D.Mathematics.Matrix4x4 viewSystemMatrix4x4)
         {
             OrkEngine3D.Mathematics.Vector3 z;
-            float length = forward.Length();
+            float length = forward.Length;
             Vector3Ex.Divide(ref forward, -length, out z);
             OrkEngine3D.Mathematics.Vector3 x;
             Vector3Ex.Cross(ref upVector, ref z, out x);
@@ -986,7 +986,7 @@ namespace BEPUutilities
         public static void CreateWorldRH(ref OrkEngine3D.Mathematics.Vector3 position, ref OrkEngine3D.Mathematics.Vector3 forward, ref OrkEngine3D.Mathematics.Vector3 upVector, out OrkEngine3D.Mathematics.Matrix4x4 worldSystemMatrix4x4)
         {
             OrkEngine3D.Mathematics.Vector3 z;
-            float length = forward.Length();
+            float length = forward.Length;
             Vector3Ex.Divide(ref forward, -length, out z);
             OrkEngine3D.Mathematics.Vector3 x;
             Vector3Ex.Cross(ref upVector, ref z, out x);

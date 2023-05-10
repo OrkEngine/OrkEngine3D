@@ -6,6 +6,7 @@ using OrkEngine3D.Mathematics;
 
 namespace OrkEngine3D.Graphics.TK.Resources
 {
+    /*
     public class ShaderProgram : GLResource
     {
         private static int lastBound = -1;
@@ -222,7 +223,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
             GL.UniformMatrix4(GetUniformLocation(name), 1, transpose, value.ToArray());
         }
 
-        /*
+        
         public void UniformMatrix(string name, Matrix4 value)
         {
             UniformMatrix(name, false, value);
@@ -233,7 +234,8 @@ namespace OrkEngine3D.Graphics.TK.Resources
                 Use();
             GL.UniformMatrix4(GetUniformLocation(name), 1, transpose, value.ToArray());
         }
-        */
+        
         #endregion
     }
+    */
 }

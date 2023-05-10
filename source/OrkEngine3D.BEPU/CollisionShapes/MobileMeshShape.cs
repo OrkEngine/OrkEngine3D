@@ -449,7 +449,7 @@ namespace BEPUphysics.CollisionShapes
                 Vector3Ex.Subtract(ref vC, ref vA, out vAvC);
                 OrkEngine3D.Mathematics.Vector3 cross;
                 Vector3Ex.Cross(ref vAvB, ref vAvC, out cross);
-                float weight = cross.Length();
+                float weight = cross.Length;
                 totalWeight += weight;
 
                 float perVertexWeight = weight * (1f / 3f);
@@ -540,9 +540,9 @@ namespace BEPUphysics.CollisionShapes
             }
 
             //Incorporate the collision margin.
-            Vector3Ex.Multiply(ref rightDirection, meshCollisionMargin / (float)Math.Sqrt(rightDirection.Length()), out rightDirection);
-            Vector3Ex.Multiply(ref upDirection, meshCollisionMargin / (float)Math.Sqrt(upDirection.Length()), out upDirection);
-            Vector3Ex.Multiply(ref backDirection, meshCollisionMargin / (float)Math.Sqrt(backDirection.Length()), out backDirection);
+            Vector3Ex.Multiply(ref rightDirection, meshCollisionMargin / (float)Math.Sqrt(rightDirection.Length), out rightDirection);
+            Vector3Ex.Multiply(ref upDirection, meshCollisionMargin / (float)Math.Sqrt(upDirection.Length), out upDirection);
+            Vector3Ex.Multiply(ref backDirection, meshCollisionMargin / (float)Math.Sqrt(backDirection.Length), out backDirection);
 
             var rightElement = hullVertices.Elements[right];
             var leftElement = hullVertices.Elements[left];

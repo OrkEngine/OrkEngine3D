@@ -150,10 +150,10 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         public static ConvexShapeDescription ComputeDescription(OrkEngine3D.Mathematics.Vector3 vA, OrkEngine3D.Mathematics.Vector3 vB, OrkEngine3D.Mathematics.Vector3 vC, float collisionMargin)
         {
             ConvexShapeDescription description;
-            description.EntityShapeVolume.Volume = OrkEngine3D.Mathematics.Vector3.Cross(vB - vA, vC - vA).Length() * collisionMargin; // ratherapproximate.
+            description.EntityShapeVolume.Volume = OrkEngine3D.Mathematics.Vector3.Cross(vB - vA, vC - vA).Length * collisionMargin; // ratherapproximate.
             description.EntityShapeVolume.VolumeDistribution = new Matrix3x3();
             description.MinimumRadius = collisionMargin;
-            description.MaximumRadius = collisionMargin + Math.Max(vA.Length(), Math.Max(vB.Length(), vC.Length()));
+            description.MaximumRadius = collisionMargin + Math.Max(vA.Length, Math.Max(vB.Length, vC.Length));
             description.CollisionMargin = collisionMargin;
             return description;
         }

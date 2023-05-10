@@ -2,6 +2,7 @@ namespace OrkEngine3D.Graphics.TK.Resources
 {
     using OpenTK.Graphics.OpenGL4;
 
+    /*
     public class PostProcessingEffect : GLResource
     {
         public ID Id;
@@ -54,4 +55,5 @@ void main()
         }
 
     }
+    */
 }

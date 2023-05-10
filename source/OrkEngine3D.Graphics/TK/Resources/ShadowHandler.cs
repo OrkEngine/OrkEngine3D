@@ -6,7 +6,7 @@ using OrkEngine3D.Mathematics;
 using Vector3 = OpenTK.Mathematics.Vector3;
 
 namespace OrkEngine3D.Graphics.TK.Resources;
-
+/*
 public class ShadowHandler : GLResource
 {
     public int depthMapFBO;
@@ -87,4 +87,4 @@ void main()
         shaderProgram.Use();
         shaderProgram.UniformMatrix("lightSpaceMatrix", lightSpaceMatrix);
     }
-}
+}*/

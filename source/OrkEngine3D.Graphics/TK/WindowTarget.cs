@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace OrkEngine3D.Graphics.TK
 {
+    /*
     public class WindowTarget : IRenderTarget
     {
         public static readonly WindowTarget Global = new WindowTarget();
@@ -27,4 +28,5 @@ namespace OrkEngine3D.Graphics.TK
             
         }
     }
+    */
 }

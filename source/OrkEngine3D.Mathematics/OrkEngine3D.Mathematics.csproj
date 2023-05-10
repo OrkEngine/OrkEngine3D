@@ -34,6 +34,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="glTF2Loader" Version="1.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta1" />
+    <PackageReference Include="OpenTK" Version="4.7.7" />
+    <PackageReference Include="SharpGLTF.Core" Version="1.0.0-alpha0025" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EditorConfigFiles Remove="D:\orkengine2022\OrkEngine3D\source\OrkEngine3D.Mathematics\.editorconfig" />
   </ItemGroup>
 

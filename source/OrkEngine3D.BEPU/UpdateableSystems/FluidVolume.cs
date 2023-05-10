@@ -125,7 +125,7 @@ namespace BEPUphysics.UpdateableSystems
             }
             set
             {
-                float length = value.Length();
+                float length = value.Length;
                 if (length > 0)
                 {
                     flowDirection = value / length;

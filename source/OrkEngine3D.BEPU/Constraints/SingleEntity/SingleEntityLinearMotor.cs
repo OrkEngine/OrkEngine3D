@@ -215,7 +215,7 @@ namespace BEPUphysics.Constraints.SingleEntity
             if (settings.mode == MotorMode.Servomechanism)
             {
                 Vector3Ex.Subtract(ref settings.servo.goal, ref worldPoint, out error);
-                float separationDistance = error.Length();
+                float separationDistance = error.Length;
                 if (separationDistance > Toolbox.BigEpsilon)
                 {
                     float errorReduction;

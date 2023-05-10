@@ -191,7 +191,7 @@ namespace OrkEngine3D.Graphics.MeshData
                 if (line.StartsWith("Tx "))
                 {
                     string path = line.Substring("Tx ".Length).Trim();
-                    textures.Add(Rendering.CreateTexture(Texture.GetTextureDataFromFile(path)));
+                    //textures.Add(Rendering.CreateTexture(Texture.GetTextureDataFromFile(path)));
                 }
                 if(line.StartsWith("newmtl "))
                 {

@@ -64,7 +64,7 @@ namespace BEPUphysics.Entities.Prefabs
         {
             OrkEngine3D.Mathematics.Vector3 segmentDirection;
             Vector3Ex.Subtract(ref end, ref start, out segmentDirection);
-            length = segmentDirection.Length();
+            length = segmentDirection.Length;
             if (length > 0)
             {
                 Vector3Ex.Divide(ref segmentDirection, length, out segmentDirection);
@@ -81,7 +81,7 @@ namespace BEPUphysics.Entities.Prefabs
         ///<param name="end">Line segment end point.</param>
         ///<param name="radius">Radius of the capsule to expand the line segment by.</param>
         public Capsule(OrkEngine3D.Mathematics.Vector3 start, OrkEngine3D.Mathematics.Vector3 end, float radius)
-            : this((end - start).Length(), radius)
+            : this((end - start).Length, radius)
         {
             float length;
             OrkEngine3D.Mathematics.Quaternion orientation;
@@ -102,7 +102,7 @@ namespace BEPUphysics.Entities.Prefabs
         ///<param name="radius">Radius of the capsule to expand the line segment by.</param>
         /// <param name="mass">Mass of the entity.</param>
         public Capsule(OrkEngine3D.Mathematics.Vector3 start, OrkEngine3D.Mathematics.Vector3 end, float radius, float mass)
-            : this((end - start).Length(), radius, mass)
+            : this((end - start).Length, radius, mass)
         {
             float length;
             OrkEngine3D.Mathematics.Quaternion orientation;

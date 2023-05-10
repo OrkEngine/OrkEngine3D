@@ -140,7 +140,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
             GetBoundingBox(ref identity, out boundingBox);
             OrkEngine3D.Mathematics.Vector3 diameter;
             Vector3Ex.Subtract(ref boundingBox.Max, ref boundingBox.Min, out diameter);
-            return diameter.Length();
+            return diameter.Length;
 
         }
 

@@ -364,7 +364,7 @@ public partial class Transform : Component
             Quaternion diff = Quaternion.Concatenate(Quaternion.Inverse(oldParentRot), newParentRot);
             _physicsEntity.Orientation = Quaternion.Concatenate(_physicsEntity.BufferedStates.InterpolatedStates.Orientation, diff);
             Vector3 basisDirection = Vector3.Transform(GetInterpolatedPosition() - _parent.Position, Quaternion.Inverse(oldRot));
-            float distance = basisDirection.Length();
+            float distance = basisDirection.Length;
             Vector3 newDirection = Vector3.Transform(basisDirection, newParentRot);
             if (newDirection != Vector3.Zero)
             {
