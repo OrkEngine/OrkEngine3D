@@ -19,4 +19,8 @@
     <ProjectReference Include="..\OrkEngine3D.Mathematics\OrkEngine3D.Mathematics.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ECS\Components\" />
+  </ItemGroup>
+
 </Project>

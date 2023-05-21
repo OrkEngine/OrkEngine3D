@@ -19,16 +19,16 @@ namespace OrkEngine3D.Graphics.TK
         public static Camera currentCamera { get; private set; }
         public static GContext currentContext { get; private set; }
         public static Transform currentTransform { get; private set; }
-        public static IRenderTarget renderTarget { get; private set; } = WindowTarget.Global;
+        //public static IRenderTarget renderTarget { get; private set; } = WindowTarget.Global;
         public static LightScene currentLightning { get; private set; }
         public static Material[] currentMaterials { get; private set; } = new Material[] { new Material() };
         public static IRenderable currentRenderObject { get; private set; }
         public static GLResourceManager currentResourceManager { get; private set; }
-        public static ShadowHandler shadowHandler { get; private set; }
+        //public static ShadowHandler shadowHandler { get; private set; }
         public static bool isWireframe { get; private set; }
 
-        private static readonly GLTarget GlTarget = new GLTarget();
-        public static bool inShadowMode { get; private set; }
+        //private static readonly GLTarget GlTarget = new GLTarget();
+        //public static bool inShadowMode { get; private set; }
 
         public static void BindCamera(Camera camera)
         {
@@ -60,6 +60,7 @@ namespace OrkEngine3D.Graphics.TK
             currentTransform = t;
         }
 
+        /*
         public static void BindTarget(ID id)
         {
             renderTarget = (IRenderTarget)currentResourceManager.GetResource(id);
@@ -75,6 +76,7 @@ namespace OrkEngine3D.Graphics.TK
         {
             renderTarget.Clear();
         }
+        *
 
         public static void SwapBuffers()
         {
@@ -134,11 +136,13 @@ namespace OrkEngine3D.Graphics.TK
             currentResourceManager.GetResource<Mesh>(id).UpdateGLData();
         }
 
+        /*
         public static ID CreateTexture(TextureData data){
             Texture texture = new Texture(currentResourceManager, data);
 
             return texture.resourceid;
         }
+        */
 
         /*
         public static ID CreateShaderProgram(params ID[] shaders){
@@ -152,13 +156,13 @@ namespace OrkEngine3D.Graphics.TK
             Shader s = new Shader(currentResourceManager, source, type);
             return s.resourceid;
         }
-        *
+        
 
         public static ID CreateRenderBuffer(int width, int height){
             RenderBuffer renderBuffer = new RenderBuffer(currentResourceManager, width, height);
             return renderBuffer.resourceid;
         }
-
+        *
         public static void EnableWireframe()
         {
             isWireframe = true;
@@ -168,7 +172,7 @@ namespace OrkEngine3D.Graphics.TK
         {
             isWireframe = false;
         }
-
+        /*
         public static ID CreateShadowManager()
         {
             ShadowHandler shadowHandler = new ShadowHandler(currentResourceManager);
@@ -179,7 +183,7 @@ namespace OrkEngine3D.Graphics.TK
         {
             shadowHandler = currentResourceManager.GetResource<ShadowHandler>(id);
         }
-
+       
         public static void EnterShadowMode()
         {
             shadowHandler.BindTarget();
@@ -190,7 +194,7 @@ namespace OrkEngine3D.Graphics.TK
         {
             inShadowMode = false;
         }
-
+        *
 
         internal class GLTarget : IRenderTarget
         {

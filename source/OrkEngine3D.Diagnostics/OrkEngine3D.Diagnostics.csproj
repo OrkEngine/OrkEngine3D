@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="OpenTK" Version="4.7.7" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\OrkEngine3D.Annotations\OrkEngine3D.Annotations.csproj" />
   </ItemGroup>
 
