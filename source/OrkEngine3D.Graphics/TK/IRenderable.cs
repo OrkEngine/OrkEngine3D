@@ -1,7 +1,6 @@
-namespace OrkEngine3D.Graphics
+namespace OrkEngine3D.Graphics;
+
+public interface IRenderable
 {
-    public interface IRenderable
-    {
-        public abstract void Render();
-    }
+    public abstract void Render();
 }

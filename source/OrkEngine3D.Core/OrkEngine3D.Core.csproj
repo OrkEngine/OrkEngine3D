@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <ApplicationIcon />
     <StartupObject />
   </PropertyGroup>
@@ -13,8 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OrkEngine3D.Common.Utils\OrkEngine3D.Common.Utils.csproj" />
-    <ProjectReference Include="..\OrkEngine3D.Mathematics\OrkEngine3D.Mathematics.csproj" />
+    <ProjectReference Include="..\vendor\OrkEngine3D.Mathematics\source\OrkEngine3D.Mathematics\OrkEngine3D.Mathematics.csproj" />
   </ItemGroup>
 
   <ItemGroup>
