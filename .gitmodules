@@ -7,3 +7,9 @@
 [submodule "source/vendor/bepuphysics2"]
 	path = source/vendor/bepuphysics2
 	url = https://github.com/OrkEngine/bepuphysics2
+[submodule "source/vendor/OrkEngine3D.BEPU"]
+	path = source/vendor/OrkEngine3D.BEPU
+	url = https://github.com/OrkEngine/OrkEngine3D.BEPU.git
+[submodule "source/vendor/OrkEngine3D.Mathematics"]
+	path = source/vendor/OrkEngine3D.Mathematics
+	url = https://github.com/OrkEngine/OrkEngine3D.Mathematics.git
