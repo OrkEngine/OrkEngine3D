@@ -33,7 +33,7 @@ namespace OrkEngine3D.Core.Components;
 /// <summary>
 /// The transformation of an object
 /// </summary>
-public partial class Transform : Component
+public partial class Transform
 {
     private Vector3 _localPosition;
     private Quaternion _localRotation = Quaternion.Identity;
@@ -437,31 +437,5 @@ public partial class Transform : Component
     public Quaternion GetLocalOrPhysicsEntityRotation()
     {
         return (_physicsEntity != null) ? _physicsEntity.BufferedStates.InterpolatedStates.Orientation : _localRotation;
-    }
-
-    protected override void Attached(SystemRegistry registry)
-    {
-    }
-
-    protected override void Removed(SystemRegistry registry)
-    {
-        if (Parent != null)
-        {
-            bool result = Parent._children.Remove(this);
-            Debug.Assert(result);
-        }
-    }
-
-    protected override void OnEnabled()
-    {
-    }
-
-    protected override void OnDisabled()
-    {
-    }
-
-    public override string ToString()
-    {
-        return $"[Transform] {GameObject.ToString()}";
     }
 }

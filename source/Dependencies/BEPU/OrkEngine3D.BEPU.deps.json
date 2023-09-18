@@ -1,0 +1,50 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "OrkEngine3D.BEPU/1.0.0": {
+        "dependencies": {
+          "OrkEngine3D.BEPUtil": "1.0.0",
+          "OrkEngine3D.Mathematics": "1.0.0"
+        },
+        "runtime": {
+          "OrkEngine3D.BEPU.dll": {}
+        }
+      },
+      "OrkEngine3D.BEPUtil/1.0.0": {
+        "dependencies": {
+          "OrkEngine3D.Mathematics": "1.0.0"
+        },
+        "runtime": {
+          "OrkEngine3D.BEPUtil.dll": {}
+        }
+      },
+      "OrkEngine3D.Mathematics/1.0.0": {
+        "runtime": {
+          "OrkEngine3D.Mathematics.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "OrkEngine3D.BEPU/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "OrkEngine3D.BEPUtil/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "OrkEngine3D.Mathematics/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
