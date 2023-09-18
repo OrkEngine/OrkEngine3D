@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <ApplicationIcon />
     <StartupObject />
   </PropertyGroup>
@@ -19,14 +19,14 @@
   <ItemGroup>
     <PackageReference Include="glTF2Loader" Version="1.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta1" />
-    <PackageReference Include="OpenTK" Version="4.6.7" />
+    <PackageReference Include="OpenTK" Version="4.7.7" />
     <PackageReference Include="SharpGLTF.Core" Version="1.0.0-alpha0025" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.4" />
+	<PackageReference Include="StbImageSharp" Version="2.27.13" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\OrkEngine3D.Core\OrkEngine3D.Core.csproj" />
-    <ProjectReference Include="..\OrkEngine3D.Mathematics\OrkEngine3D.Mathematics.csproj" />
     <ProjectReference Include="..\OrkEngine3D.Diagnostics\OrkEngine3D.Diagnostics.csproj" />
   </ItemGroup>
 
