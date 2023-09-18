@@ -13,10 +13,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OrkEngine3D.BEPUtil\OrkEngine3D.BEPUtil.csproj" />
-    <ProjectReference Include="..\OrkEngine3D.BEPU\OrkEngine3D.BEPU.csproj" />
     <ProjectReference Include="..\OrkEngine3D.Common.Utils\OrkEngine3D.Common.Utils.csproj" />
     <ProjectReference Include="..\OrkEngine3D.Mathematics\OrkEngine3D.Mathematics.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="OrkEngine3D.BEPU">
+      <HintPath>..\Dependencies\BEPU\OrkEngine3D.BEPU.dll</HintPath>
+    </Reference>
+    <Reference Include="OrkEngine3D.BEPUtil">
+      <HintPath>..\Dependencies\BEPU\OrkEngine3D.BEPUtil.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
