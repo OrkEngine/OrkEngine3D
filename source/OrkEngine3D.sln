@@ -46,6 +46,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrkEngine3D.BEPUtil", "vend
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrkEngine3D.Mathematics", "vendor\OrkEngine3D.Mathematics\source\OrkEngine3D.Mathematics\OrkEngine3D.Mathematics.csproj", "{9987727C-526F-4753-892C-0E4FB611F6BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrkEngine3D", "OrkEngine3D\OrkEngine3D.csproj", "{ABC7A7E2-D47F-4B11-AE0B-5F9916BED2E2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "45 - Pipeline", "45 - Pipeline", "{E576ABD0-35B1-4536-A9E6-523AAF9676C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -137,6 +141,12 @@ Global
 		{9987727C-526F-4753-892C-0E4FB611F6BF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9987727C-526F-4753-892C-0E4FB611F6BF}.ReleaseNoProfiling|Any CPU.ActiveCfg = Release|Any CPU
 		{9987727C-526F-4753-892C-0E4FB611F6BF}.ReleaseNoProfiling|Any CPU.Build.0 = Release|Any CPU
+		{ABC7A7E2-D47F-4B11-AE0B-5F9916BED2E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABC7A7E2-D47F-4B11-AE0B-5F9916BED2E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABC7A7E2-D47F-4B11-AE0B-5F9916BED2E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABC7A7E2-D47F-4B11-AE0B-5F9916BED2E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABC7A7E2-D47F-4B11-AE0B-5F9916BED2E2}.ReleaseNoProfiling|Any CPU.ActiveCfg = Release|Any CPU
+		{ABC7A7E2-D47F-4B11-AE0B-5F9916BED2E2}.ReleaseNoProfiling|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -157,6 +167,7 @@ Global
 		{52A2EA64-CE6A-4C85-8B27-AB47A479CCA9} = {F6D938D0-E901-4CB4-9F85-6833BB2A1D2C}
 		{713E256A-5577-4838-B095-113FFF76C410} = {F6D938D0-E901-4CB4-9F85-6833BB2A1D2C}
 		{9987727C-526F-4753-892C-0E4FB611F6BF} = {F6D938D0-E901-4CB4-9F85-6833BB2A1D2C}
+		{ABC7A7E2-D47F-4B11-AE0B-5F9916BED2E2} = {38B4460E-DD35-4845-95EB-93D07D9D2CC1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {16ECB4E9-6035-405C-BE9A-CD3CCF3B196C}
