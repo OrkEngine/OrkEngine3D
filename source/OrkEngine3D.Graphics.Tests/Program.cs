@@ -14,6 +14,7 @@ using OpenTK.Windowing.Common;
 using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
+using OrkEngine3D.Core;
 //using OrkEngine3D.Components;
 
 namespace OrkEngine3D.Graphics.Tests;
@@ -30,7 +31,7 @@ class Program
         ctx.Run();
     }
 }
-class TestHandler : GraphicsBehaviour
+class TestHandler : Behaviour
 {
     private readonly float[] _vertices =
     {
@@ -312,6 +313,9 @@ class TestHandler : GraphicsBehaviour
 
         _diffuseMap.Use(TextureUnit.Texture0);
         _specularMap.Use(TextureUnit.Texture1);
+
+        BaseLight baseLight = new BaseLight(_camera, _lightingShader);
+        /*
         _lightingShader.Use();
 
         _lightingShader.SetMatrix4("view", _camera.GetViewMatrix());
@@ -324,6 +328,8 @@ class TestHandler : GraphicsBehaviour
         _lightingShader.SetVector3("material.specular", new Vector3(0.5f, 0.5f, 0.5f));
         _lightingShader.SetFloat("material.shininess", 32.0f);
 
+        */
+
         /*
            Here we set all the uniforms for the 5/6 types of lights we have. We have to set them manually and index
            the proper PointLight struct in the array to set each uniform variable. This can be done more code-friendly
@@ -331,12 +337,16 @@ class TestHandler : GraphicsBehaviour
            by using 'Uniform buffer objects', but that is something we'll discuss in the 'Advanced GLSL' tutorial.
         */
         // Directional light
-        _lightingShader.SetVector3("dirLight.direction", new Vector3(-0.2f, -1.0f, -0.3f));
-        _lightingShader.SetVector3("dirLight.ambient", new Vector3(0.05f, 0.05f, 0.05f));
-        _lightingShader.SetVector3("dirLight.diffuse", new Vector3(0.4f, 0.4f, 0.4f));
-        _lightingShader.SetVector3("dirLight.specular", new Vector3(0.5f, 0.5f, 0.5f));
-
+        DirectionalLight directionalLight = new DirectionalLight(new Vector3(-0.2f, -1.0f, -0.3f));
+        //_lightingShader.SetVector3("dirLight.direction", new Vector3(-0.2f, -1.0f, -0.3f));
+        //_lightingShader.SetVector3("dirLight.ambient", new Vector3(0.05f, 0.05f, 0.05f));
+        //_lightingShader.SetVector3("dirLight.diffuse", new Vector3(0.4f, 0.4f, 0.4f));
+        //_lightingShader.SetVector3("dirLight.specular", new Vector3(0.5f, 0.5f, 0.5f));
+        
+        //pointLight.Camera = _camera;
         // Point lights
+        PointLight pointLight = new PointLight(_pointLightPositions);
+        /*
         for (int i = 0; i < _pointLightPositions.Length; i++)
         {
             _lightingShader.SetVector3($"pointLights[{i}].position", _pointLightPositions[i]);
@@ -347,8 +357,13 @@ class TestHandler : GraphicsBehaviour
             _lightingShader.SetFloat($"pointLights[{i}].linear", 0.09f);
             _lightingShader.SetFloat($"pointLights[{i}].quadratic", 0.032f);
         }
+        */
 
         // Spot light
+
+        SpotLight spotLight = new SpotLight(_camera.Position, _camera.Front);
+
+        /*
         _lightingShader.SetVector3("spotLight.position", _camera.Position);
         _lightingShader.SetVector3("spotLight.direction", _camera.Front);
         _lightingShader.SetVector3("spotLight.ambient", new Vector3(0.0f, 0.0f, 0.0f));
@@ -359,6 +374,7 @@ class TestHandler : GraphicsBehaviour
         _lightingShader.SetFloat("spotLight.quadratic", 0.032f);
         _lightingShader.SetFloat("spotLight.cutOff", Mathematics.MathF.Cos(MathHelper.DegreesToRadians(12.5f)));
         _lightingShader.SetFloat("spotLight.outerCutOff", Mathematics.MathF.Cos(MathHelper.DegreesToRadians(17.5f)));
+        */
 
         for (int i = 0; i < _cubePositions.Length; i++)
         {
@@ -467,98 +483,6 @@ class TestHandler : GraphicsBehaviour
             _camera.Yaw += deltaX * sensitivity;
             _camera.Pitch -= deltaY * sensitivity; // Reversed since y-coordinates range from bottom to top
         }
-        /*
-        t += context.deltaTime;
-
-        //Rendering.currentCamera.transform.position = new Vector3(t, t, t);
-        //teapotTransform.position.Z = -3f;
-        //teapotTransform.Rotate(Vector3.UnitX * context.deltaTime);
-        var fpsString = "FPS=";
-        var fps = (1000 / context.deltaTime);
-
-        bool isRaw = false;
-        bool isDebug = false;
-        //Remember to comment this out (he didn't)
-        //Rendering.currentCamera.transform.position = new Vector3((float)e.Time, (float)e.Time, (float)e.Time);
-        const float cameraSpeed = 1.5f;
-        const float sensitivity = 0.2f;
-        Logger.Get("MainLogger").Log(LogMessageType.DEBUG, $"Keyboard: {e.Time}");
-
-        if (fps >= 120)
-        {
-            if (isRaw)
-            {
-                fpsString = $"FPS=~{fps}";
-            }
-            else
-            {
-                if (fps >= 1200)
-                    fpsString = "FPS=~120";
-            }   
-        }
-        else if (fps >= 90 && fps <= 120)
-        {
-            fpsString = "FPS=~90";
-        }
-        else if (fps >= 60 && fps <= 90)
-        {
-            fpsString = "FPS=~60";
-        }
-        else if (fps >= 30 && fps >= 60)
-        {
-            fpsString = "FPS=~30";
-        }
-
-        //var counter = 0;
-
-        //if (counter >= 20)
-        //{
-        //    for (var i = 0; i < counter; i++)
-        //        counter++;
-        if (isDebug)
-            Console.WriteLine(fpsString);
-        //Thread.Sleep(250);
-        // }
-        //Rendering.currentCamera.transform.position.X += (float)e.Time;
-
-        while (context.nonQueriedKeys.Count > 0)
-        {
-            KeyEvent keyEvent = context.nonQueriedKeys.Dequeue();//GContext.Local.Keys;
-            //Logger.Get("MainLogger").Log(LogMessageType.DEBUG, $"Keyboard: {e.eventType.ToString()}, {e.Key.ToString()}");
-           // if (keyEvent.GetKeyDown(Key.Q))
-           // {
-               // Rendering.EnableWireframe();
-          //  }
-
-          //  if (keyEvent.GetKeyDown(Key.E)) //if (e.Key == Key.E && e.GetKeyDown(Key.E))
-          //  {
-                //Rendering.DisableWireframe();
-           // }
-            if (keyEvent.GetKeyDown(Key.W))
-            {
-                //Rendering.currentCamera.Position -= cameraSpeed * (float)e.Time;
-            }
-            if (keyEvent.GetKeyDown(Key.S))
-            {
-                //Rendering.currentCamera.transform.position.Z += cameraSpeed * (float)e.Time;
-            }
-            if (keyEvent.GetKeyDown(Key.A))
-            {
-                //Rendering.currentCamera.transform.position.X += cameraSpeed * (float)e.Time;
-            }
-            if (keyEvent.GetKeyDown(Key.D))
-            {
-               // Rendering.currentCamera.transform.position.X -= cameraSpeed * (float)e.Time;
-            }
-            if (keyEvent.GetKeyDown(Key.Space))
-            {
-                //Rendering.currentCamera.transform.position.Y += cameraSpeed * (float)e.Time;
-            }
-            if (keyEvent.GetKeyDown(Key.LeftShift))
-            {
-               // Rendering.currentCamera.transform.position.Y -= cameraSpeed * (float)e.Time;
-            }
-        }*/
     }
 
     public override void OnMouseWheel(MouseWheelEventArgs e)
@@ -582,15 +506,16 @@ class TestHandler : GraphicsBehaviour
         logger.Log(LogMessageType.INFORMATION, "OnUnload event");
     }
 
+    /*
     public uint cubeMapTextures = LoadCubemap(new List<string>()
-        {
-            "right.jpg",
-            "left.jpg",
-            "top.jpg",
-            "bottom.jpg",
-            "front.jpg",
-            "back.jpg"
-        });
+    {
+         "right.jpg",
+         "left.jpg",
+         "top.jpg",
+         "bottom.jpg",
+         "front.jpg",
+         "back.jpg"
+    });
 
     public static uint LoadCubemap(List<string> faces)
     {
@@ -599,133 +524,5 @@ class TestHandler : GraphicsBehaviour
         //GL.TextureParameter()
         return 0;
     }
+    */
 }
-
-
-/*
-class TestHandler : GraphicsBehaviour
-{
-    Logger logger = new Logger("GraphicsTest", "TestHandler");
-    ID fshader;
-    ID vshader;
-    ID program;
-    Camera camera;
-
-    LightScene lscene;
-
-    Transform cubeTransform;
-    Transform teapotTransform;
-
-    ID cubeMesh;
-    ID teapotMesh;
-    private ID shadowManager;
-    public override void Init()
-    {
-
-        Rendering.BindContext(context);
-        Rendering.BindResourceManager(resourceManager);
-        
-        fshader = Rendering.CreateShader( File.ReadAllText("resources/shader.frag"), ShaderType.FragmentShader);
-        vshader = Rendering.CreateShader(File.ReadAllText("resources/shader.vert"), ShaderType.VertexShader);
-        shadowManager = Rendering.CreateShadowManager();
-
-        program = Rendering.CreateShaderProgram(vshader, fshader);
-
-        cubeMesh = Rendering.CreateMesh();
-
-        Color3 white = new Color3(1f, 1f, 1f);
-        ObjComplete voxelInformation = ObjLoader.LoadObjFromFile("resources/scene.obj");//new ObjComplete(VoxelData.GenerateVoxelInformation(), new Material[] { new Material() });
-        voxelInformation.materials[0].textures = new ID[] {Rendering.CreateTexture(Texture.GetTextureDataFromFile("resources/wod.png"))};
-        Rendering.BindMaterials(voxelInformation.materials);
-
-        Rendering.UpdateMeshVerticies(cubeMesh, voxelInformation.meshInformation.verticies);
-        Rendering.UpdateMeshUVs(cubeMesh, voxelInformation.meshInformation.uv);
-        Rendering.UpdateMeshNormals(cubeMesh, voxelInformation.meshInformation.normals);
-        Rendering.UpdateMeshMaterials(cubeMesh, voxelInformation.meshInformation.materials);
-        Rendering.UpdateMeshTriangles(cubeMesh, voxelInformation.meshInformation.triangles);
-        Rendering.UpdateMeshShader(cubeMesh, program);
-
-        Rendering.UpdateMeshGLData(cubeMesh);
-
-        cubeTransform = new Transform();
-
-        cubeTransform.position.Z = -0.5f;
-        cubeTransform.position.Y = 0f;
-
-        camera = new Camera();
-        camera.perspective = true;
-
-        Rendering.BindCamera(camera);
-
-        lscene = new LightScene();
-        Rendering.BindLightning(lscene);
-        Rendering.BindShadowManager(shadowManager);
-
-        cubeTransform.position.Z = -3f;
-        cubeTransform.position.Y = -3f;
-        cubeTransform.Rotate(Vector3.UnitX * 45);
-
-    }
-
-    public override void Render()
-    {
-        Rendering.BindTransform(cubeTransform);
-        Rendering.BindRenderable(cubeMesh);
-        
-        //Rendering.EnterShadowMode();
-        //Rendering.Render();
-        
-        Rendering.ResetTarget();
-        Rendering.ClearTarget();
-        Rendering.Render();
-
-        //Rendering.BindTransform(teapotTransform);
-        //teapotMesh.Render();
-
-        Rendering.SwapBuffers();
-    }
-
-    float t = 0;
-    public override void Update()
-    {
-        t += context.deltaTime;
-
-
-        //teapotTransform.position.Z = -3f;
-        //teapotTransform.Rotate(Vector3.UnitX * context.deltaTime);
-
-
-        while (context.nonQueriedKeys.Count > 0)
-        {
-            KeyEvent e = context.nonQueriedKeys.Dequeue();
-            //Logger.Get("MainLogger").Log(LogMessageType.DEBUG, $"Keyboard: {e.eventType.ToString()}, {e.key.ToString()}");
-
-            //FreeCamera camera = new FreeCamera();
-            //camera.Update(e);
-
-            
-            if (e.key == Key.Q && e.eventType == KeyEventType.KeyDown)
-            {
-                Rendering.EnableWireframe();
-            }
-            if (e.key == Key.E && e.eventType == KeyEventType.KeyDown)
-            {
-                Rendering.DisableWireframe();
-            }
-            
-
-          
-        }
-    }
-
-    public override void Resize()
-    {
-        logger.Log(LogMessageType.INFORMATION, "Resize event");
-    }
-
-    public override void Unload()
-    {
-        logger.Log(LogMessageType.INFORMATION, "Unload event");
-    }
-}
-*/

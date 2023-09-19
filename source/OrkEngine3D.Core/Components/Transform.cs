@@ -153,6 +153,7 @@ public partial class Transform
     }
 
     public event Action<Vector3, Vector3> PositionManuallyChanged;
+
     private void OnPositionManuallyChanged(Vector3 oldPosition)
     {
         PositionManuallyChanged?.Invoke(oldPosition, Position);
@@ -160,6 +161,7 @@ public partial class Transform
 
     public event Action<Transform> TransformChanged;
     public event Action<Vector3> PositionChanged;
+
     private void OnPositionChanged()
     {
         PositionChanged?.Invoke(Position);
@@ -239,12 +241,14 @@ public partial class Transform
     }
 
     public event Action<Quaternion, Quaternion> RotationManuallyChanged;
+
     private void OnRotationManuallyChanged(Quaternion oldRotation)
     {
         RotationManuallyChanged?.Invoke(oldRotation, Rotation);
     }
 
     public event Action<Quaternion> RotationChanged;
+
     private void OnRotationChanged()
     {
         RotationChanged?.Invoke(Rotation);
