@@ -76,6 +76,7 @@ public class Texture
         return new Texture(handle);
     }
 
+
     public Texture(int glHandle)
     {
         Handle = glHandle;
@@ -89,6 +90,38 @@ public class Texture
     {
         GL.ActiveTexture(unit);
         GL.BindTexture(TextureTarget.Texture2D, Handle);
+    }
+
+    public static int LoadCubeMapTexture(string[] paths)
+    {
+        int textureID = GL.GenTexture();
+        GL.BindTexture(TextureTarget.TextureCubeMap, textureID);
+
+        for (int i = 0; i < paths.Length; i++)
+        {
+            using (var image = new System.Drawing.Bitmap(paths[i]))
+            {
+                image.RotateFlip(System.Drawing.RotateFlipType.RotateNoneFlipY);
+
+                var data = image.LockBits(
+                    new System.Drawing.Rectangle(0, 0, image.Width, image.Height),
+                    System.Drawing.Imaging.ImageLockMode.ReadOnly,
+                    System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+                GL.TexImage2D(TextureTarget.TextureCubeMapPositiveX + i, 0, PixelInternalFormat.Rgba,
+                    data.Width, data.Height, 0, PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
+
+                image.UnlockBits(data);
+            }
+        }
+
+        GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+        GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+        GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
+        GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
+        GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureWrapR, (int)TextureWrapMode.ClampToEdge);
+
+        return textureID;
     }
 }
 /*

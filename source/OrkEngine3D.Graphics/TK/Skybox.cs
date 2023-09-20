@@ -1,36 +1,114 @@
 ﻿using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 using OrkEngine3D.Graphics.TK.Resources;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Advanced;
+using SixLabors.ImageSharp.PixelFormats;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace OrkEngine3D.Graphics.TK;
 
 /* TODO: Needs to be tested */
-/*
-internal class Skybox
+
+public class Skybox
 {
-    private ShaderProgram skyboxShader;
-    private Texture skyboxTexture;
-    private int skyboxVAO;
-
-    public Skybox(GLResourceManager manager, string skyboxImagePath)
+    [Conditional("DEBUG")]
+    [DebuggerStepThrough]
+    public static void CheckLastError()
     {
-        skyboxShader = new ShaderProgram(manager, new Shader(manager, vertexShaderSource, Resources.ShaderType.VertexShader), new Shader(manager, fragmentShaderSource, Resources.ShaderType.FragmentShader));
-        skyboxTexture = new Texture(manager, Texture.GetTextureDataFromFile(skyboxImagePath));
-        skyboxVAO = GL.GenVertexArray();
-        GL.BindVertexArray(skyboxVAO);
+        ErrorCode errorCode = GL.GetError();
+        if (errorCode != ErrorCode.NoError)
+        {
+            throw new Exception(errorCode.ToString());
+        }
     }
 
-    public void Render()
+    private float[] skyboxVertices = {
+			// positions          
+			-1.0f,  1.0f, -1.0f,
+            -1.0f, -1.0f, -1.0f,
+             1.0f, -1.0f, -1.0f,
+             1.0f, -1.0f, -1.0f,
+             1.0f,  1.0f, -1.0f,
+            -1.0f,  1.0f, -1.0f,
+
+            -1.0f, -1.0f,  1.0f,
+            -1.0f, -1.0f, -1.0f,
+            -1.0f,  1.0f, -1.0f,
+            -1.0f,  1.0f, -1.0f,
+            -1.0f,  1.0f,  1.0f,
+            -1.0f, -1.0f,  1.0f,
+
+             1.0f, -1.0f, -1.0f,
+             1.0f, -1.0f,  1.0f,
+             1.0f,  1.0f,  1.0f,
+             1.0f,  1.0f,  1.0f,
+             1.0f,  1.0f, -1.0f,
+             1.0f, -1.0f, -1.0f,
+
+            -1.0f, -1.0f,  1.0f,
+            -1.0f,  1.0f,  1.0f,
+             1.0f,  1.0f,  1.0f,
+             1.0f,  1.0f,  1.0f,
+             1.0f, -1.0f,  1.0f,
+            -1.0f, -1.0f,  1.0f,
+
+            -1.0f,  1.0f, -1.0f,
+             1.0f,  1.0f, -1.0f,
+             1.0f,  1.0f,  1.0f,
+             1.0f,  1.0f,  1.0f,
+            -1.0f,  1.0f,  1.0f,
+            -1.0f,  1.0f, -1.0f,
+
+            -1.0f, -1.0f, -1.0f,
+            -1.0f, -1.0f,  1.0f,
+             1.0f, -1.0f, -1.0f,
+             1.0f, -1.0f, -1.0f,
+            -1.0f, -1.0f,  1.0f,
+             1.0f, -1.0f,  1.0f
+        };
+
+    private int vbo, vao;
+    private string[] faces;
+    public Shader shader;
+    private int cubemapID;
+
+    public Skybox(string[] faces)
     {
-        GL.DepthMask(false);
-        skyboxShader.Use();
-        GL.BindVertexArray(skyboxVAO);
-        skyboxTexture.Use(0);
+        if (faces.Length != 6)
+            throw new ArgumentException("Skybox constructors require exactly six textures.");
+        this.faces = faces;
+        cubemapID = Texture.LoadCubeMapTexture(faces);
+        Setup();
+    }
+
+    public void Draw(Matrix4 view, Matrix4 proj)
+    {
+        shader.Use();
+        shader.SetMatrix4("viewMatrix", view);
+        shader.SetMatrix4("projMatrix", proj);
+        GL.BindVertexArray(vao);
+        GL.ActiveTexture(TextureUnit.Texture0);
+        GL.BindTexture(TextureTarget.TextureCubeMap, cubemapID);
+
         GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
-        GL.DepthMask(true);
     }
 
-    private const string vertexShaderSource = "#version 330 core\nlayout (location = 0) in vec3 aPos;\nout vec3 TexCoords;\nuniform mat4 projection;\nuniform mat4 view;\nvoid main()\n{\n    TexCoords = aPos;\n    vec4 pos = projection * view * vec4(aPos, 1.0);\n    gl_Position = pos.xyww;\n}\n";
+    private void Setup()
+    {
+        vbo = GL.GenBuffer();
+        vao = GL.GenVertexArray();
+        GL.BindVertexArray(vao);
+        GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
 
-    private const string fragmentShaderSource = "#version 330 core\nout vec4 FragColor;\nin vec3 TexCoords;\nuniform sampler2D skybox;\nvoid main()\n{\n    FragColor = texture(skybox, TexCoords);\n}\n";
+        GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * skyboxVertices.Length, skyboxVertices, BufferUsageHint.StaticDraw);
+        GL.EnableVertexAttribArray(0);
+        GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
+
+        shader = new Shader("resources/shaders/skybox.vert", "resources/shaders/skybox.frag");
+        shader.Use();
+        shader.SetInt("skybox", 0);
+    }
 }
-*/
