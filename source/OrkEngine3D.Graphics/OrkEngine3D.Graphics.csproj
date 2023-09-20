@@ -17,12 +17,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AssimpNet" Version="4.1.0" />
     <PackageReference Include="glTF2Loader" Version="1.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta1" />
     <PackageReference Include="OpenTK" Version="4.7.7" />
     <PackageReference Include="SharpGLTF.Core" Version="1.0.0-alpha0025" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.4" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.0.2" />
 	<PackageReference Include="StbImageSharp" Version="2.27.13" />
+	<PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>

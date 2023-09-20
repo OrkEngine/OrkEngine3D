@@ -53,8 +53,10 @@ public class GContext
         handler.OnMouseWheel(e);
     }
 
-    public void Run(){
+    public GContext Run(){
         window.Run();
+
+        return this;
     }
 
     private void OnLoad(){
