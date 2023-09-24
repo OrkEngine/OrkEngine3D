@@ -3,7 +3,8 @@ using OrkEngine3D.Diagnostics.Logging;
 using System.Collections.Generic;
 using System;
 using System.IO;
-using OpenTK.Mathematics;
+using OrkEngine3D.Mathematics;
+using OrkEngine3D.Core.Extensions;
 
 namespace OrkEngine3D.Graphics.TK.Resources;
 
@@ -169,10 +170,28 @@ public class Shader
     ///   The matrix is transposed before being sent to the shader.
     ///   </para>
     /// </remarks>
+    public void SetMatrix4(string name, ref Matrix4 data)
+    {
+        GL.UseProgram(Handle);
+        OpenTK.Mathematics.Matrix4 tkmat4 = MathExt.OrkToTKMat4(data);
+        GL.UniformMatrix4(_uniformLocations[name], true, ref tkmat4);
+    }
+
+    /// <summary>
+    /// Set a uniform Matrix4 on this shader
+    /// </summary>
+    /// <param name="name">The name of the uniform</param>
+    /// <param name="data">The data to set</param>
+    /// <remarks>
+    ///   <para>
+    ///   The matrix is transposed before being sent to the shader.
+    ///   </para>
+    /// </remarks>
     public void SetMatrix4(string name, Matrix4 data)
     {
         GL.UseProgram(Handle);
-        GL.UniformMatrix4(_uniformLocations[name], true, ref data);
+        OpenTK.Mathematics.Matrix4 tkmat4 = MathExt.OrkToTKMat4(data);
+        GL.UniformMatrix4(_uniformLocations[name], true, ref tkmat4);
     }
 
     /// <summary>
@@ -183,9 +202,12 @@ public class Shader
     public void SetVector3(string name, Vector3 data)
     {
         GL.UseProgram(Handle);
-        GL.Uniform3(_uniformLocations[name], data);
+        OpenTK.Mathematics.Vector3 tkvec3 = MathExt.OrkToTKVec3(data);
+        GL.Uniform3(_uniformLocations[name], ref tkvec3);
     }
 }
+
+
 
 /*
 public class Shader : GLResource

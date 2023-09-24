@@ -6,8 +6,9 @@ using OrkEngine3D.Graphics.TK.Resources;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Windowing.Common;
 using OpenTK.Graphics.OpenGL4;
-using OpenTK.Mathematics;
 using OrkEngine3D.Core;
+using System.Linq;
+using OrkEngine3D.Mathematics;
 //using OrkEngine3D.Components;
 
 namespace OrkEngine3D.Graphics.Tests;
@@ -122,9 +123,10 @@ class TestGame : Behaviour
     {
         GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
-        skybox = new Skybox(new string[] { "resources/skybox/right.jpg", "resources/skybox/left.jpg", "resources/skybox/top.jpg", "resources/skybox/bottom.jpg", "resources/skybox/front.jpg", "resources/skybox/back.jpg" });
-
+        skybox = new Skybox(new string[] { "resources/skybox2/right.jpg", "resources/skybox2/left.jpg", "resources/skybox2/bottom.jpg", "resources/skybox2/top.jpg", "resources/skybox2/front.jpg", "resources/skybox2/back.jpg" });
+        // { "resources/skybox2/right.jpg", "resources/skybox2/left.jpg", "resources/skybox2/top.jpg", "resources/skybox2/bottom.jpg", "resources/skybox2/front.jpg", "resources/skybox2/back.jpg" }
         GL.Enable(EnableCap.DepthTest);
+        //GL.Enable(EnableCap.CullFace);
         //_skyboxBufferObject = GL.GenBuffer();
         //GL.BindBuffer(BufferTarget.ArrayBuffer, _skyboxBufferObject);
         //GL.BufferData(BufferTarget.ArrayBuffer, skyboxVertices.Length * sizeof(float), skyboxVertices, BufferUsageHint.StaticDraw);
@@ -193,9 +195,6 @@ class TestGame : Behaviour
         GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
         //TODO cannot get this aligned, code works however, bugs: needs to be fixed view (camera bug), needs to have gl.disable correctly placed
-        //Matrix4 view = _camera.GetViewMatrix();
-        //Matrix4 projection = _camera.GetProjectionMatrix();
-        //skybox.Draw(Matrix4.Identity, projection);
 
         //GL.Disable(EnableCap.DepthTest);
 
@@ -204,7 +203,9 @@ class TestGame : Behaviour
         _diffuseMap.Use(TextureUnit.Texture0);
         _specularMap.Use(TextureUnit.Texture1);
 
-        
+        Matrix4 view = _camera.GetViewMatrix();
+        Matrix4 projection = _camera.GetProjectionMatrix();
+
 
         //GL.BindTexture(TextureTarget.TextureCubeMap, skyboxTexture);
 
@@ -231,7 +232,7 @@ class TestGame : Behaviour
             Matrix4 model = Matrix4.CreateTranslation(_cubePositions[i]);
             float angle = 20.0f * i;
             model = model * Matrix4.CreateFromAxisAngle(new Vector3(1.0f, 0.3f, 0.5f), angle);
-            _lightingShader.SetMatrix4("model", model);
+            _lightingShader.SetMatrix4("model", ref model);
 
             GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
         }
@@ -244,20 +245,24 @@ class TestGame : Behaviour
 
         _lampShader.Use();
 
-        _lampShader.SetMatrix4("view", _camera.GetViewMatrix());
-        _lampShader.SetMatrix4("projection", _camera.GetProjectionMatrix());
+        _lampShader.SetMatrix4("view", ref view);
+        _lampShader.SetMatrix4("projection", ref projection);
         // We use a loop to draw all the lights at the proper position
         for (int i = 0; i < _pointLightPositions.Length; i++)
         {
             Matrix4 lampMatrix = Matrix4.CreateScale(0.2f);
             lampMatrix = lampMatrix * Matrix4.CreateTranslation(_pointLightPositions[i]);
 
-            _lampShader.SetMatrix4("model", lampMatrix);
+            _lampShader.SetMatrix4("model", ref lampMatrix);
 
             GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
         }
 
-        
+        //GL.DepthFunc(DepthFunction.Lequal);
+        //;Matrix4 view = _camera.GetViewMatrix();
+        //;Matrix4 projection = _camera.GetProjectionMatrix();
+        //skybox.Draw(view, projection);
+        //GL.DepthFunc(DepthFunction.Less);
 
         SwapBuffers();
     }
@@ -269,11 +274,6 @@ class TestGame : Behaviour
         {
             return;
         }
-        
-        //skybox.Draw(_camera.GetViewMatrix(), _camera.GetProjectionMatrix());
-
-        //TODO: this doesnt work
-        //skybox.Draw();
 
         var input = KeyboardState;
 
@@ -352,24 +352,4 @@ class TestGame : Behaviour
     {
         logger.Log(LogMessageType.INFORMATION, "OnUnload event");
     }
-
-    /*
-    public uint cubeMapTextures = LoadCubemap(new List<string>()
-    {
-         "right.jpg",
-         "left.jpg",
-         "top.jpg",
-         "bottom.jpg",
-         "front.jpg",
-         "back.jpg"
-    });
-
-    public static uint LoadCubemap(List<string> faces)
-    {
-        uint textureID;
-
-        //GL.TextureParameter()
-        return 0;
-    }
-    */
 }
