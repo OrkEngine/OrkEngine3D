@@ -1,16 +1,15 @@
 ﻿using OpenTK.Graphics.OpenGL;
-using OpenTK.Mathematics;
 using OrkEngine3D.Graphics.TK.Resources;
+using OrkEngine3D.Mathematics;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Advanced;
 using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace OrkEngine3D.Graphics.TK;
-
-/* TODO: Needs to be tested */
 
 public class Skybox
 {
@@ -70,6 +69,51 @@ public class Skybox
              1.0f, -1.0f,  1.0f
         };
 
+    private float[] skyboxVerticesOld = {
+			// positions          
+			-1.0f,  1.0f, -1.0f,
+            -1.0f, -1.0f, -1.0f,
+             1.0f, -1.0f, -1.0f,
+             1.0f, -1.0f, -1.0f,
+             1.0f,  1.0f, -1.0f,
+            -1.0f,  1.0f, -1.0f,
+
+            -1.0f, -1.0f,  1.0f,
+            -1.0f, -1.0f, -1.0f,
+            -1.0f,  1.0f, -1.0f,
+            -1.0f,  1.0f, -1.0f,
+            -1.0f,  1.0f,  1.0f,
+            -1.0f, -1.0f,  1.0f,
+
+             1.0f, -1.0f, -1.0f,
+             1.0f, -1.0f,  1.0f,
+             1.0f,  1.0f,  1.0f,
+             1.0f,  1.0f,  1.0f,
+             1.0f,  1.0f, -1.0f,
+             1.0f, -1.0f, -1.0f,
+
+            -1.0f, -1.0f,  1.0f,
+            -1.0f,  1.0f,  1.0f,
+             1.0f,  1.0f,  1.0f,
+             1.0f,  1.0f,  1.0f,
+             1.0f, -1.0f,  1.0f,
+            -1.0f, -1.0f,  1.0f,
+
+            -1.0f,  1.0f, -1.0f,
+             1.0f,  1.0f, -1.0f,
+             1.0f,  1.0f,  1.0f,
+             1.0f,  1.0f,  1.0f,
+            -1.0f,  1.0f,  1.0f,
+            -1.0f,  1.0f, -1.0f,
+
+            -1.0f, -1.0f, -1.0f,
+            -1.0f, -1.0f,  1.0f,
+             1.0f, -1.0f, -1.0f,
+             1.0f, -1.0f, -1.0f,
+            -1.0f, -1.0f,  1.0f,
+             1.0f, -1.0f,  1.0f
+        };
+
     private int vbo, vao;
     private string[] faces;
     public Shader shader;
@@ -80,7 +124,7 @@ public class Skybox
         if (faces.Length != 6)
             throw new ArgumentException("Skybox constructors require exactly six textures.");
         this.faces = faces;
-        cubemapID = Texture.LoadCubeMapTexture(faces);
+        cubemapID = Texture.LoadCubeMapTexture(faces.Reverse().ToArray());
         Setup();
     }
 

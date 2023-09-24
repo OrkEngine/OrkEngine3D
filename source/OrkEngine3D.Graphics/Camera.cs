@@ -1,5 +1,5 @@
-using OpenTK.Mathematics;
 using OrkEngine3D.Core.Components;
+using OrkEngine3D.Mathematics;
 using System;
 //using OrkEngine3D.Mathematics;
 
@@ -30,7 +30,7 @@ public class Camera
     public Vector3 Position { get; set; }
 
     // This is simply the aspect ratio of the viewport, used for the projection matrix
-    public float AspectRatio { private get; set; }
+    public float AspectRatio { private get; set; } = 1600.0f / 1200.0f;
 
     public Vector3 Front => _front;
 
@@ -85,7 +85,7 @@ public class Camera
     /// <summary>
     /// Camera FOV
     /// </summary>
-    public float fov = 90;
+    public float fov = 65;
 
     /// <summary>
     /// The near plane in units
@@ -113,16 +113,17 @@ public class Camera
     // Get the projection matrix using the same method we have used up until this point
     public Matrix4 GetProjectionMatrix()
     {
-        return Matrix4.CreatePerspectiveFieldOfView(_fov, AspectRatio, 0.01f, 100f);
+        return Matrix4.CreatePerspectiveFieldOfView(_fov, AspectRatio, 0.1f, 300f);
     }
 
     // This function is going to update the direction vertices using some of the math learned in the web tutorials.
     private void UpdateVectors()
     {
+        //TODO: replace System. with Ork later
         // First, the front matrix is calculated using some basic trigonometry.
-        _front.X = MathF.Cos(_pitch) * MathF.Cos(_yaw);
-        _front.Y = MathF.Sin(_pitch);
-        _front.Z = MathF.Cos(_pitch) * MathF.Sin(_yaw);
+        _front.X = System.MathF.Cos(_pitch) * System.MathF.Cos(_yaw);
+        _front.Y = System.MathF.Sin(_pitch);
+        _front.Z = System.MathF.Cos(_pitch) * System.MathF.Sin(_yaw);
 
         // We need to make sure the vectors are all normalized, as otherwise we would get some funky results.
         _front = Vector3.Normalize(_front);
@@ -133,46 +134,4 @@ public class Camera
         _right = Vector3.Normalize(Vector3.Cross(_front, Vector3.UnitY));
         _up = Vector3.Normalize(Vector3.Cross(_right, _front));
     }
-
-    /*
-    /// <summary>
-    /// Is the camera perspective or not?
-    /// </summary>
-    public bool perspective = true;
-
-    /// <summary>
-    /// Camera FOV
-    /// </summary>
-    public float fov = 90;
-
-    /// <summary>
-    /// The near plane in units
-    /// Things closer than this wont render
-    /// </summary>
-    public float nearPlane = 0.1f;
-    /// <summary>
-    /// The far plane in units
-    /// Things further away than this wont render
-    /// </summary>
-    public float farPlane = 1000f;
-
-    /// <summary>
-    /// The cameras transform, should be updated every frame
-    /// </summary>
-    public Transform transform = new Transform();
-
-    /// <summary>
-    /// Get the camera matrix, projection * view.
-    /// </summary>
-    /// <param name="ctx">The current graphics context</param>
-    /// <returns>The camera matrix</returns>
-    public Matrix GetMatrix()
-    {
-        GraphicsContext ctx = Rendering.currentContext;
-        if (perspective)
-            return Matrix.PerspectiveFovRH(fov, (float)ctx.window.Size.X / (float)ctx.window.Size.Y, nearPlane, farPlane); //* Matrix.LookAtRH(transform.position, transform.forward, transform.up);
-        else
-            return Matrix.OrthoRH((float)ctx.window.Size.X / (float)ctx.window.Size.Y, 1, nearPlane, farPlane) * Matrix.LookAtRH(transform.position, transform.forward, transform.up);
-    }
-    */
 }

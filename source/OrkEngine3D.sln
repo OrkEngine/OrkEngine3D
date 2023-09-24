@@ -46,7 +46,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrkEngine3D.BEPUtil", "vend
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrkEngine3D.Mathematics", "vendor\OrkEngine3D.Mathematics\source\OrkEngine3D.Mathematics\OrkEngine3D.Mathematics.csproj", "{9987727C-526F-4753-892C-0E4FB611F6BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrkEngine3D", "OrkEngine3D\OrkEngine3D.csproj", "{ABC7A7E2-D47F-4B11-AE0B-5F9916BED2E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrkEngine3D", "OrkEngine3D\OrkEngine3D.csproj", "{ABC7A7E2-D47F-4B11-AE0B-5F9916BED2E2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "45 - Pipeline", "45 - Pipeline", "{E576ABD0-35B1-4536-A9E6-523AAF9676C1}"
 EndProject
