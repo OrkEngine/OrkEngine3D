@@ -12,3 +12,4 @@ Open whatever directory you wish, and simply do
 git clone https://github.com/OrkEngine/OrkEngine3D.git --recursive
 ```
 
+Looking for dev's looking into replacing standard starting kits towards you.
